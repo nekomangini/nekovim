@@ -10,9 +10,28 @@ call plug#begin()
   Plug 'preservim/nerdtree'                                                 "  File browser
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       "  fuzzy finder
   Plug 'junegunn/fzf.vim'
-  Plug 'itchyny/lightline.vim'                                              "  Minimalist statusline
   Plug 'mhinz/vim-startify'                                                 "  Startup screen
   Plug 'tpope/vim-fugitive'                                                 "  git
+
+  " Statusline
+  " Plug 'itchyny/lightline.vim'                                              
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+
+  " Colorschemes
+  Plug 'tyrannicaltoucan/vim-deep-space'
+  Plug 'ajmwagar/vim-deus'
+  Plug 'morhetz/gruvbox'
+  Plug 'whatyouhide/vim-gotham'
+  Plug 'jaredgorski/spacecamp'
+  Plug 'glepnir/oceanic-material'
+  Plug 'nikolvs/vim-sunbather'
+  Plug 'kristijanhusak/vim-hybrid-material'
+  Plug 'Badacadabra/vim-archery'
+
+
+
+
 call plug#end()
 
 
@@ -21,22 +40,12 @@ call plug#end()
 " Configure vim-startify
 let g:startify_custom_header = [
     \ '   ',
-    \ '                                         kkkkkkkk                                                       iiii                           ',
-    \ '                                         k::::::k                                                      i::::i                          ',
-    \ '                                         k::::::k                                                       iiii                           ',
-    \ '                                         k::::::k                                                                                      ',
-    \ '   nnnn  nnnnnnnn        eeeeeeeeeeee     k:::::k    kkkkkkk   ooooooooooo   vvvvvvv           vvvvvvviiiiiii    mmmmmmm    mmmmmmm    ',
-    \ '   n:::nn::::::::nn    ee::::::::::::ee   k:::::k   k:::::k  oo:::::::::::oo  v:::::v         v:::::v i:::::i  mm:::::::m  m:::::::mm  ',
-    \ '   n::::::::::::::nn  e::::::eeeee:::::ee k:::::k  k:::::k  o:::::::::::::::o  v:::::v       v:::::v   i::::i m::::::::::mm::::::::::m ',
-    \ '   nn:::::::::::::::ne::::::e     e:::::e k:::::k k:::::k   o:::::ooooo:::::o   v:::::v     v:::::v    i::::i m::::::::::::::::::::::m ',
-    \ '     n:::::nnnn:::::ne:::::::eeeee::::::e k::::::k:::::k    o::::o     o::::o    v:::::v   v:::::v     i::::i m:::::mmm::::::mmm:::::m ',
-    \ '     n::::n    n::::ne:::::::::::::::::e  k:::::::::::k     o::::o     o::::o     v:::::v v:::::v      i::::i m::::m   m::::m   m::::m ',
-    \ '     n::::n    n::::ne::::::eeeeeeeeeee   k:::::::::::k     o::::o     o::::o      v:::::v:::::v       i::::i m::::m   m::::m   m::::m ',
-    \ '     n::::n    n::::ne:::::::e            k::::::k:::::k    o::::o     o::::o       v:::::::::v        i::::i m::::m   m::::m   m::::m ',
-    \ '     n::::n    n::::ne::::::::e          k::::::k k:::::k   o:::::ooooo:::::o        v:::::::v        i::::::im::::m   m::::m   m::::m ',
-    \ '     n::::n    n::::n e::::::::eeeeeeee  k::::::k  k:::::k  o:::::::::::::::o         v:::::v         i::::::im::::m   m::::m   m::::m ',
-    \ '     n::::n    n::::n  ee:::::::::::::e  k::::::k   k:::::k  oo:::::::::::oo           v:::v          i::::::im::::m   m::::m   m::::m ',
-    \ '     nnnnnn    nnnnnn    eeeeeeeeeeeeee  kkkkkkkk    kkkkkkk   ooooooooooo              vvv           iiiiiiiimmmmmm   mmmmmm   mmmmmm ',
+    \ '███╗   ██╗███████╗██╗  ██╗ ██████╗ ██╗   ██╗██╗███╗   ███╗',
+    \ '████╗  ██║██╔════╝██║ ██╔╝██╔═══██╗██║   ██║██║████╗ ████║',
+    \ '██╔██╗ ██║█████╗  █████╔╝ ██║   ██║██║   ██║██║██╔████╔██║',
+    \ '██║╚██╗██║██╔══╝  ██╔═██╗ ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║',
+    \ '██║ ╚████║███████╗██║  ██╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║',
+    \ '╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝',
     \ '',
     \ '   Welcome to Vim! Happy editing.',
     \ '',
@@ -48,6 +57,55 @@ let g:startify_lists = [
     \ { 'type': 'files', 'header': ['   Recent Files'] },
     \ ]
 
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" airline config
+" let g:airline_theme='deus'
+" let g:airline_theme='gruvbox'
+" let g:airline_theme='gotham'
+" let g:airline_theme = "hybrid"
+let g:airline_theme = 'archery'
+
+" Automatically displays all buffers when there's only one tab open
+let g:airline#extensions#tabline#enabled = 1
+
+" This require powerline fonts
+" Patched font installation:
+" Download powerline
+"  wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+"  wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+" Move the patched font to a valid X font path. Valid font paths can be listed with xset q:
+"  mv 'SomeFont for Powerline.otf' ~/.local/share/fonts/
+" Update font cache for the path the font was moved to (root privileges may be needed for updating font cache for some paths):
+" fc-cache -vf ~/.local/share/fonts/
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+" powerline symbols
+let g:airline_symbols.branch = ''
+let g:airline_symbols.colnr = ' ℅:'
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.dirty='⚡'
+
+let g:airline_section_b = '%-0.12{getcwd()}'
+let g:airline_section_c = '%t'
+" Simplified
+" let g:airline_section_z = '%3p%% %l:%c'
+let g:airline_section_z = '%3p%% ㏑%l/%L ☰ %c '
+
+" let g:airline_symbols.colnr = ' ㏇:'
+" let g:airline_symbols.crypt = '🔒'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.maxlinenr = '㏑'
+" let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.spell = 'Ꞩ'
+" let g:airline_symbols.notexists = '∄'
+" let g:airline_symbols.whitespace = 'Ξ'
 
 
 
@@ -152,18 +210,83 @@ let &t_EI = "\e[2 q"
 " Ps = 5  -> blinking bar (xterm).
 " Ps = 6  -> steady bar (xterm).
 
+" Display a status line and a tab line in Vim
+set showtabline=2
+set laststatus=2
 
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorscheme
-colorscheme habamax
+
+set background=dark
+
+" habamax theme
+" colorscheme habamax
+
+" monokai theme
 " colorscheme monokai
+
+" deep-space theme
+" colorscheme deep-space
+
+" deus theme
+" colorscheme deus
+
+" gruvbox theme
+" Set the background to dark
+" colorscheme gruvbox
+
+" gotham theme
+colorscheme gotham
+
+" spacecamp theme
+" colorscheme spacecamp
+" lighter spacecamp
+" colorscheme spacecamp_lite
+
+" oceanic theme
+" colorscheme oceanic_material
+
+" sunbather theme
+" colorscheme sunbather
+
+" hybrid material theme
+" If you would like some of the code to be bolded, like functions and language controls, uncomment this
+" let g:enable_bold_font = 1
+" If you want comments to be in italic, uncomment this
+" let g:enable_italic_font = 1
+" To use transparent background, uncomment this
+" let g:hybrid_transparent_background = 1
+" colorscheme hybrid_material
+" colorscheme hybrid_reverse
+
+" archery theme
+colorscheme archery
+
+
+" enable true colors support
+ set termguicolors
 " set opacity
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 
 
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" lightline config
+" let g:lightline = {
+"       \ 'colorscheme': 'darcula',
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'FugitiveHead'
+"       \ },
+"       \ }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Show the mode you are on the last line
