@@ -1,22 +1,39 @@
 " TODO:
-"  - fix the bug when exiting insert mode using jk
-"  - add which key
 "  - fix git integration
+"  - fix whichkey
+"  - add lsp for flutter
+"  - refactor/document
+
+
+" NOTES:
+" In which key the <CR> is equal to ENTER key
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Initialize vim-plug
 call plug#begin()
-" List your plugins here
-" Plug 'tpope/vim-sensible'                                                 "  example plugin
-  Plug 'preservim/nerdtree'                                                 "  File browser
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       "  fuzzy finder
+  "  example plugin
+  " Plug 'tpope/vim-sensible'                                                 
+
+  "  File browser
+  Plug 'preservim/nerdtree'                                                 
+  
+  "  fuzzy finder
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       
   Plug 'junegunn/fzf.vim'
-  Plug 'mhinz/vim-startify'                                                 "  Startup screen
-  Plug 'tpope/vim-fugitive'                                                 "  git
+
+  "  Startup screen
+  Plug 'mhinz/vim-startify'                                                 
+
+  "  git
+  Plug 'tpope/vim-fugitive'                                                 
 
   " Statusline
   " Plug 'itchyny/lightline.vim'                                              
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+
+  " Which key
+  Plug 'liuchengxu/vim-which-key' ", { 'on': ['WhichKey', 'WhichKey!'] }
+
 
   " Colorschemes
   Plug 'tyrannicaltoucan/vim-deep-space'
@@ -64,9 +81,9 @@ let g:startify_lists = [
 " airline config
 " let g:airline_theme='deus'
 " let g:airline_theme='gruvbox'
-" let g:airline_theme='gotham'
-" let g:airline_theme = "hybrid"
-let g:airline_theme = 'archery'
+let g:airline_theme='gotham'
+" let g:airline_theme = 'hybrid'
+" let g:airline_theme = 'archery'
 
 " Automatically displays all buffers when there's only one tab open
 let g:airline#extensions#tabline#enabled = 1
@@ -111,42 +128,152 @@ let g:airline_section_z = '%3p%% ㏑%l/%L ☰ %c '
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-fugitive keybindings
-nnoremap <leader>gs :Gstatus<CR>  " Git status
-nnoremap <leader>gd :Gdiff<CR>    " Git diff
-nnoremap <leader>gc :Gcommit<CR>  " Git commit
-nnoremap <leader>gp :Gpush<CR>    " Git push
-nnoremap <leader>gl :Gpull<CR>    " Git pull
+" nnoremap <leader>gs :Gstatus<CR>  " Git status
+" nnoremap <leader>gd :Gdiff<CR>    " Git diff
+" nnoremap <leader>gc :Gcommit<CR>  " Git commit
+" nnoremap <leader>gp :Gpush<CR>    " Git push
+" nnoremap <leader>gl :Gpull<CR>    " Git pull
 
 
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keybindings
-let mapleader = " "                                                         " Set the leader key
+" By default timeoutlen is 1000 ms
+set timeoutlen=500
 
-" Map 'jk' to <Esc> in Insert mode with a timeout
-" `^ = moves the cursor back to its position before the last change or jump, effectively keeping the cursor in place after exiting Insert mode.
-" inoremap jk <Esc>`^                                                         " change exit mode keybinding
+" Set the leader and local leader keys
+let g:mapleader = "\<Space>"
+"let g:maplocalleader = ','
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+"nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+"vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
-nnoremap <C-q> :close<CR>                                                   " Close window with Ctrl + q
 
-nnoremap <C-h> <C-w>h                                                       " Switch windows with Ctrl + hjkl
+" Basic mappings using Vim-Which-Key syntax
+let g:which_key_map = {}
+
+" Windows management
+let g:which_key_map['w'] = {
+      \ 'name' : '+windows' ,
+      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ 'd' : ['<C-W>c'     , 'delete-window']         ,
+      \ '-' : ['<C-W>s'     , 'split-window-below']    ,
+      \ '|' : ['<C-W>v'     , 'split-window-right']    ,
+      \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
+      \ 'h' : ['<C-W>h'     , 'window-left']           ,
+      \ 'j' : ['<C-W>j'     , 'window-below']          ,
+      \ 'l' : ['<C-W>l'     , 'window-right']          ,
+      \ 'k' : ['<C-W>k'     , 'window-up']             ,
+      \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
+      \ 'J' : [':resize +5'  , 'expand-window-below']   ,
+      \ 'L' : ['<C-W>5>'    , 'expand-window-right']   ,
+      \ 'K' : [':resize -5'  , 'expand-window-up']      ,
+      \ '=' : ['<C-W>='     , 'balance-window']        ,
+      \ 's' : ['<C-W>s'     , 'split-window-below']    ,
+      \ 'v' : ['<C-W>v'     , 'split-window-below']    ,
+      \ '?' : ['Windows'    , 'fzf-window']            ,
+      \ }
+
+" File management
+let g:which_key_map.o = [':NERDTreeFocus<CR>', 'focus-nerdtree']
+let g:which_key_map['f'] = {
+      \ 'name' : '+file',
+      \ 'n' : [':call NERDTreeCreateNewFile()', 'new-file'],
+      \ 'o' : [':call NERDTreeFocus()', 'focus-nerdtree'],
+      \ 'e' : [':call feedkeys(":NERDTreeToggle\<CR>")<CR>', 'toggle-nerdtree'],
+      \ 'f' : [':call feedkeys(":Files\<CR>")<CR>', 'fzf-files'],
+      \ 's' : [':call feedkeys(":w\<CR>")<CR>', 'save-file'],
+      \ 'd' : [':call feedkeys(":e $MYVIMRC\<CR>")<CR>', 'open-vimrc'],
+      \ }
+     " \ 'q' : [':copen<CR>', 'open-quickfix'],
+     " \ 'l' : [':lopen<CR>', 'open-locationlist'],
+     " \ }
+
+" Buffer management
+let g:which_key_map['b'] = {
+      \ 'name' : '+buffers',
+      \ 'd' : [':call feedkeys(":bd\<CR>")<CR>', 'delete-buffer'],
+      \ 'f' : [':call feedkeys(":bfirst\<CR>")<CR>', 'first-buffer'],
+      "\ 'h' : [':call feedkeys(":Startify\<CR>")<CR>', 'home-buffer'],
+      \ 'l' : [':call feedkeys(":blast\<CR>")<CR>', 'last-buffer'],
+      \ 'n' : [':call feedkeys(":bnext\<CR>")<CR>', 'next-buffer'],
+      \ 'p' : [':call feedkeys(":bprevious\<CR>")<CR>', 'previous-buffer'],
+      \ '?' : [':call feedkeys(":Buffers\<CR>")<CR>', 'fzf-buffer'],
+      \ }
+
+" TODO:
+" LSP commands
+let g:which_key_map['l'] = {
+      \ 'name' : '+lsp',
+      \ 'f' : ['<cmd>call spacevim#lang#util#Format()<CR>', 'formatting'],
+      \ 'r' : ['<cmd>call spacevim#lang#util#FindReferences()<CR>', 'references'],
+      \ 'R' : ['<cmd>call spacevim#lang#util#Rename()<CR>', 'rename'],
+      \ 's' : ['<cmd>call spacevim#lang#util#DocumentSymbol()<CR>', 'document-symbol'],
+      \ 'S' : ['<cmd>call spacevim#lang#util#WorkspaceSymbol()<CR>', 'workspace-symbol'],
+      \ 'g' : {
+            \ 'name': '+goto',
+            \ 'd' : ['<cmd>call spacevim#lang#util#Definition()<CR>', 'definition'],
+            \ 't' : ['<cmd>call spacevim#lang#util#TypeDefinition()<CR>', 'type-definition'],
+            \ 'i' : ['<cmd>call spacevim#lang#util#Implementation()<CR>', 'implementation'],
+            \ },
+      \ }
+" TODO:
+"let g:which_key_map['/'] = [ '<Plug>NERDCommenterToggle','commenter' ]
+
+let g:which_key_map['h'] = [ ':call feedkeys(":Startify\<CR>")<CR>', 'home']
+
+" vim-fugitive keybindings
+" nnoremap <leader>gs :Gstatus<CR>  " Git status
+" nnoremap <leader>gd :Gdiff<CR>    " Git diff
+" nnoremap <leader>gc :Gcommit<CR>  " Git commit
+" nnoremap <leader>gp :Gpush<CR>    " Git push
+" nnoremap <leader>gl :Gpull<CR>    " Git pull
+let g:which_key_map.g = {
+      \ 'name' : '+git',
+      \ 's' : [':call feedkeys(":Gstatus\<CR>")<CR>', 'git-status'],
+      \ }
+
+" Quit and open commands
+" let g:which_key_map.q = {
+"       \ 'name' : '+quit',
+"       \ 'q' : [':call feedkeys(":q\<CR>")<CR>', 'quit'],
+"       \ }
+let g:which_key_map.q = [ ':call feedkeys(":q\<CR>")<CR>', 'quit']
+"nnoremap <silent> <leader>q :q<CR>
+"let g:which_key_map.q = 'quit'
+
+" Key mappings for window navigation
+" Close window with Ctrl + q
+nnoremap <C-q> :close<CR>
+" Switch windows with Ctrl + hjkl
+nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <silent>]b :bnext<CR>                                              " switch to next buffer
-nnoremap <silent>[b :bprevious<CR>                                          " switch to previous buffer
-nnoremap <Leader>d :bd<CR>                                                  " close current buffer
+" Buffer navigation
+nnoremap <silent>]b :bnext<CR>
+nnoremap <silent>[b :bprevious<CR>
+"nnoremap <Leader>d :bd<CR>
+
+call which_key#register('<Space>', "g:which_key_map")
+
+" Map 'jk' to <Esc> in Insert mode with a timeout
+" `^ = moves the cursor back to its position before the last change or jump, effectively keeping the cursor in place after exiting Insert mode.
+" inoremap jk <Esc>`^                                                         " change exit mode keybinding
+inoremap jk <Esc>`^
 
 
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd VimEnter * NERDTree | wincmd p                                      " Start NERDTree and put the cursor back in the other window.
+" Start NERDTree and put the cursor back in the other window.
+" autocmd VimEnter * NERDTree | wincmd p                                      
 
 " Keybindings for NERDTree
-nnoremap <leader>e :NERDTreeToggle<CR>                                      " Toggle NERDTree
+" Toggle NERDTree
+"nnoremap <leader>e :NERDTreeToggle<CR>                                      
 
 " Focus NERDTree
 " Function to toggle focus between NERDTree and the previous window
@@ -165,11 +292,12 @@ nnoremap <leader>e :NERDTreeToggle<CR>                                      " To
 
 " YOU CAN USE THIS INSTEAD THE FUNCTION ABOVE
 " This code does the same thing as the ToggleNERDTreeFocus function
-nnoremap <leader>o :NERDTreeFocus<CR>  
-autocmd FileType nerdtree nnoremap <buffer> <leader>o :wincmd p<CR>         " When in NERDTree, change focus back to the code with leader + o
+"nnoremap <leader>o :NERDTreeFocus<CR>  
+" When in NERDTree, change focus back to the code with leader + o
+"autocmd FileType nerdtree nnoremap <buffer> <leader>o :wincmd p<CR>         
 
 " Keybinding to open fzf file search within NERDTree
-nnoremap <leader>f :Files<CR>
+"nnoremap <leader>f :Files<CR>
 
 
 
@@ -219,6 +347,7 @@ set laststatus=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorscheme
 
+" Set the background to dark
 set background=dark
 
 " habamax theme
@@ -234,7 +363,6 @@ set background=dark
 " colorscheme deus
 
 " gruvbox theme
-" Set the background to dark
 " colorscheme gruvbox
 
 " gotham theme
@@ -262,7 +390,7 @@ colorscheme gotham
 " colorscheme hybrid_reverse
 
 " archery theme
-colorscheme archery
+" colorscheme archery
 
 
 " enable true colors support
