@@ -34,6 +34,8 @@ call plug#begin()
   " Which key
   Plug 'liuchengxu/vim-which-key' ", { 'on': ['WhichKey', 'WhichKey!'] }
 
+  " Terminal
+  Plug 'voldikss/vim-floaterm'
 
   " Colorschemes
   Plug 'tyrannicaltoucan/vim-deep-space'
@@ -149,9 +151,43 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 "nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 "vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
-
 " Basic mappings using Vim-Which-Key syntax
 let g:which_key_map = {}
+
+" Set the minimum horizontal space between the displayed columns.
+" let g:which_key_hspace = 1
+
+" Set the maximum height/width of the guide window. Set to 0 for unlimited size.
+" let g:which_key_max_size = 3
+
+" If set to a value other than 0, the guide buffer will pop up in vertical split window. Possible value: {0, 1}.
+" let g:which_key_vertical = 1
+
+" Set the direction from which the guide-buffer should pop up. Possible value: 'botright', 'topleft'.
+" let g:which_key_position = 'botright'
+
+" let g:which_key_sort_horizontal = 2
+
+" let g:which_key_align_by_seperator = 0
+
+" let g:which_key_centered = 1
+
+" Remove default highlight links
+highlight default link WhichKey          Function
+highlight default link WhichKeySeperator DiffAdded
+highlight default link WhichKeyGroup     Keyword
+highlight default link WhichKeyDesc      Identifier
+
+highlight default link WhichKeyFloating Pmenu
+
+" Define custom highlight groups for which-key
+highlight WhichKey          guifg=#FFD700 gui=bold       " Gold and bold for main keys
+highlight WhichKeySeperator guifg=#FF4500 gui=bold       " Orange red and bold for separators
+highlight WhichKeyGroup     guifg=#87CEEB gui=bold       " Sky blue and bold for groups
+highlight WhichKeyDesc      guifg=#ABB2BF gui=bold       " Light gray and bold for descriptions
+highlight WhichKeyFloating  guibg=#282C34                " Dark gray background for floating window
+
+
 
 " Windows management
 let g:which_key_map['w'] = {
@@ -202,6 +238,14 @@ let g:which_key_map['b'] = {
       \ '?' : [':call feedkeys(":Buffers\<CR>")<CR>', 'fzf-buffer'],
       \ }
 
+" Terminal management
+let g:which_key_map['t'] = {
+      \ 'name' : '+terminal',
+      \ 'f' : [':call feedkeys(":FloatermNew\<CR>")<CR>', 'Floaterm float'],
+      \ 'h' : [':call feedkeys(":below terminal\<CR>")<CR>', 'horizontal split terminal'],
+      \ 'v' : [':call feedkeys(":vertical terminal\<CR>")<CR>', 'vertical split terminal'],
+      \ }
+
 " TODO:
 " LSP commands
 let g:which_key_map['l'] = {
@@ -223,15 +267,15 @@ let g:which_key_map['l'] = {
 
 let g:which_key_map['h'] = [ ':call feedkeys(":Startify\<CR>")<CR>', 'home']
 
+" TODO:
 " vim-fugitive keybindings
-" nnoremap <leader>gs :Gstatus<CR>  " Git status
 " nnoremap <leader>gd :Gdiff<CR>    " Git diff
 " nnoremap <leader>gc :Gcommit<CR>  " Git commit
 " nnoremap <leader>gp :Gpush<CR>    " Git push
 " nnoremap <leader>gl :Gpull<CR>    " Git pull
 let g:which_key_map.g = {
       \ 'name' : '+git',
-      \ 's' : [':call feedkeys(":Gstatus\<CR>")<CR>', 'git-status'],
+      \ 's' : [':call feedkeys(":Git\<CR>")<CR>', 'git-status'],
       \ }
 
 " Quit and open commands
@@ -242,6 +286,14 @@ let g:which_key_map.g = {
 let g:which_key_map.q = [ ':call feedkeys(":q\<CR>")<CR>', 'quit']
 "nnoremap <silent> <leader>q :q<CR>
 "let g:which_key_map.q = 'quit'
+
+
+call which_key#register('<Space>', "g:which_key_map")
+
+" Map 'jk' to <Esc> in Insert mode with a timeout
+" `^ = moves the cursor back to its position before the last change or jump, effectively keeping the cursor in place after exiting Insert mode.
+" inoremap jk <Esc>`^                                                         " change exit mode keybinding
+inoremap jk <Esc>`^
 
 " Key mappings for window navigation
 " Close window with Ctrl + q
@@ -256,14 +308,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <silent>]b :bnext<CR>
 nnoremap <silent>[b :bprevious<CR>
 "nnoremap <Leader>d :bd<CR>
-
-call which_key#register('<Space>', "g:which_key_map")
-
-" Map 'jk' to <Esc> in Insert mode with a timeout
-" `^ = moves the cursor back to its position before the last change or jump, effectively keeping the cursor in place after exiting Insert mode.
-" inoremap jk <Esc>`^                                                         " change exit mode keybinding
-inoremap jk <Esc>`^
-
 
 
 
