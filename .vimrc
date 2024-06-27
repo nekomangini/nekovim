@@ -37,6 +37,10 @@ call plug#begin()
   " Terminal
   Plug 'voldikss/vim-floaterm'
 
+  " Dart/Flutter
+  Plug 'dart-lang/dart-vim-plugin'
+  Plug 'thosakwe/vim-flutter'
+
   " Colorschemes
   Plug 'tyrannicaltoucan/vim-deep-space'
   Plug 'ajmwagar/vim-deus'
@@ -65,8 +69,6 @@ let g:startify_custom_header = [
     \ '██║╚██╗██║██╔══╝  ██╔═██╗ ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║',
     \ '██║ ╚████║███████╗██║  ██╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║',
     \ '╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝',
-    \ '',
-    \ '   Welcome to Vim! Happy editing.',
     \ '',
     \ '   For help, press ":h startify"',
     \ ]
@@ -248,20 +250,27 @@ let g:which_key_map['t'] = {
 
 " TODO:
 " LSP commands
+" Enable Flutter menu
+" call FlutterMenu()
 let g:which_key_map['l'] = {
       \ 'name' : '+lsp',
-      \ 'f' : ['<cmd>call spacevim#lang#util#Format()<CR>', 'formatting'],
-      \ 'r' : ['<cmd>call spacevim#lang#util#FindReferences()<CR>', 'references'],
-      \ 'R' : ['<cmd>call spacevim#lang#util#Rename()<CR>', 'rename'],
-      \ 's' : ['<cmd>call spacevim#lang#util#DocumentSymbol()<CR>', 'document-symbol'],
       \ 'S' : ['<cmd>call spacevim#lang#util#WorkspaceSymbol()<CR>', 'workspace-symbol'],
+      \ 'f' : {
+            \ 'name': '+flutter',
+            \ 'a' : [':call feedkeys(":FlutterRun\<CR>")<CR>', 'Flutter Run'],
+            \ 'q' : [':call feedkeys(":FlutterQuit\<CR>")<CR>', 'Flutter Quit'],
+            \ 'r' : [':call feedkeys(":FlutterHotReload\<CR>")<CR>', 'Flutter Hot Reload'],
+            \ 'R' : [':call feedkeys(":FlutterHotRestart\<CR>")<CR>', 'Flutter Hot Restart'],
+            \ 'D' : [':call feedkeys(":FlutterVisualDebug\<CR>")<CR>', 'Flutter Visual Debug'],
+            \ },
       \ 'g' : {
             \ 'name': '+goto',
-            \ 'd' : ['<cmd>call spacevim#lang#util#Definition()<CR>', 'definition'],
-            \ 't' : ['<cmd>call spacevim#lang#util#TypeDefinition()<CR>', 'type-definition'],
-            \ 'i' : ['<cmd>call spacevim#lang#util#Implementation()<CR>', 'implementation'],
+            \ 'd' : [':call spacevim#lang#util#Definition()<CR>', 'definition'],
+            \ 't' : [':call spacevim#lang#util#TypeDefinition()<CR>', 'type-definition'],
+            \ 'i' : [':call spacevim#lang#util#Implementation()<CR>', 'implementation'],
             \ },
       \ }
+
 " TODO:
 "let g:which_key_map['/'] = [ '<Plug>NERDCommenterToggle','commenter' ]
 
