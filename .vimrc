@@ -1,7 +1,5 @@
 " TODO:
-"  - fix git integration
-"  - fix whichkey
-"  - add lsp for flutter
+"  - fix whichkey colors
 "  - refactor/document
 
 
@@ -37,9 +35,19 @@ call plug#begin()
   " Terminal
   Plug 'voldikss/vim-floaterm'
 
+  " Lsp
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+  " Plug 'prabirshrestha/asyncomplete.vim'
+  " Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
   " Dart/Flutter
   Plug 'dart-lang/dart-vim-plugin'
   Plug 'thosakwe/vim-flutter'
+
+  " Code completion
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
   " Colorschemes
   Plug 'tyrannicaltoucan/vim-deep-space'
@@ -140,6 +148,34 @@ let g:airline_section_z = '%3p%% ㏑%l/%L ☰ %c '
 
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Lsp
+" copied (almost) directly from the vim-lsp docs:
+" function! s:on_lsp_buffer_enabled() abort
+"     setlocal omnifunc=lsp#complete
+"     setlocal signcolumn=yes
+"     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+" 
+"     let g:lsp_format_sync_timeout = 1000
+"     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+" endfunction
+" 
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled (set the lsp shortcuts) when an lsp server
+    " is registered for a buffer.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+" Dart
+" dart auto format on save
+let g:dart_format_on_save = v:true
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keybindings
@@ -175,19 +211,19 @@ let g:which_key_map = {}
 " let g:which_key_centered = 1
 
 " Remove default highlight links
-highlight default link WhichKey          Function
-highlight default link WhichKeySeperator DiffAdded
-highlight default link WhichKeyGroup     Keyword
-highlight default link WhichKeyDesc      Identifier
+highlight link WhichKey          Function
+highlight link WhichKeySeperator DiffAdded
+highlight link WhichKeyGroup     Keyword
+highlight link WhichKeyDesc      Identifier
 
-highlight default link WhichKeyFloating Pmenu
+"highlight default link WhichKeyFloating Pmenu
 
 " Define custom highlight groups for which-key
-highlight WhichKey          guifg=#FFD700 gui=bold       " Gold and bold for main keys
-highlight WhichKeySeperator guifg=#FF4500 gui=bold       " Orange red and bold for separators
-highlight WhichKeyGroup     guifg=#87CEEB gui=bold       " Sky blue and bold for groups
-highlight WhichKeyDesc      guifg=#ABB2BF gui=bold       " Light gray and bold for descriptions
-highlight WhichKeyFloating  guibg=#282C34                " Dark gray background for floating window
+"highlight WhichKey          guifg=#FFD700 gui=bold       " Gold and bold for main keys
+"highlight WhichKeySeperator guifg=#FF4500 gui=bold       " Orange red and bold for separators
+"highlight WhichKeyGroup     guifg=#87CEEB gui=bold       " Sky blue and bold for groups
+"highlight WhichKeyDesc      guifg=#ABB2BF gui=bold       " Light gray and bold for descriptions
+"highlight WhichKeyFloating  guibg=#282C34                " Dark gray background for floating window
 
 
 
@@ -257,6 +293,7 @@ let g:which_key_map['l'] = {
       \ 'S' : ['<cmd>call spacevim#lang#util#WorkspaceSymbol()<CR>', 'workspace-symbol'],
       \ 'f' : {
             \ 'name': '+flutter',
+            \ 'f' : [':call feedkeys(":DartFmt\<CR>")<CR>', 'Flutter Format'],
             \ 'a' : [':call feedkeys(":FlutterRun\<CR>")<CR>', 'Flutter Run'],
             \ 'q' : [':call feedkeys(":FlutterQuit\<CR>")<CR>', 'Flutter Quit'],
             \ 'r' : [':call feedkeys(":FlutterHotReload\<CR>")<CR>', 'Flutter Hot Reload'],
@@ -276,7 +313,6 @@ let g:which_key_map['l'] = {
 
 let g:which_key_map['h'] = [ ':call feedkeys(":Startify\<CR>")<CR>', 'home']
 
-" TODO:
 " vim-fugitive keybindings
 " nnoremap <leader>gd :Gdiff<CR>    " Git diff
 " nnoremap <leader>gc :Gcommit<CR>  " Git commit
@@ -285,6 +321,8 @@ let g:which_key_map['h'] = [ ':call feedkeys(":Startify\<CR>")<CR>', 'home']
 let g:which_key_map.g = {
       \ 'name' : '+git',
       \ 's' : [':call feedkeys(":Git\<CR>")<CR>', 'git-status'],
+      \ 'a' : [':call feedkeys(":Gwrite\<CR>")<CR>', 'git-add'],
+      \ 'p' : [':call feedkeys(":Git push\<CR>")<CR>', 'git-push'],
       \ }
 
 " Quit and open commands
