@@ -1,6 +1,8 @@
 " TODO:
 "  - fix whichkey colors
 "  - refactor/document
+"  - fix flutter whichkey
+"  - test coc-flutter
 
 
 " NOTES:
@@ -433,6 +435,11 @@ let &t_EI = "\e[2 q"
 set showtabline=2
 set laststatus=2
 
+" code folding
+set foldmethod=indent   
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
