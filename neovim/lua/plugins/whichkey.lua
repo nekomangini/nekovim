@@ -79,6 +79,18 @@ return {
       { "<leader>q", "<cmd>q<cr>", desc = "Quit Window" },
 
       { "<leader>w", "<cmd>w<cr>", desc = "Save" },
+
+      -- lazy and mason
+      { "<leader>p", group = "plugins" },
+      { "<leader>pu", "<cmd>Lazy update<cr><cmd>MasonUpdate<cr>", desc = "Update Lazy and Mason" },
+      { "<leader>pi", "<cmd>Lazy install<cr>", desc = "Plugin Install" },
+      { "<leader>pm", "<cmd>Mason<cr>", desc = "Mason Installer" },
+      { "<leader>pM", "<cmd>MasonUpdate<cr>", desc = "Mason Update" },
+      { "<leader>ps", "<cmd>Lazy<cr>", desc = "Plugins Status" },
+      { "<leader>pS", "<cmd>Lazy sync<cr>", desc = "Plugins Sync" },
+      { "<leader>pc", "<cmd>Lazy check<cr>", desc = "Plugins Check Update" },
+      { "<leader>pU", "<cmd>Lazy update<cr>", desc = "Plugins Update" },
+
     })
   end,
 }
