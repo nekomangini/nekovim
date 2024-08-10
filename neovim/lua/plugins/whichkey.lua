@@ -91,6 +91,9 @@ return {
       { "<leader>pc", "<cmd>Lazy check<cr>", desc = "Plugins Check Update" },
       { "<leader>pU", "<cmd>Lazy update<cr>", desc = "Plugins Update" },
 
+      -- New home keybind for alpha.nvim
+      { "<leader>h",  "<cmd>Alpha<cr>", desc = "Home Screen" },
+
     })
   end,
 }
