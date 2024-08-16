@@ -7,12 +7,12 @@ return {
   },
   config = function()
     require("nvim-tree").setup {}
-    
+
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 
     keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle Explorer" })
-    keymap.set("n", "<leader>o", 
+    keymap.set("n", "<leader>o",
       function()
         if vim.bo.filetype == "nvim-tree" then
           vim.cmd.wincmd "p"

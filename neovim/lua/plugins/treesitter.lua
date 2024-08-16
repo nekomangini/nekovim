@@ -1,11 +1,11 @@
-return { 
+return {
   {
-    "nvim-treesitter/nvim-treesitter", 
+    "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    opts = { 
+    opts = {
       highlight = { enable = true },
       indent = { enable = true },
-      ensure_installed = { 
+      ensure_installed = {
         "bash",
         "c",
         "dart",
@@ -31,7 +31,7 @@ return {
         "vimdoc",
         "xml",
         "yaml",
-      }, 
-    }, 
+      },
+    },
   }
 }
