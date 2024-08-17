@@ -8,4 +8,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.expandtab = true -- Convert tabs to spaces
   end,
 })
-

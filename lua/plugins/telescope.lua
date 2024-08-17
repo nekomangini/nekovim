@@ -1,12 +1,13 @@
 return {
-  'nvim-telescope/telescope.nvim', 
+  'nvim-telescope/telescope.nvim',
   lazy = false,
   tag = '0.1.8',
-  dependencies = { 
+  dependencies = {
     'nvim-lua/plenary.nvim',
     {
       'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+      build =
+      'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
     }
   },
   config = function()
@@ -37,29 +38,32 @@ return {
     pcall(telescope.load_extension, 'fzf')
   end,
   keys = {
-    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-    { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-    { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
-    { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
-    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>",  desc = "Find Files" },
+    { "<leader>fg", "<cmd>Telescope live_grep<cr>",   desc = "Live Grep" },
+    { "<leader>fb", "<cmd>Telescope buffers<cr>",     desc = "Find Buffers" },
+    { "<leader>fh", "<cmd>Telescope help_tags<cr>",   desc = "Help Tags" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>",    desc = "Recent Files" },
     { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep String" },
-    { "<leader>fc", "<cmd>Telescope commands<cr>", desc = "Commands" },
-    { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-    { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
-    { "<leader>w", proxy = "<c-w>", group = "windows" },
-    { "<leader>b", group = "buffers", expand = function()
+    { "<leader>fc", "<cmd>Telescope commands<cr>",    desc = "Commands" },
+    { "<leader>fk", "<cmd>Telescope keymaps<cr>",     desc = "Keymaps" },
+    { "<leader>fn", "<cmd>enew<cr>",                  desc = "New File" },
+    { "<leader>w",  proxy = "<c-w>",                  group = "windows" },
+    {
+      "<leader>b",
+      group = "buffers",
+      expand = function()
         return require("which-key.extras").expand.buf()
       end
     },
   },
 }
--- return { 
---     -- init.lua: 
---     { 
+-- return {
+--     -- init.lua:
+--     {
 --       'nvim-telescope/telescope.nvim', tag = '0.1.8',
 --     -- or                              , branch = '0.1.x',
 --       dependencies = { 'nvim-lua/plenary.nvim' },
---       keys = { 
+--       keys = {
 --         { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
 --         -- { "<leader>fb", function() print("hello") end, desc = "Foobar" },
 --         { "<leader>fn", desc = "New File" },

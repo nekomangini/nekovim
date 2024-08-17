@@ -106,9 +106,9 @@ return {
           { pattern = "tools", icon = " ", color = "green" },
           { pattern = "plugin", icon = " ", color = "green" },
           { pattern = "terminal", icon = "  ", color = "green" },
-          { pattern = "uppercase" , icon = " ", color = "green" },
-          { pattern = "lowercase" , icon = " ", color = "green" },
-          { pattern = "first" , icon = "󰘀 ", color = "green" },
+          { pattern = "uppercase", icon = " ", color = "green" },
+          { pattern = "lowercase", icon = " ", color = "green" },
+          { pattern = "first", icon = "󰘀 ", color = "green" },
           { pattern = "last", icon = "󰘁 ", color = "green" },
 
         },

@@ -16,4 +16,3 @@ map('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 
 -- Map Ctrl+l to move to the right window
 map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
-
