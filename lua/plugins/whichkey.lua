@@ -97,19 +97,19 @@ return {
         --- Set to `false` to disable keymap icons from rules
         ---@type wk.IconRule[]|false
         rules = {
-          { pattern = "find", icon = " ", color = "green" },
-          { pattern = "home", icon = "󰋜 ", color = "green" },
-          { pattern = "toggle", icon = "󰔡 ", color = "green" },
-          { pattern = "quit", icon = "󰈆 ", color = "green" },
-          { pattern = "save", icon = "󰆓 ", color = "green" },
-          { pattern = "buffer", icon = " ", color = "green" },
-          { pattern = "tools", icon = " ", color = "green" },
-          { pattern = "plugin", icon = " ", color = "green" },
-          { pattern = "terminal", icon = "  ", color = "green" },
-          { pattern = "uppercase", icon = " ", color = "green" },
-          { pattern = "lowercase", icon = " ", color = "green" },
-          { pattern = "first", icon = "󰘀 ", color = "green" },
-          { pattern = "last", icon = "󰘁 ", color = "green" },
+          { pattern = "find",       icon = " ",  color = "green" },
+          { pattern = "home",       icon = "󰋜 ",  color = "blue" },
+          { pattern = "toggle",     icon = "󰔡 ",  color = "green" },
+          { pattern = "quit",       icon = "󰈆 ",  color = "green" },
+          { pattern = "save",       icon = "󰆓 ",  color = "green" },
+          { pattern = "buffer",     icon = " ",  color = "green" },
+          { pattern = "tools",      icon = " ",  color = "green" },
+          { pattern = "plugin",     icon = " ",  color = "green" },
+          { pattern = "terminal",   icon = "  ", color = "green" },
+          { pattern = "uppercase",  icon = " ",  color = "green" },
+          { pattern = "lowercase",  icon = " ",  color = "green" },
+          { pattern = "first",      icon = "󰘀 ",  color = "green" },
+          { pattern = "last",       icon = "󰘁 ",  color = "green" },
 
         },
         -- use the highlights from mini.icons
