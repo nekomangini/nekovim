@@ -6,18 +6,34 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    require("nvim-tree").setup {}
+    -- Function called when nvim-tree attaches to a buffer
+    local function on_attach(bufnr)
+      local api = require('nvim-tree.api')
+
+      -- Helper function to set keymap options
+      local function opts(desc)
+        return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+      end
+
+      -- changes the <CR> "ENTER" to "l" to open a folder
+      -- changes the <BS> "BACKSPACE" to "h" to close a folder
+      -- Buffer local mappings.
+      -- Use on_attach to only create mappings when nvim-tree attaches to a buffer
+      vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
+      vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
+    end
+
+    -- Set up nvim-tree with the on_attach function
+    require("nvim-tree").setup {
+      on_attach = on_attach,
+    }
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
-    local api = require('nvim-tree.api')
 
-    -- changes the <CR> "ENTER" to "l" to open a folder
-    keymap.set("n", "l", api.node.open.edit)
-    -- changes the <BS> "BACKSPACE" to "h" to close a folder
-    keymap.set("n", "h", api.node.navigate.parent_close)
+    -- Function to set buffer-local keymaps for nvim-tree using which-key
     keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle Explorer" })
-    keymap.set("n", "<leader>o", "<Cmd>NvimTreeFocus<CR>",  { desc = "Toggle Focus" })
+    keymap.set("n", "<leader>o", "<Cmd>NvimTreeFocus<CR>", { desc = "Toggle Focus" })
     --  keymap.set("n", "<leader>o",
     --    function()
     --      if vim.bo.filetype == "nvim-tree" then
