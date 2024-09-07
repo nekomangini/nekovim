@@ -6,30 +6,57 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    -- Function called when nvim-tree attaches to a buffer
-    local function on_attach(bufnr)
-      local api = require('nvim-tree.api')
+    local api = require('nvim-tree.api')
 
-      -- Helper function to set keymap options
+    -- for conciseness
+    local keymap = vim.keymap
+
+    local function on_attach(bufnr)
       local function opts(desc)
         return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
       end
 
-      -- changes the <CR> "ENTER" to "l" to open a folder
-      -- changes the <BS> "BACKSPACE" to "h" to close a folder
-      -- Buffer local mappings.
-      -- Use on_attach to only create mappings when nvim-tree attaches to a buffer
-      vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
-      vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
+      local function edit_or_open()
+        local node = api.tree.get_node_under_cursor()
+
+        if node.nodes ~= nil then
+          -- expand or collapse folder
+          api.node.open.edit()
+        else
+          -- open file
+          api.node.open.edit()
+          -- Close the tree if file was opened
+          api.tree.close()
+        end
+      end
+
+      -- open as vsplit on current node
+      local function vsplit_preview()
+        local node = api.tree.get_node_under_cursor()
+
+        if node.nodes ~= nil then
+          -- expand or collapse folder
+          api.node.open.edit()
+        else
+          -- open file as vsplit
+          api.node.open.vertical()
+        end
+
+        -- Finally refocus on tree if it was lost
+        api.tree.focus()
+      end
+
+      -- On_attach mappings
+      keymap.set("n", "l", edit_or_open, opts("Edit Or Open"))
+      keymap.set("n", "L", vsplit_preview, opts("Vsplit Preview"))
+      keymap.set("n", "h", api.node.navigate.parent_close, opts("Close"))
+      keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
     end
 
-    -- Set up nvim-tree with the on_attach function
     require("nvim-tree").setup {
       on_attach = on_attach,
     }
-
-    -- set keymaps
-    local keymap = vim.keymap -- for conciseness
+    -- require("nvim-tree").setup {}
 
     -- Function to set buffer-local keymaps for nvim-tree using which-key
     keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle Explorer" })
