@@ -231,7 +231,7 @@ return {
       { "<leader>f",  group = "find" },
       { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
       { "<leader>fn", "<cmd>enew<cr>",                                                 desc = "New File" },
-      { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                   desc = "Open REcent File" },
+      { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                   desc = "Open Recent File" },
       { "<leader>fs", "<cmd>w<cr>",                                                    desc = "Save File" },
 
       -- { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
