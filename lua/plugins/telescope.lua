@@ -40,14 +40,14 @@ return {
   keys = {
     { "<leader>ff", "<cmd>Telescope find_files<cr>",  desc = "Find Files" },
     { "<leader>fg", "<cmd>Telescope live_grep<cr>",   desc = "Live Grep" },
-    { "<leader>fb", "<cmd>Telescope buffers<cr>",     desc = "Find Buffers" },
     { "<leader>fh", "<cmd>Telescope help_tags<cr>",   desc = "Help Tags" },
     { "<leader>fr", "<cmd>Telescope oldfiles<cr>",    desc = "Recent Files" },
-    { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep String" },
+    -- { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep String" },
     { "<leader>fc", "<cmd>Telescope commands<cr>",    desc = "Commands" },
     { "<leader>fk", "<cmd>Telescope keymaps<cr>",     desc = "Keymaps" },
     { "<leader>fn", "<cmd>enew<cr>",                  desc = "New File" },
     { "<leader>w",  proxy = "<c-w>",                  group = "windows" },
+    -- { "<leader>fb", "<cmd>Telescope buffers<cr>",     desc = "Find Buffers" },
     {
       "<leader>b",
       group = "buffers",
