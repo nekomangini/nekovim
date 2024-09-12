@@ -16,3 +16,7 @@ map('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 
 -- Map Ctrl+l to move to the right window
 map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+
+-- Cycle through Buffers
+map('n', '[b', '<Cmd>BufferLineCyclePrev<cr>') -- go to next buffer
+map('n', ']b', '<Cmd>BufferLineCycleNext<cr>') -- go to previous buffer
