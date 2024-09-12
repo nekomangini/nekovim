@@ -82,6 +82,7 @@ return {
         },
       },
       -- sort = { "local", "order", "group", "alphanum", "mod" },
+      sort = { "alphanum" },
 
       icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
@@ -93,23 +94,20 @@ return {
         -- both those explicitely added in a mapping
         -- and those from rules
         mappings = true,
-        --- See `lua/which-key/icons.lua` for more details
-        --- Set to `false` to disable keymap icons from rules
-        ---@type wk.IconRule[]|false
         rules = {
-          { pattern = "find",       icon = " ",  color = "green" },
-          { pattern = "home",       icon = "󰋜 ",  color = "blue" },
-          { pattern = "toggle",     icon = "󰔡 ",  color = "green" },
-          { pattern = "quit",       icon = "󰈆 ",  color = "green" },
-          { pattern = "save",       icon = "󰆓 ",  color = "green" },
-          { pattern = "buffer",     icon = " ",  color = "green" },
-          { pattern = "tools",      icon = " ",  color = "green" },
-          { pattern = "plugin",     icon = " ",  color = "green" },
-          { pattern = "terminal",   icon = "  ", color = "green" },
-          { pattern = "uppercase",  icon = " ",  color = "green" },
-          { pattern = "lowercase",  icon = " ",  color = "green" },
-          { pattern = "first",      icon = "󰘀 ",  color = "green" },
-          { pattern = "last",       icon = "󰘁 ",  color = "green" },
+          { pattern = "find", icon = " ", color = "green" },
+          { pattern = "home", icon = "󰋜 ", color = "blue" },
+          { pattern = "toggle", icon = "󰔡 ", color = "green" },
+          { pattern = "quit", icon = "󰈆 ", color = "green" },
+          { pattern = "save", icon = "󰆓 ", color = "green" },
+          { pattern = "buffer", icon = " ", color = "green" },
+          { pattern = "tools", icon = " ", color = "green" },
+          { pattern = "plugin", icon = " ", color = "green" },
+          { pattern = "terminal", icon = "  ", color = "green" },
+          { pattern = "uppercase", icon = " ", color = "green" },
+          { pattern = "lowercase", icon = " ", color = "green" },
+          { pattern = "first", icon = "󰘀 ", color = "green" },
+          { pattern = "last", icon = "󰘁 ", color = "green" },
 
         },
         -- use the highlights from mini.icons
@@ -151,7 +149,11 @@ return {
     wk.add({
 
       -- buffer
-      { "<leader>b",  group = "buffer" },
+      -- TODO: add new keybinds
+      -- add close all buffers:                     keybind (C)
+      -- add horizontal split buffer from selected: keybind (\)
+      -- add vertical split buffer from selected:   keybind (|)
+      { "<leader>b", group = "buffer" },
       { "<leader>bD", "<cmd>bdelete!<cr>",         desc = "Force Delete Buffer" },
       { "<leader>bb", "<cmd>Telescop buffers<cr>", desc = "Switch Buffer" },
       { "<leader>bd", "<cmd>bdelete<cr>",          desc = "Delete Buffer" },
@@ -229,7 +231,8 @@ return {
 
       -- file
       { "<leader>f",  group = "find" },
-      { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
+      -- TODO: cleanup this code
+      -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
       { "<leader>fn", "<cmd>enew<cr>",                                                 desc = "New File" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                   desc = "Open Recent File" },
       { "<leader>fs", "<cmd>w<cr>",                                                    desc = "Save File" },
@@ -237,8 +240,8 @@ return {
       -- { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
 
       -- { "<leader>q", group = "quit"},
-      { "<leader>Q",  "<cmd>qa<cr>",                                                   desc = "Quit Nekovim" },
-      { "<leader>q",  "<cmd>q<cr>",                                                    desc = "Quit Window" },
+      { "<leader>Q",  "<cmd>wq<cr>",                                                   desc = "Save and Quit" },
+      { "<leader>q",  "<cmd>q<cr>",                                                    desc = "Quit" },
 
       { "<leader>w",  "<cmd>w<cr>",                                                    desc = "Save" },
 
@@ -254,6 +257,7 @@ return {
       { "<leader>pU", "<cmd>Lazy update<cr>",                                          desc = "Plugins Update" },
 
       -- lsp
+      -- TODO: add implementation
       { "<leader>l",  group = "language tools" },
       { "<leader>lh", vim.lsp.buf.hover,                                               desc = "Hover diagnostics" },
       { "<leader>ld", vim.lsp.buf.definition,                                          desc = "Go to Definition" },
