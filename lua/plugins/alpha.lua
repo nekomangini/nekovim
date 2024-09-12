@@ -37,10 +37,10 @@ return {
       dashboard.button("s", "󰆓  Save session", ":mksession! ~/.Session.vim<cr><cr>"),
       dashboard.button("q", "󰅚  Quit Nekovim", ":qa<CR>"),
     }
-    local handle = io.popen('fortune')
-    local fortune = handle:read("*a")
-    handle:close()
-    dashboard.section.footer.val = fortune
+    -- local handle = io.popen('fortune')
+    -- local fortune = handle:read("*a")
+    -- handle:close()
+    -- dashboard.section.footer.val = fortune
 
     dashboard.config.opts.noautocmd = true
 
