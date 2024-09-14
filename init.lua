@@ -8,8 +8,9 @@ require("config.settings")
 vim.opt.number = true
 vim.opt.relativenumber = true
 -- vim.cmd.colorscheme "catppuccin"
-vim.cmd.colorscheme "tokyonight"
+-- vim.cmd.colorscheme "tokyonight"
 -- vim.cmd.colorscheme "gruvbox"
+vim.cmd.colorscheme "bamboo"
 
 -- vim.cmd.colorscheme "habamax"
 -- vim.cmd.colorscheme "lunaperche"
