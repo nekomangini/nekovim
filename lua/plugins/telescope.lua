@@ -21,6 +21,10 @@ return {
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-j>"] = actions.move_selection_next,
             ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            ["<q>"] = actions.close, -- Add q to quit in insert mode
+          },
+          n = {
+            ["q"] = actions.close, -- Add q to quit in normal mode
           },
         },
       },
@@ -38,23 +42,36 @@ return {
     pcall(telescope.load_extension, 'fzf')
   end,
   keys = {
-    { "<leader>ff", "<cmd>Telescope find_files<cr>",  desc = "Find Files" },
-    { "<leader>fg", "<cmd>Telescope live_grep<cr>",   desc = "Live Grep" },
-    { "<leader>fh", "<cmd>Telescope help_tags<cr>",   desc = "Help Tags" },
-    { "<leader>fr", "<cmd>Telescope oldfiles<cr>",    desc = "Recent Files" },
-    -- { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep String" },
-    { "<leader>fc", "<cmd>Telescope commands<cr>",    desc = "Commands" },
-    { "<leader>fk", "<cmd>Telescope keymaps<cr>",     desc = "Keymaps" },
-    { "<leader>fn", "<cmd>enew<cr>",                  desc = "New File" },
-    { "<leader>w",  proxy = "<c-w>",                  group = "windows" },
-    -- { "<leader>fb", "<cmd>Telescope buffers<cr>",     desc = "Find Buffers" },
+    { "<leader>fc", "<cmd>Telescope commands<cr>",                  desc = "Commands" },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
+    { "<leader>fl", "<cmd>Telescope live_grep<cr>",                 desc = "Live Grep" },
+    { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Help Tags" },
+    { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Keymaps" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                  desc = "Recent Files" },
+    { "<leader>fs", "<cmd>Telescope grep_string<cr>",               desc = "Find Word Definition" },
+    { "<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Find in Buffer" },
     {
-      "<leader>b",
-      group = "buffers",
-      expand = function()
-        return require("which-key.extras").expand.buf()
-      end
-    },
+      "<leader>fw",
+      function()
+        local word = vim.fn.expand("<cword>")
+        require('telescope.builtin').current_buffer_fuzzy_find({
+          default_text = word,
+          prompt_title = 'Search in Current Buffer'
+        })
+      end,
+      desc = "Search word under cursor in buffer",
+    }    
+    -- { "<leader>fb", "<cmd>Telescope buffers<cr>",     desc = "Find Buffers" },
+
+    -- { "<leader>fn", "<cmd>enew<cr>",                  desc = "New File" },
+    -- { "<leader>w",  proxy = "<c-w>",                  group = "windows" },
+    -- {
+    --   "<leader>b",
+    --   group = "buffers",
+    --   expand = function()
+    --     return require("which-key.extras").expand.buf()
+    --   end
+    -- },
   },
 }
 -- return {
