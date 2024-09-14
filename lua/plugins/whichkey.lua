@@ -108,7 +108,6 @@ return {
           { pattern = "lowercase", icon = " ", color = "green" },
           { pattern = "first", icon = "󰘀 ", color = "green" },
           { pattern = "last", icon = "󰘁 ", color = "green" },
-
         },
         -- use the highlights from mini.icons
         -- When `false`, it will use `WhichKeyIcon` instead
@@ -149,73 +148,68 @@ return {
     wk.add({
 
       -- buffer
-      -- TODO: add new keybinds
-      -- add close all buffers:                     keybind (C)
-      -- add horizontal split buffer from selected: keybind (\)
-      -- add vertical split buffer from selected:   keybind (|)
-      { "<leader>b", group = "buffer" },
-      { "<leader>bD", "<cmd>bdelete!<cr>",         desc = "Force Delete Buffer" },
-      { "<leader>bb", "<cmd>Telescop buffers<cr>", desc = "Switch Buffer" },
-      { "<leader>bd", "<cmd>bdelete<cr>",          desc = "Delete Buffer" },
-      { "<leader>bn", "<cmd>bnext<cr>",            desc = "Next Buffer" },
-      { "<leader>bp", "<cmd>bprevious<cr>",        desc = "Previous Buffer" },
+      { "<leader>b",  group = "buffer" },
+      { "<leader>bD", "<cmd>bdelete!<cr>",          desc = "Force Delete Buffer" },
+      { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Switch Buffer" },
+      { "<leader>bd", "<cmd>bdelete<cr>",           desc = "Delete Buffer" },
+      { "<leader>bn", "<cmd>bnext<cr>",             desc = "Next Buffer" },
+      { "<leader>bp", "<cmd>bprevious<cr>",         desc = "Previous Buffer" },
 
-      -- New buffer commands
       -- Close all buffers to the right of the current one
       {
         "<leader>br",
         function()
-          local current = vim.fn.bufnr('%')
+          local current = vim.fn.bufnr("%")
           local buffers = vim.fn.getbufinfo({ buflisted = true }) -- Get all listed buffers
           for _, buf in ipairs(buffers) do
             if buf.bufnr > current then
-              vim.cmd('bdelete ' .. buf.bufnr)
+              vim.cmd("bdelete " .. buf.bufnr)
             end
           end
           vim.cmd('echo "Closed all buffers to the right"')
         end,
-        desc = "Close all buffers to the right"
+        desc = "Close all buffers to the right",
       },
 
       -- Close all buffers to the left of the current one
       {
         "<leader>bl",
         function()
-          local current = vim.fn.bufnr('%')
+          local current = vim.fn.bufnr("%")
           local buffers = vim.fn.getbufinfo({ buflisted = true }) -- Get all listed buffers
           for _, buf in ipairs(buffers) do
             if buf.bufnr < current then
-              vim.cmd('bdelete ' .. buf.bufnr)
+              vim.cmd("bdelete " .. buf.bufnr)
             end
           end
           vim.cmd('echo "Closed all buffers to the left"')
         end,
-        desc = "Close all buffers to the left"
+        desc = "Close all buffers to the left",
       },
 
       -- Close all buffers except the current one
       {
         "<leader>bc",
         function()
-          local current = vim.fn.bufnr('%')
-          vim.cmd('silent! %bd|e#|bd#') -- Deletes all buffers except the current one
-          vim.cmd('buffer ' .. current) -- Reload the current buffer
+          local current = vim.fn.bufnr("%")
+          vim.cmd("silent! %bd|e#|bd#") -- Deletes all buffers except the current one
+          vim.cmd("buffer " .. current) -- Reload the current buffer
           vim.cmd('echo "Closed all buffers except current"')
         end,
-        desc = "Close all buffers except current"
+        desc = "Close all buffers except current",
       },
 
       -- Close the selectd buffer
       {
         "<leader>bx",
         function()
-          require('telescope.builtin').buffers({
+          require("telescope.builtin").buffers({
             attach_mappings = function(prompt_bufnr, map)
-              local actions = require('telescope.actions')
-              local action_state = require('telescope.actions.state')
+              local actions = require("telescope.actions")
+              local action_state = require("telescope.actions.state")
 
               -- Map <CR> to close the selected buffer
-              map('i', '<CR>', function()
+              map("i", "<CR>", function()
                 local selection = action_state.get_selected_entry()
                 actions.close(prompt_bufnr)
                 vim.api.nvim_buf_delete(selection.bufnr, { force = false })
@@ -226,58 +220,150 @@ return {
             end,
           })
         end,
-        desc = "Select and close buffer from tabline"
+        desc = "Select and close buffer from tabline",
       },
 
-      -- file
-      { "<leader>f",  group = "find" },
-      -- TODO: cleanup this code
-      -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
-      { "<leader>fn", "<cmd>enew<cr>",                                                 desc = "New File" },
-      { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                   desc = "Open Recent File" },
-      { "<leader>fs", "<cmd>w<cr>",                                                    desc = "Save File" },
+      -- New buffer commands
+      -- Close all buffers
+      {
+        "<leader>bC",
+        function()
+          local buffers = vim.api.nvim_list_bufs()
+          for _, buf in ipairs(buffers) do
+            if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_option(buf, "buflisted") then
+              local buf_name = vim.api.nvim_buf_get_name(buf)
+              if vim.api.nvim_buf_get_option(buf, "modified") == false and buf_name ~= "" then
+                vim.api.nvim_buf_delete(buf, { force = true })
+              end
+            end
+          end
+        end,
+        desc = "Close all buffers"
+      },
 
+      -- Horizontal split buffer
+      {
+        "<leader>b\\",
+        function()
+          require("telescope.builtin").buffers({
+            attach_mappings = function(_, map)
+              map("i", "<CR>", function(prompt_bufnr)
+                local action_state = require("telescope.actions.state")
+                local actions = require("telescope.actions")
+                local selected_entry = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                -- Open the selected buffer in a horizontal split
+                vim.cmd("split " .. selected_entry.value)
+              end)
+              return true
+            end,
+          })
+        end,
+        desc = "Select and open buffer in horizontal split",
+      },
+
+      -- Vertical split buffer
+      {
+        "<leader>b|",
+        function()
+          require("telescope.builtin").buffers({
+            attach_mappings = function(_, map)
+              map("i", "<CR>", function(prompt_bufnr)
+                local action_state = require("telescope.actions.state")
+                local actions = require("telescope.actions")
+                local selected_entry = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                -- Open the selected buffer in a vertical split
+                vim.cmd("vsplit " .. selected_entry.value)
+              end)
+              return true
+            end,
+          })
+        end,
+        desc = "Select and open buffer in vertical split",
+      },
+      -- file
+      { "<leader>f", group = "find" },
+      -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
+      -- { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
+      -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", },
+      -- { "<leader>fs", "<cmd>w<cr>",     desc = "Save File" },
       -- { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
 
       -- { "<leader>q", group = "quit"},
-      { "<leader>Q",  "<cmd>wq<cr>",                                                   desc = "Save and Quit" },
-      { "<leader>q",  "<cmd>q<cr>",                                                    desc = "Quit" },
+      { "<leader>Q", "<cmd>wq<cr>",    desc = "Save and Quit" },
+      { "<leader>q", "<cmd>q<cr>",     desc = "Quit" },
 
-      { "<leader>w",  "<cmd>w<cr>",                                                    desc = "Save" },
+      { "<leader>w", "<cmd>w<cr>",     desc = "Save" },
 
       -- lazy and mason
-      { "<leader>p",  group = "plugins" },
-      { "<leader>pu", "<cmd>Lazy update<cr><cmd>MasonUpdate<cr>",                      desc = "Update Lazy and Mason" },
-      { "<leader>pi", "<cmd>Lazy install<cr>",                                         desc = "Plugin Install" },
-      { "<leader>pm", "<cmd>Mason<cr>",                                                desc = "Mason Installer" },
-      { "<leader>pM", "<cmd>MasonUpdate<cr>",                                          desc = "Mason Update" },
-      { "<leader>ps", "<cmd>Lazy<cr>",                                                 desc = "Plugins Status" },
-      { "<leader>pS", "<cmd>Lazy sync<cr>",                                            desc = "Plugins Sync" },
-      { "<leader>pc", "<cmd>Lazy check<cr>",                                           desc = "Plugins Check Update" },
-      { "<leader>pU", "<cmd>Lazy update<cr>",                                          desc = "Plugins Update" },
+      { "<leader>p", group = "plugins" },
+      {
+        "<leader>pu",
+        "<cmd>Lazy update<cr><cmd>MasonUpdate<cr>",
+        desc = "Update Lazy and Mason",
+      },
+      { "<leader>pi", "<cmd>Lazy install<cr>", desc = "Plugin Install" },
+      { "<leader>pm", "<cmd>Mason<cr>",        desc = "Mason Installer" },
+      { "<leader>pM", "<cmd>MasonUpdate<cr>",  desc = "Mason Update" },
+      { "<leader>ps", "<cmd>Lazy<cr>",         desc = "Plugins Status" },
+      { "<leader>pS", "<cmd>Lazy sync<cr>",    desc = "Plugins Sync" },
+      {
+        "<leader>pc",
+        "<cmd>Lazy check<cr>",
+        desc = "Plugins Check Update",
+      },
+      { "<leader>pU", "<cmd>Lazy update<cr>",  desc = "Plugins Update" },
 
       -- lsp
-      -- TODO: add implementation
       { "<leader>l",  group = "language tools" },
-      { "<leader>lh", vim.lsp.buf.hover,                                               desc = "Hover diagnostics" },
-      { "<leader>ld", vim.lsp.buf.definition,                                          desc = "Go to Definition" },
-      { "<leader>lF", vim.lsp.buf.references,                                          desc = "Find References" },
-      { "<leader>lr", vim.lsp.buf.rename,                                              desc = "Rename" },
-      { "<leader>la", vim.lsp.buf.code_action,                                         desc = "Code Action" },
-      { "<leader>lf", function() vim.lsp.buf.format({ async = true }) end,             desc = "Format Code" },
-      { "<leader>lj", vim.diagnostic.goto_next,                                        desc = "Next Diagnostic" },
-      { "<leader>lk", vim.diagnostic.goto_prev,                                        desc = "Previous Diagnostic" },
-
+      {
+        "<leader>lh",
+        vim.lsp.buf.hover,
+        desc = "Hover diagnostics",
+      },
+      {
+        "<leader>ld",
+        vim.lsp.buf.definition,
+        desc = "Go to Definition",
+      },
+      { "<leader>lF", vim.lsp.buf.references,                              desc = "Find References" },
+      { "<leader>lr", vim.lsp.buf.rename,                                  desc = "Rename" },
+      { "<leader>la", vim.lsp.buf.code_action,                             desc = "Code Action" },
+      { "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, desc = "Format Code" },
+      { "<leader>lj", vim.diagnostic.goto_next,                            desc = "Next Diagnostic" },
+      {
+        "<leader>lk",
+        vim.diagnostic.goto_prev,
+        desc = "Previous Diagnostic",
+      },
 
       -- New home keybind for alpha.nvim
-      { "<leader>h",  "<cmd>Alpha<cr>",                                                desc = "Home Screen" },
+      { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
+
+      { "<leader>n", "<cmd>enew<cr>",  desc = "New File" },
 
       -- comment toggle
-      -- { "<leader>/",  function() require('Comment.api').toggle.linewise.current() end, desc = "Toggle Comment" },
-      { "<leader>/",  function() require('Comment.api').toggle.linewise.current() end, desc = "Toggle Comment" },
+      {
+        "<leader>/",
+        -- "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>",
+        function() require('Comment.api').toggle.linewise.current() end,
+        desc = "Toggle Comment",
+      },
 
+      -- TODO
+      -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word
+      { "<leader>t",  group = "TODO tools" },
+      { "<leader>tn", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "<leader>tp", function() require("todo-comments").jump_prev() end, desc = "Next todo comment" },
+      -- You can also specify a list of valid jump keywords
+      -- vim.keymap.set("n", "]t", function()
+      --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
+      -- end, { desc = "Next error/warning todo comment" })
 
-
+      -- trouble
+      { "<leader>x",  group = "Trouble tools" },
+      {}
     })
   end,
 }
