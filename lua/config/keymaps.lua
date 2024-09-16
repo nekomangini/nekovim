@@ -18,5 +18,6 @@ map('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
 -- Cycle through Buffers
+-- command from bufferline plugin
 map('n', '[b', '<Cmd>BufferLineCyclePrev<cr>') -- go to next buffer
 map('n', ']b', '<Cmd>BufferLineCycleNext<cr>') -- go to previous buffer
