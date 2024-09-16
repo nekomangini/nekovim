@@ -82,7 +82,7 @@ return {
         },
       },
       -- sort = { "local", "order", "group", "alphanum", "mod" },
-      sort = { "alphanum" },
+      sort = { "group" },
 
       icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
