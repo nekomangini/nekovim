@@ -9,6 +9,8 @@ return {
     }
   },
 
+  -- optional requirements for todo-comments
+
   -- remove fzf lua
   -- {
   --   "ibhagwan/fzf-lua",
