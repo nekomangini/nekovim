@@ -21,3 +21,7 @@ map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 -- command from bufferline plugin
 map('n', '[b', '<Cmd>BufferLineCyclePrev<cr>') -- go to next buffer
 map('n', ']b', '<Cmd>BufferLineCycleNext<cr>') -- go to previous buffer
+
+-- split panes
+map('n', '\\', '<C-w>s', { noremap = true, silent = true })
+map('n', '|', '<C-w>v', { noremap = true, silent = true })
