@@ -10,9 +10,9 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        -- automatically install a language 
+        -- automatically install a language
         -- auto_install = true,
-        ensure_installed = { "lua_ls", "rust_analyzer" },
+        ensure_installed = { "lua_ls", "rust_analyzer", "volar" },
       })
     end,
   },
@@ -21,13 +21,13 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
 
-      -- autocompletion using coq
-      dependencies = {
+    -- autocompletion using coq
+    dependencies = {
       -- main one
-      { "ms-jpq/coq_nvim", branch = "coq" },
+      { "ms-jpq/coq_nvim",       branch = "coq" },
 
       -- 9000+ Snippets
-      { "ms-jpq/coq.artifacts", branch = "artifacts" },
+      { "ms-jpq/coq.artifacts",  branch = "artifacts" },
 
       -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
       -- Need to **configure separately**
@@ -82,6 +82,35 @@ return {
         -- 		},
         -- 	},
         -- },
+      })
+
+      -- vue (Volar setup)
+      lspconfig.volar.setup({
+        -- Enable Take Over Mode for both Vue and TypeScript files
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+
+        -- Overriding the default TypeScript server location (optional, configure if needed)
+        -- Example using global TypeScript server:
+        -- init_options = {
+        --   typescript = {
+        --     tsdk = '/home/nekomangini/.npm/lib/node_modules/typescript/lib', -- adjust this path if needed
+        --   },
+        -- },
+
+        -- Example for monorepos (optional):
+        -- on_new_config = function(new_config, new_root_dir)
+        --   local util = require 'lspconfig.util'
+        --   local function get_typescript_server_path(root_dir)
+        --     local global_ts = '/home/[yourusernamehere]/.npm/lib/node_modules/typescript/lib'
+        --     local found_ts = util.path.join(root_dir, 'node_modules', 'typescript', 'lib')
+        --     if util.path.exists(found_ts) then
+        --       return found_ts
+        --     else
+        --       return global_ts
+        --     end
+        --   end
+        --   new_config.init_options.typescript.tsdk = get_typescript_server_path(new_root_dir)
+        -- end,
       })
     end,
   },
