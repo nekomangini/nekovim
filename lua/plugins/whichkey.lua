@@ -81,7 +81,7 @@ return {
           g = true,            -- bindings for prefixed with g
         },
       },
-      
+
       -- sort = { "local", "order", "group", "alphanum", "mod" },
       sort = { "group" },
 
@@ -148,12 +148,12 @@ return {
     })
     wk.add({
 
-      { "ge", "G", desc = "moves the cursor to the last line of the file"},
-      { 'gl', '$', desc = "moves the cursor to the end of the current line"},
-      { 'gh', '0', desc = "moves the cursor to the beginning of the current line"},
+      { "ge",         "G",                          desc = "moves the cursor to the last line of the file" },
+      { 'gl',         '$',                          desc = "moves the cursor to the end of the current line" },
+      { 'gh',         '0',                          desc = "moves the cursor to the beginning of the current line" },
 
       -- buffer
-      { "<leader>b",  group = "buffer" },
+      { "<leader>b",  group = "Buffer" },
       { "<leader>bD", "<cmd>bdelete!<cr>",          desc = "Force Delete Buffer" },
       { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Switch Buffer" },
       { "<leader>bd", "<cmd>bdelete<cr>",           desc = "Delete Buffer" },
@@ -288,7 +288,7 @@ return {
         desc = "Select and open buffer in vertical split",
       },
       -- file
-      { "<leader>f", group = "find" },
+      { "<leader>f", group = "Find" },
       -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
       -- { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
       -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", },
@@ -302,7 +302,7 @@ return {
       { "<leader>w", "<cmd>w<cr>",     desc = "Save" },
 
       -- lazy and mason
-      { "<leader>p", group = "plugins" },
+      { "<leader>p", group = "Plugins" },
       {
         "<leader>pu",
         "<cmd>Lazy update<cr><cmd>MasonUpdate<cr>",
@@ -321,7 +321,7 @@ return {
       { "<leader>pU", "<cmd>Lazy update<cr>",  desc = "Plugins Update" },
 
       -- lsp
-      { "<leader>l",  group = "language tools" },
+      { "<leader>l",  group = "Language tools" },
       {
         "<leader>lh",
         vim.lsp.buf.hover,
@@ -358,13 +358,14 @@ return {
 
       -- TODO
       -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word
-      { "<leader>t",  group = "TODO tools" },
+      { "<leader>t",  group = "Extra tools" },
       { "<leader>tn", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
       { "<leader>tp", function() require("todo-comments").jump_prev() end, desc = "Next todo comment" },
       -- You can also specify a list of valid jump keywords
       -- vim.keymap.set("n", "]t", function()
       --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
       -- end, { desc = "Next error/warning todo comment" })
+      { "<leader>tt", "<Cmd>Twilight<cr>",                                 desc = "Toggle twilight" },
 
       -- trouble
       { "<leader>x",  group = "Trouble tools" },
