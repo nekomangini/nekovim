@@ -25,3 +25,12 @@ map('n', ']b', '<Cmd>BufferLineCycleNext<cr>') -- go to previous buffer
 -- split panes
 map('n', '\\', '<C-w>s', { noremap = true, silent = true })
 map('n', '|', '<C-w>v', { noremap = true, silent = true })
+
+-- Esc to clear search highlight
+map('n', '<Esc>', ':noh<CR>', { noremap = true, silent = true })
+
+-- Moved to whichkey
+-- remap $ and 0 to gl and gh
+-- map('n', 'gl', '$', { noremap = true, silent = true }) -- moves the cursor to the end of the current line
+-- map('n', 'gh', '0', { noremap = true, silent = true }) -- moves the cursor to the beginning of the current line
+
