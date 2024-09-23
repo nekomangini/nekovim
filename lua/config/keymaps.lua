@@ -18,7 +18,7 @@ map('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
 -- Cycle through Buffers
--- command from bufferline plugin
+-- command from bufferline plugin/can also use :bnext and :bprevious
 map('n', '[b', '<Cmd>BufferLineCyclePrev<cr>') -- go to next buffer
 map('n', ']b', '<Cmd>BufferLineCycleNext<cr>') -- go to previous buffer
 
@@ -28,6 +28,10 @@ map('n', '|', '<C-w>v', { noremap = true, silent = true })
 
 -- Esc to clear search highlight
 map('n', '<Esc>', ':noh<CR>', { noremap = true, silent = true })
+
+-- Scroll down and up and center
+map('n', '<C-d>', '<C-d>zz', { noremap = true, silent = true })
+map('n', '<C-u>', '<C-u>zz', { noremap = true, silent = true })
 
 -- Moved to whichkey
 -- remap $ and 0 to gl and gh
