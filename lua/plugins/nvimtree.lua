@@ -40,7 +40,7 @@ return {
         else
           -- open file as vsplit
           api.node.open.vertical()
-          -- api.node.show_info_popup()
+          api.node.show_info_popup()
         end
 
         -- Finally refocus on tree if it was lost
@@ -79,7 +79,20 @@ return {
 
     -- Function to set buffer-local keymaps for nvim-tree using which-key
     keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle Explorer" })
-    keymap.set("n", "<leader>o", "<Cmd>NvimTreeFocus<CR>", { desc = "Toggle Focus" })
+    -- toggle focus between nvim-tree and active buffer
+    keymap.set("n", "<leader>o", function()
+      local view = require("nvim-tree.view")
+
+      if view.is_visible() then
+        -- If nvim-tree is focused, switch to the previous window
+        vim.cmd("wincmd p")
+      else
+        -- If nvim-tree is not focused, focus on nvim-tree
+        vim.cmd("NvimTreeFocus")
+      end
+    end, { desc = "Toggle between NvimTree and code window" })
+
+    -- keymap.set("n", "<leader>o", "<Cmd>NvimTreeFocus<CR>", { desc = "Toggle Focus" })
     --  keymap.set("n", "<leader>o",
     --    function()
     --      if vim.bo.filetype == "nvim-tree" then
