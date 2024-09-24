@@ -356,7 +356,6 @@ return {
         desc = "Toggle Comment",
       },
 
-      -- TODO
       -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word
       { "<leader>t",  group = "Extra tools" },
       { "<leader>tn", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
