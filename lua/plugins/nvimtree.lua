@@ -31,43 +31,46 @@ return {
       end
 
       -- open as vsplit(vertical) on current node
-      local function vsplit_vertical()
-        local node = api.tree.get_node_under_cursor()
-
-        if node.nodes ~= nil then
-          -- expand or collapse folder
-          api.node.open.edit()
-        else
-          -- open file as vsplit
-          api.node.open.vertical()
-          api.node.show_info_popup()
-        end
-
-        -- Finally refocus on tree if it was lost
-        api.tree.focus()
-      end
+      -- local function vsplit_vertical()
+      --   local node = api.tree.get_node_under_cursor()
+      --
+      --   if node.nodes ~= nil then
+      --     -- expand or collapse folder
+      --     api.node.open.edit()
+      --   else
+      --     -- open file as vsplit
+      --     api.node.open.vertical()
+      --     api.node.show_info_popup()
+      --   end
+      --
+      --   -- Finally refocus on tree if it was lost
+      --   api.tree.focus()
+      -- end
 
       -- open as vsplit(horizontal) on current node
-      local function vsplit_horizontal()
-        local node = api.tree.get_node_under_cursor()
-
-        if node.nodes ~= nil then
-          -- expand or collapse folder
-          api.node.open.edit()
-        else
-          -- open file as vsplit
-          api.node.open.horizontal()
-          -- api.node.show_info_popup()
-        end
-
-        -- Finally refocus on tree if it was lost
-        api.tree.focus()
-      end
+      -- local function vsplit_horizontal()
+      --   local node = api.tree.get_node_under_cursor()
+      --
+      --   if node.nodes ~= nil then
+      --     -- expand or collapse folder
+      --     api.node.open.edit()
+      --   else
+      --     -- open file as vsplit
+      --     api.node.open.horizontal()
+      --     -- api.node.show_info_popup()
+      --   end
+      --
+      --   -- Finally refocus on tree if it was lost
+      --   api.tree.focus()
+      -- end
 
       -- On_attach mappings
+      -- keymap.set("n", "v", vsplit_vertical, opts("Vsplit Vertical"))
+      -- keymap.set("n", "V", vsplit_horizontal, opts("Vsplit Horizontal"))
+      -- keymap.set("n", "h", api.tree.close, opts("Close"))
       keymap.set("n", "l", edit_or_open, opts("Edit Or Open"))
-      keymap.set("n", "v", vsplit_vertical, opts("Vsplit Vertical"))
-      keymap.set("n", "V", vsplit_horizontal, opts("Vsplit Horizontal"))
+      keymap.set("n", "v", api.node.open.horizontal, opts("Vsplit Horizontal"))
+      keymap.set("n", "V", api.node.open.vertical, opts("Vsplit Horizontal"))
       keymap.set("n", "h", api.node.navigate.parent_close, opts("Close"))
       keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
     end
