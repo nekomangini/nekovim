@@ -57,7 +57,7 @@ return {
   {
     "catppuccin/nvim",
     priority = 1000,
-    lazy = true,
+    lazy = false,
     name = "catppuccin",
     opts = {
       flavour = "mocha", -- latte, frappe, macchiato, mocha
@@ -185,4 +185,12 @@ return {
       require("bamboo").load()
     end,
   },
+
+  -- cyberdream
+  {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+  }
+  
 }
