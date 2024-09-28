@@ -20,13 +20,14 @@ return {
   },
   {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v4.x',  -- Use the latest v4.x version
+    branch = 'v4.x', -- Use the latest v4.x version
     lazy = false,
     dependencies = {
-      {'neovim/nvim-lspconfig'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/nvim-cmp'},
-      {'L3MON4D3/LuaSnip'},
+      { 'neovim/nvim-lspconfig' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'hrsh7th/nvim-cmp' },
+      { 'L3MON4D3/LuaSnip' },
     },
     config = function()
       -- Set up LSP-Zero with recommended settings
@@ -34,7 +35,7 @@ return {
 
       lsp_zero.on_attach(function(client, bufnr)
         -- LSP keymaps that are only active when LSP is attached
-        local opts = {buffer = bufnr}
+        local opts = { buffer = bufnr }
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
@@ -43,7 +44,7 @@ return {
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
         vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
-        vim.keymap.set({'n', 'x'}, '<F3>', function() vim.lsp.buf.format {async = true} end, opts)
+        vim.keymap.set({ 'n', 'x' }, '<F3>', function() vim.lsp.buf.format { async = true } end, opts)
         vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
       end)
 
@@ -61,7 +62,7 @@ return {
         settings = {
           Lua = {
             diagnostics = {
-              globals = { 'vim' },  -- Avoid undefined 'vim'
+              globals = { 'vim' }, -- Avoid undefined 'vim'
             },
           },
         },
@@ -76,14 +77,14 @@ return {
 
       cmp.setup({
         sources = {
-          {name = 'nvim_lsp'},
-          {name = 'luasnip'},
-          {name = 'buffer'},
-          {name = 'path'},
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+          { name = 'buffer' },
+          { name = 'path' },
         },
         mapping = cmp.mapping.preset.insert({
           -- `Enter` key to confirm completion
-          ['<CR>'] = cmp.mapping.confirm({select = false}),
+          ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
           -- Ctrl+Space to trigger completion menu
           ['<C-Space>'] = cmp.mapping.complete(),
@@ -101,6 +102,28 @@ return {
             require('luasnip').lsp_expand(args.body)
           end,
         },
+      })
+
+      -- `/` cmdline setup.
+      cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+      -- `:` cmdline setup.
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          {
+            name = 'cmdline',
+            option = {
+              ignore_cmds = { 'Man', '!' }
+            }
+          }
+        })
       })
     end
   },
@@ -150,7 +173,7 @@ return {
   --         ["rust-analyzer"] = {},
   --       },
   --     }))
-  --     
+  --
   --     -- lua
   --     lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
   --       settings = {
@@ -238,7 +261,7 @@ return {
   --     --   --   new_config.init_options.typescript.tsdk = get_typescript_server_path(new_root_dir)
   --     --   -- end,
   --     -- })
-  --     
+  --
   --     -- Override COQ's C-h binding
   --     vim.api.nvim_create_autocmd("VimEnter", {
   --       callback = function()
