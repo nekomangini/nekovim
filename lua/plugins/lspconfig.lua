@@ -57,7 +57,7 @@ return {
       local lspconfig = require('lspconfig')
 
       -- Language server configurations
-      lspconfig.rust_analyzer.setup({})
+      lspconfig.gopls.setup({})
       lspconfig.lua_ls.setup({
         settings = {
           Lua = {
@@ -65,6 +65,23 @@ return {
               globals = { 'vim' }, -- Avoid undefined 'vim'
             },
           },
+        },
+      })
+      lspconfig.rust_analyzer.setup({})
+      lspconfig.ts_ls.setup({
+        init_options = {
+          plugins = {
+            {
+              name = "@vue/typescript-plugin",
+              location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+              languages = {"javascript", "typescript", "vue"},
+            },
+          },
+        },
+        filetypes = {
+          "javascript",
+          "typescript",
+          "vue",
         },
       })
       lspconfig.volar.setup({
