@@ -33,8 +33,13 @@ map('n', '<Esc>', ':noh<CR>', { noremap = true, silent = true })
 map('n', '<C-d>', '<C-d>zz', { noremap = true, silent = true })
 map('n', '<C-u>', '<C-u>zz', { noremap = true, silent = true })
 
+-- Open oil.nvim
+map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- Dismiss noice message
+map("n", "<leader>N", "<Cmd>NoiceDismiss<CR>", { desc = "Dismiss noice message"}) 
+
 -- Moved to whichkey
 -- remap $ and 0 to gl and gh
 -- map('n', 'gl', '$', { noremap = true, silent = true }) -- moves the cursor to the end of the current line
 -- map('n', 'gh', '0', { noremap = true, silent = true }) -- moves the cursor to the beginning of the current line
-
