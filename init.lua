@@ -21,7 +21,7 @@ vim.cmd.colorscheme "bamboo"
 -- vim.cmd.colorscheme "zaibatsu"
 
 -- start coq and don't show the greeter message
-vim.api.nvim_create_autocmd("VimEnter", {
-  pattern = "*",
-  command = "COQnow --shut-up"
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   pattern = "*",
+--   command = "COQnow --shut-up"
+-- })
