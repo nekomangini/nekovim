@@ -37,7 +37,7 @@ map('n', '<C-u>', '<C-u>zz', { noremap = true, silent = true })
 map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Dismiss noice message
-map("n", "<leader>N", "<Cmd>NoiceDismiss<CR>", { desc = "Dismiss noice message"}) 
+map("n", "<leader>N", "<Cmd>NoiceDismiss<CR>", { desc = "Dismiss noice message" })
 
 -- Moved to whichkey
 -- remap $ and 0 to gl and gh
