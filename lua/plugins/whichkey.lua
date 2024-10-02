@@ -55,6 +55,10 @@ return {
   -- },
   config = function()
     local wk = require("which-key")
+    -- resession plugin
+    local resession = require("resession")
+    resession.setup()
+
     wk.setup({
       layout = {
         width = { min = 20 }, -- min and max width of the columns
@@ -368,7 +372,12 @@ return {
 
       -- trouble
       { "<leader>x",  group = "Trouble tools" },
-      {}
+
+      -- resession
+      { "<leader>s",  group = "Session Tools" },
+      { "<leader>ss", resession.save, desc = "Save Session"},
+      { "<leader>sl", resession.load, desc = "Load Session"},
+      { "<leader>sd", resession.delete, desc = "Delete Session"},
     })
   end,
 }
