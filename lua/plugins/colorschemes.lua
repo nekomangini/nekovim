@@ -27,6 +27,7 @@ return {
   {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
+    lazy = false,
     config = true,
     opts = {
       terminal_colors = true, -- add neovim terminal colors
@@ -65,7 +66,7 @@ return {
         light = "mocha", -- change from latte
         dark = "mocha",
       },
-      transparent_background = false, -- disables setting the background color.
+      transparent_background = true, -- disables setting the background color.
       show_end_of_buffer = false,     -- shows the '~' characters after the end of buffers
       term_colors = true,             -- sets terminal colors (e.g. `g:terminal_color_0`)
       dim_inactive = {
@@ -191,6 +192,57 @@ return {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
+    config = function()
+      require("cyberdream").setup({
+        -- Enable transparent background
+        transparent = true,
+
+        -- Enable italics comments
+        italic_comments = false,
+
+        -- Replace all fillchars with ' ' for the ultimate clean look
+        hide_fillchars = false,
+
+        -- Modern borderless telescope theme - also applies to fzf-lua
+        borderless_telescope = true,
+
+        -- Set terminal colors used in `:terminal`
+        terminal_colors = true,
+
+        -- Improve start up time by caching highlights. Generate cache with :CyberdreamBuildCache and clear with :CyberdreamClearCache
+        cache = false,
+
+        theme = {
+          variant = "default", -- use "light" for the light variant. Also accepts "auto" to set dark or light colors based on the current value of `vim.o.background`
+          highlights = {
+            -- Highlight groups to override, adding new groups is also possible
+            -- See `:h highlight-groups` for a list of highlight groups or run `:hi` to see all groups and their current values
+
+            -- Example:
+            Comment = { fg = "#696969", bg = "NONE", italic = true },
+
+            -- Complete list can be found in `lua/cyberdream/theme.lua`
+          },
+
+          -- Override a highlight group entirely using the color palette
+          overrides = function(colors) -- NOTE: This function nullifies the `highlights` option
+            -- Example:
+            return {
+              Comment = { fg = colors.green, bg = "NONE", italic = true },
+              ["@property"] = { fg = colors.magenta, bold = true },
+            }
+          end,
+
+
+        -- Disable or enable colorscheme extensions
+        extensions = {
+          telescope = true,
+          notify = true,
+          mini = true,
+          }
+        },
+      })
+    end
   }
   
 }
