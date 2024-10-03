@@ -27,7 +27,14 @@ return {
         lualine_c = { 'filetype', 'diff', 'diagnostics'  },
         -- lualine_x = { 'encoding', 'fileformat', 'filetype' },
         -- lualine_x = { 'buffers' },
-        lualine_x = { '' },
+        -- show @recording messages(bottom right side)
+        lualine_x = {
+          {
+            require("noice").api.statusline.mode.get,
+            cond = require("noice").api.statusline.mode.has,
+            color = { fg = "#ff9e64" },
+          }
+        },
         lualine_y = { 'location' },
         lualine_z = { 'progress' },
         -- lualine_z = { '%=', '%t%m', '%3p' },
