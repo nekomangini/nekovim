@@ -68,6 +68,8 @@ return {
         },
       })
       lspconfig.rust_analyzer.setup({})
+      -- TODO:
+      lspconfig.yamlls.setup({})
       lspconfig.ts_ls.setup({
         init_options = {
           plugins = {
