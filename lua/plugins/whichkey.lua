@@ -355,8 +355,16 @@ return {
       -- comment toggle
       {
         "<leader>/",
-        -- "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>",
-        function() require('Comment.api').toggle.linewise.current() end,
+        function()
+          local mode = vim.api.nvim_get_mode().mode
+          if mode == "n" then
+            require('Comment.api').toggle.linewise.current()
+          elseif mode:match("[vV\22]") then -- v, V, or Ctrl+V (block mode)
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), 'nx', false)
+            require('Comment.api').toggle.linewise(vim.fn.visualmode())
+          end
+        end,
+        mode = { "n", "v" },
         desc = "Toggle Comment",
       },
 
@@ -375,14 +383,14 @@ return {
 
       -- resession
       { "<leader>s",  group = "Session Tools" },
-      { "<leader>ss", resession.save, desc = "Save Session"},
-      { "<leader>sl", resession.load, desc = "Load Session"},
-      { "<leader>sd", resession.delete, desc = "Delete Session"},
+      { "<leader>ss", resession.save,                                      desc = "Save Session" },
+      { "<leader>sl", resession.load,                                      desc = "Load Session" },
+      { "<leader>sd", resession.delete,                                    desc = "Delete Session" },
 
       -- debugger
       -- TODO:
-      { "<leader>d", group = "Debugger"},
-      { "<leader>db", "<Cmd>DapToggleBreakpoint<cr>", desc = "Toggle Breakpoint"},
+      { "<leader>d",  group = "Debugger" },
+      { "<leader>db", "<Cmd>DapToggleBreakpoint<cr>",                      desc = "Toggle Breakpoint" },
     })
   end,
 }
