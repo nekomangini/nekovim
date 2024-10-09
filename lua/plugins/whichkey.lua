@@ -377,6 +377,14 @@ return {
       --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
       -- end, { desc = "Next error/warning todo comment" })
       { "<leader>tt", "<Cmd>Twilight<cr>",                                 desc = "Toggle twilight" },
+      -- Flutter keybindings
+      { "<leader>tr", "<Cmd>FlutterRun<cr>",                               desc = "Flutter Run" },
+      { "<leader>tl", "<Cmd>FlutterReload<cr>",                            desc = "Flutter Reload" },
+      { "<leader>ts", "<Cmd>FlutterRestart<cr>",                           desc = "Flutter Restart" },
+      { "<leader>td", "<Cmd>FlutterDevices<cr>",                           desc = "Flutter Devices" },
+      { "<leader>tp", "<Cmd>FlutterPubGet<cr>",                            desc = "Flutter Pub Get" },
+      { "<leader>tu", "<Cmd>FlutterPubUpgrade<cr>",                        desc = "Flutter Pub Upgrade" },
+      { "<leader>tq", "<Cmd>FlutterQuit<cr>",                              desc = "Flutter Quit" },
 
       -- trouble
       { "<leader>x",  group = "Trouble tools" },
