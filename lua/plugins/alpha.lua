@@ -31,7 +31,7 @@ return {
       [[ ⠀⠀⠀⢽⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡇⠀⠀⠀ ]],
     }
     dashboard.section.buttons.val = {
-      dashboard.button("n", "  New file", ":ene <BAR> startinsert <cr>"),
+      dashboard.button("n", "  New file", ":enew <BAR> startinsert <cr>"),
       dashboard.button("f", "󰍉  Find file", "<cmd>Telescope find_files<cr>"),
       dashboard.button("r", "  Recent files", "<cmd>Telescope oldfiles<cr>"),
       dashboard.button("w", "󰍉  Find word", "<cmd>Telescope live_grep<cr>"),
