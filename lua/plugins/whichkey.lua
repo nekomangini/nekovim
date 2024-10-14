@@ -398,7 +398,7 @@ return {
       -- debugger
       -- TODO:
       { "<leader>d",  group = "Debugger" },
-      { "<leader>db", "<Cmd>DapToggleBreakpoint<cr>",                      desc = "Toggle Breakpoint" },
+      -- { "<leader>db", "<Cmd>DapToggleBreakpoint<cr>",                      desc = "Toggle Breakpoint" },
     })
   end,
 }

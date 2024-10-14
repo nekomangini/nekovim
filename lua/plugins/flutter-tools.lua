@@ -19,9 +19,9 @@ return {
         debugger = {
           enabled = true,
           run_via_dap = true,
-          register_configurations = function(_)
-            require("dap.ext.vscode").load_launchjs()
-          end,
+          -- register_configurations = function(_)
+          --   require("dap.ext.vscode").load_launchjs()
+          -- end,
         },
         lsp = {
           on_attach = on_attach,       -- Use your LSP on_attach function
