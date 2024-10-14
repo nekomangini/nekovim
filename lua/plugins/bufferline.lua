@@ -6,7 +6,7 @@ return {
     local bufferline = require('bufferline')
     require("bufferline").setup {
       options = {
-        mode = "buffers", -- set to "tabs" to only show tabpages instead
+        mode = "buffers",                               -- set to "tabs" to only show tabpages instead
         style_preset = bufferline.style_preset.minimal, -- or bufferline.style_preset.default
         indicator = {
           -- icon = '▎', -- This shold be omitted if indicator style is not 'icon'
@@ -55,7 +55,7 @@ return {
         show_buffer_close_icons = true,
         show_close_icon = true,
         -- available separator_style "slant", "padded_slant", "slope", "padded_slope", "thick", "thin"
-        separator_style = {"", ""},
+        separator_style = { "", "" },
         hover = {
           enabled = true,
           delay = 200,

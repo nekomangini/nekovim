@@ -46,4 +46,4 @@ map("n", "<leader>N", "<Cmd>NoiceDismiss<CR>", { desc = "Dismiss noice message" 
 
 -- Copy to system clipboard | Normal mode and Visual mode
 -- map({"n", "v"}, "y", "\"+Y")
-map({"n", "v"}, "y", [["+y]])
+map({ "n", "v" }, "y", [["+y]])

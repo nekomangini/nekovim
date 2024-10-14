@@ -60,7 +60,7 @@ return {
         })
       end,
       desc = "Search word under cursor in buffer",
-    }    
+    }
     -- { "<leader>fb", "<cmd>Telescope buffers<cr>",     desc = "Find Buffers" },
 
     -- { "<leader>fn", "<cmd>enew<cr>",                  desc = "New File" },

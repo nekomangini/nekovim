@@ -70,10 +70,10 @@ return {
           enabled = true, -- enables the Noice messages UI
           -- available options for view = notify, split, vsplit, popup, mini, cmdline, cmdline_popup, cmdline_output, messages, confirm, hover
           -- view = "notify", -- default view for messages
-          view = "mini", -- change this to see the resession popup
-          view_error = "notify", -- view for errors
-          view_warn = "notify", -- view for warnings
-          view_history = "messages", -- view for :messages
+          view = "mini",               -- change this to see the resession popup
+          view_error = "notify",       -- view for errors
+          view_warn = "notify",        -- view for warnings
+          view_history = "messages",   -- view for :messages
           view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
         },
 

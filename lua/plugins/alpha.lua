@@ -6,7 +6,7 @@ return {
     local dashboard = require 'alpha.themes.dashboard'
     local resession = require("resession")
     resession.setup()
-    
+
     dashboard.section.header.val = {
       -- [[                               __                ]],
       -- [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],

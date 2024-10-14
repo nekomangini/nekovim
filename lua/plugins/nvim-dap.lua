@@ -55,7 +55,7 @@ return {
           request = "launch",
           name = "Launch dart",
           dartSdkPath = "/opt/flutter/bin/cache/dart-sdk/bin/dart", -- ensure this is correct
-          flutterSdkPath = "/opt/flutter/bin/flutter",        -- ensure this is correct
+          flutterSdkPath = "/opt/flutter/bin/flutter",              -- ensure this is correct
           program = function()
             return find_main_dart()
           end,
