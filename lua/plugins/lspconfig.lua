@@ -68,6 +68,7 @@ return {
         },
       })
       lspconfig.rust_analyzer.setup({})
+      lspconfig.dcm.setup({})
       -- TODO:
       lspconfig.yamlls.setup({})
       lspconfig.ts_ls.setup({

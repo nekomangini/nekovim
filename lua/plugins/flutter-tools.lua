@@ -10,9 +10,9 @@ return {
     -- config = true,
     -- TODO:
     config = function()
-      -- local on_attach = function(client, bufnr)
+      local on_attach = function(client, bufnr)
         -- Define keybindings, etc. for LSP
-      -- end
+      end
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       require("flutter-tools").setup({
@@ -25,6 +25,7 @@ return {
           run_via_dap = true,
           exception_breakpoints = {},
           -- register_configurations = function(_)
+          --   require("dap").configurations.dart = {}
           --   require("dap.ext.vscode").load_launchjs()
           -- end,
         },
@@ -37,7 +38,7 @@ return {
           --   virtual_text = true, -- show the highlight using virtual text
           --   virtual_text_str = "■", -- the virtual text character to highlight
           -- },
-          on_attach = on_attach, -- Use your LSP on_attach function
+          on_attach = on_attach,       -- Use your LSP on_attach function
           capabilities = capabilities, -- Use your LSP capabilities
         },
         -- closing_tags = {
