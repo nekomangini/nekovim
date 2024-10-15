@@ -1,7 +1,0 @@
-common flutter commands
-- flutter run
-- flutter reload
-- flutter restart
-- flutter device
-- flutter pubget
-- flutter quit
