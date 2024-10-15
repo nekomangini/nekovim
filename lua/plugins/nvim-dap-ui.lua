@@ -15,12 +15,16 @@ return {
       end
 
       -- Close UI when debugging ends
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
+      -- dap.listeners.before.event_terminated["dapui_config"] = function()
+      --   dapui.close()
+      -- end
+      -- dap.listeners.before.event_exited["dapui_config"] = function()
+      --   dapui.close()
+      -- end
+
+      -- Modify to keep the UI open on termination or exit
+      dap.listeners.before.event_terminated["dapui_config"] = function() end
+      dap.listeners.before.event_exited["dapui_config"] = function() end
 
       -- Prevent the UI from closing too early
       dap.listeners.after.event_stopped["dapui_config"] = function()
