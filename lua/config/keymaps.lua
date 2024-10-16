@@ -47,3 +47,16 @@ map("n", "<leader>N", "<Cmd>NoiceDismiss<CR>", { desc = "Dismiss noice message" 
 -- Copy to system clipboard | Normal mode and Visual mode
 -- map({"n", "v"}, "y", "\"+Y")
 map({ "n", "v" }, "y", [["+y]])
+
+
+-- Shift current line down in normal mode
+map("n", "<M-j>", ":m .+1<CR>==")
+
+-- Shift current line up in normal mode
+map("n", "<M-k>", ":m .-2<CR>==")
+
+-- Shift visual selected lines down
+map("v", "<M-j>", ":m '>+1<CR>gv=gv")
+
+-- Shift visual selected lines up
+map("v", "<M-k>", ":m '<-2<CR>gv=gv")
