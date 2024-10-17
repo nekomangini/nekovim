@@ -14,63 +14,66 @@ return {
       require("mason-lspconfig").setup({
         -- automatically install a language
         -- auto_install = true,
-        ensure_installed = { "lua_ls", "rust_analyzer", "volar" },
+        ensure_installed = { "gopls", "lua_ls", "rust_analyzer", "ts_ls" },
       })
     end,
   },
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v4.x', -- Use the latest v4.x version
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v4.x", -- Use the latest v4.x version
     lazy = false,
     dependencies = {
-      { 'neovim/nvim-lspconfig' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-cmdline' },
-      { 'hrsh7th/nvim-cmp' },
-      { 'L3MON4D3/LuaSnip' },
+      { "neovim/nvim-lspconfig" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-cmdline" },
+      { "hrsh7th/nvim-cmp" },
+      { "L3MON4D3/LuaSnip" },
     },
     config = function()
       -- Set up LSP-Zero with recommended settings
-      local lsp_zero = require('lsp-zero')
+      local lsp_zero = require("lsp-zero")
 
       lsp_zero.on_attach(function(client, bufnr)
         -- LSP keymaps that are only active when LSP is attached
         local opts = { buffer = bufnr }
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'n', 'x' }, '<F3>', function() vim.lsp.buf.format { async = true } end, opts)
-        vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
+        vim.keymap.set({ "n", "x" }, "<F3>", function()
+          vim.lsp.buf.format({ async = true })
+        end, opts)
+        vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, opts)
       end)
 
       -- Extend LSP settings
       lsp_zero.extend_lspconfig({
         sign_text = true,
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
       })
 
-      local lspconfig = require('lspconfig')
+      local lspconfig = require("lspconfig")
 
       -- Language server configurations
+      lspconfig.dartls.setup({})
       lspconfig.gopls.setup({})
       lspconfig.lua_ls.setup({
+        -- on_init = function(client)
+        --   lsp_zero.nvim_lua_settings(client, {})
+        -- end,
         settings = {
           Lua = {
             diagnostics = {
-              globals = { 'vim' }, -- Avoid undefined 'vim'
+              globals = { "vim" }, -- Avoid undefined 'vim'
             },
           },
         },
       })
       lspconfig.rust_analyzer.setup({})
-      lspconfig.dcm.setup({})
-      -- TODO:
-      lspconfig.yamlls.setup({})
       lspconfig.ts_ls.setup({
         init_options = {
           plugins = {
@@ -87,65 +90,63 @@ return {
           "vue",
         },
       })
-      lspconfig.volar.setup({
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
-      })
 
+      -- TODO:
       -- nvim-cmp setup for autocompletion
-      local cmp = require('cmp')
-      local cmp_action = require('lsp-zero').cmp_action()
+      local cmp = require("cmp")
+      local cmp_action = require("lsp-zero").cmp_action()
 
       cmp.setup({
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'buffer' },
-          { name = 'path' },
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
         },
         mapping = cmp.mapping.preset.insert({
           -- `Enter` key to confirm completion
-          ['<CR>'] = cmp.mapping.confirm({ select = false }),
+          ["<CR>"] = cmp.mapping.confirm({ select = false }),
 
           -- Ctrl+Space to trigger completion menu
-          ['<C-Space>'] = cmp.mapping.complete(),
+          ["<C-Space>"] = cmp.mapping.complete(),
 
           -- Navigate between snippet placeholder
-          ['<C-f>'] = cmp_action.vim_snippet_jump_forward(),
-          ['<C-b>'] = cmp_action.vim_snippet_jump_backward(),
+          ["<C-f>"] = cmp_action.vim_snippet_jump_forward(),
+          ["<C-b>"] = cmp_action.vim_snippet_jump_backward(),
 
           -- Scroll up and down in the completion documentation
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
+          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-d>"] = cmp.mapping.scroll_docs(4),
         }),
         snippet = {
           expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            require("luasnip").lsp_expand(args.body)
           end,
         },
       })
 
       -- `/` cmdline setup.
-      cmp.setup.cmdline('/', {
+      cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = 'buffer' }
-        }
+          { name = "buffer" },
+        },
       })
       -- `:` cmdline setup.
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-          { name = 'path' }
+          { name = "path" },
         }, {
           {
-            name = 'cmdline',
+            name = "cmdline",
             option = {
-              ignore_cmds = { 'Man', '!' }
-            }
-          }
-        })
+              ignore_cmds = { "Man", "!" },
+            },
+          },
+        }),
       })
-    end
+    end,
   },
 
   -- {
