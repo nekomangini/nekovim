@@ -13,12 +13,12 @@ vim.opt.wrap = false
 -- vim.cmd.colorscheme "gruvbox"
 -- vim.cmd.colorscheme "bamboo"
 -- vim.cmd.colorscheme "cyberdream"
-vim.cmd.colorscheme "nordic"
+-- vim.cmd.colorscheme "nordic"
 
 
 -- vim.cmd.colorscheme "habamax"
 -- vim.cmd.colorscheme "lunaperche"
--- vim.cmd.colorscheme "sorbet"
+vim.cmd.colorscheme "sorbet"
 -- vim.cmd.colorscheme "zaibatsu"
 
 -- start coq and don't show the greeter message
