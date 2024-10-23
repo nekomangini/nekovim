@@ -9,7 +9,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
 -- vim.cmd.colorscheme "catppuccin"
--- vim.cmd.colorscheme "tokyonight"
+vim.cmd.colorscheme "tokyonight"
 -- vim.cmd.colorscheme "gruvbox"
 -- vim.cmd.colorscheme "bamboo"
 -- vim.cmd.colorscheme "cyberdream"
@@ -18,7 +18,7 @@ vim.opt.wrap = false
 
 -- vim.cmd.colorscheme "habamax"
 -- vim.cmd.colorscheme "lunaperche"
-vim.cmd.colorscheme "sorbet"
+-- vim.cmd.colorscheme "sorbet"
 -- vim.cmd.colorscheme "zaibatsu"
 
 -- start coq and don't show the greeter message

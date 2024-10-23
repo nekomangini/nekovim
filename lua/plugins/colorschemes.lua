@@ -5,7 +5,7 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
-      style = "moon",        -- the theme comes in three styles, 'storm', a darker variant 'night' and 'day', 'moon'
+      style = "night",        -- the theme comes in three styles, 'storm', a darker variant 'night' and 'day', 'moon'
       -- light_style = "day",    -- the theme is used when the background is set to light
       transparent = false,    -- enable this to disable setting the background color
       terminal_colors = true, -- configure the colors used when opening a `:terminal` in Neovim
