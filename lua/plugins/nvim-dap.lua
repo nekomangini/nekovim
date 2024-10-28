@@ -38,17 +38,17 @@ return {
         args = { 'debug_adapter' }
       }
 
-      local function find_main_dart()
-        local current_file = vim.fn.expand("%:p")
-        local current_dir = vim.fn.fnamemodify(current_file, ":h")
-        local found_file = vim.fn.findfile("lib/main.dart", current_dir .. ";")
-        if found_file ~= "" then
-          return found_file
-        else
-          print("Error: Could not find lib/main.dart")
-          return nil
-        end
-      end
+      -- local function find_main_dart()
+      --   local current_file = vim.fn.expand("%:p")
+      --   local current_dir = vim.fn.fnamemodify(current_file, ":h")
+      --   local found_file = vim.fn.findfile("lib/main.dart", current_dir .. ";")
+      --   if found_file ~= "" then
+      --     return found_file
+      --   else
+      --     print("Error: Could not find lib/main.dart")
+      --     return nil
+      --   end
+      -- end
       dap.configurations.dart = {
         {
           type = "dart",

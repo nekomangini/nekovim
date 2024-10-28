@@ -8,20 +8,6 @@ return {
       -- refer to the configuration section below
     }
   },
-
-  -- optional requirements for todo-comments
-
-  -- remove fzf lua
-  -- {
-  --   "ibhagwan/fzf-lua",
-  --   -- optional for icon support
-  --   dependencies = { "nvim-tree/nvim-web-devicons" },
-  --   config = function()
-  --     -- calling `setup` is optional for customization
-  --     require("fzf-lua").setup({})
-  --   end
-  -- },
-
   {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
