@@ -108,41 +108,7 @@ return {
       { "<leader>b",  group = "Buffer" },
       { "<leader>bD", "<cmd>bdelete!<cr>",          desc = "Force Delete Buffer" },
       { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Switch Buffer" },
-      { "<leader>bd", "<cmd>bdelete<cr>",           desc = "Delete Buffer" },
-      { "<leader>bn", "<cmd>bnext<cr>",             desc = "Next Buffer" },
-      { "<leader>bp", "<cmd>bprevious<cr>",         desc = "Previous Buffer" },
-
-      -- Close all buffers to the right of the current one
-      {
-        "<leader>br",
-        function()
-          local current = vim.fn.bufnr("%")
-          local buffers = vim.fn.getbufinfo({ buflisted = true }) -- Get all listed buffers
-          for _, buf in ipairs(buffers) do
-            if buf.bufnr > current then
-              vim.cmd("bdelete " .. buf.bufnr)
-            end
-          end
-          vim.cmd('echo "Closed all buffers to the right"')
-        end,
-        desc = "Close all buffers to the right",
-      },
-
-      -- Close all buffers to the left of the current one
-      {
-        "<leader>bl",
-        function()
-          local current = vim.fn.bufnr("%")
-          local buffers = vim.fn.getbufinfo({ buflisted = true }) -- Get all listed buffers
-          for _, buf in ipairs(buffers) do
-            if buf.bufnr < current then
-              vim.cmd("bdelete " .. buf.bufnr)
-            end
-          end
-          vim.cmd('echo "Closed all buffers to the left"')
-        end,
-        desc = "Close all buffers to the left",
-      },
+      { "<leader>bk", "<cmd>bdelete<cr>",           desc = "Delete Buffer" },
 
       -- Close all buffers except the current one
       {
@@ -158,7 +124,7 @@ return {
 
       -- Close the selectd buffer
       {
-        "<leader>bx",
+        "<leader>bd",
         function()
           require("telescope.builtin").buffers({
             attach_mappings = function(prompt_bufnr, map)
@@ -177,7 +143,7 @@ return {
             end,
           })
         end,
-        desc = "Select and close buffer from tabline",
+        desc = "Select and close buffer",
       },
 
       -- New buffer commands

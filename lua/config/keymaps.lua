@@ -19,8 +19,10 @@ map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
 -- Cycle through Buffers
 -- command from bufferline plugin/can also use :bnext and :bprevious
-map('n', '[b', '<Cmd>BufferLineCyclePrev<cr>') -- go to next buffer
-map('n', ']b', '<Cmd>BufferLineCycleNext<cr>') -- go to previous buffer
+-- map('n', '[b', '<Cmd>BufferLineCyclePrev<cr>') -- go to next buffer
+-- map('n', ']b', '<Cmd>BufferLineCycleNext<cr>') -- go to previous buffer
+map('n', '[b', '<Cmd>bnext<cr>') -- go to next buffer
+map('n', ']b', '<Cmd>bprevious<cr>') -- go to previous buffer
 
 -- split panes
 map('n', '\\', '<C-w>s', { noremap = true, silent = true })
