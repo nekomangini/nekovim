@@ -303,4 +303,12 @@ return {
         }
       })
     end
-  } }
+  },
+
+  -- night fox
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = false,
+    priority = 1000,
+  }
+}
