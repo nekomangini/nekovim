@@ -29,6 +29,7 @@ return {
           ["<C-c>"] = "actions.close",
           ["<C-l>"] = "actions.refresh",
           ["-"] = "actions.parent",
+          -- ["gf"] = { function() require("oil").open_float() end, desc = "Open oil.nvim in a floating window" },
           ["_"] = "actions.open_cwd",
           ["`"] = "actions.cd",
           ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
