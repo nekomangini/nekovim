@@ -122,7 +122,7 @@ return {
         desc = "Close all buffers except current",
       },
 
-      -- Close the selectd buffer
+      -- Close the selected buffer
       {
         "<leader>bd",
         function()
