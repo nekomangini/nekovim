@@ -9,12 +9,12 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
 -- vim.cmd.colorscheme "catppuccin"
-vim.cmd.colorscheme "tokyonight"
+-- vim.cmd.colorscheme "tokyonight"
 -- vim.cmd.colorscheme "gruvbox"
 -- vim.cmd.colorscheme "bamboo"
--- vim.cmd.colorscheme "cyberdream"
+-- vim.cmd.colorscheme("cyberdream")
 -- vim.cmd.colorscheme "nordic"
-
+vim.cmd.colorscheme "duskfox"
 
 -- vim.cmd.colorscheme "habamax"
 -- vim.cmd.colorscheme "lunaperche"

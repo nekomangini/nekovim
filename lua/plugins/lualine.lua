@@ -24,7 +24,26 @@ return {
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch' },
-        lualine_c = { 'filetype', 'diff', 'diagnostics' },
+        -- lualine_c = { 'filetype', 'diff', 'diagnostics' },
+        lualine_c = {
+          {
+            'filename',
+            file_status = true, -- Displays file status (modified, read-only)
+            path = 1,           -- 0: Just the filename
+            -- 1: Relative path
+            -- 2: Absolute path
+            -- 3: Filename and parent dir
+            shorting_target = 40, -- Shortens path if it's longer than 40 characters
+            symbols = {
+              modified = ' ●', -- Text to show when the file is modified
+              readonly = ' ', -- Text to show when the file is non-modifiable or readonly
+              unnamed = '[No Name]' -- Text to show for unnamed buffers
+            }
+          },
+          'filetype',
+          'diff',
+          'diagnostics'
+        },
         -- lualine_x = { 'encoding', 'fileformat', 'filetype' },
         -- lualine_x = { 'buffers' },
         -- show @recording messages(bottom right side)
