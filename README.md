@@ -2,7 +2,7 @@
 
 ### Fix
 - **LSP**
-  - [ ] Dart/Flutter
+  - [X] Dart/Flutter
   - [ ] Lua
   - [ ] Go
   
