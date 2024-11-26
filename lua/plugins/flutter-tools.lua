@@ -12,6 +12,7 @@ return {
     config = function()
       local on_attach = function(client, bufnr)
         -- Define keybindings, etc. for LSP
+        local opts = { buffer = bufnr }
       end
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -20,15 +21,15 @@ return {
         widget_guides = {
           enabled = true,
         },
-        debugger = {
-          enabled = true,
-          run_via_dap = true,
-          exception_breakpoints = {},
-          -- register_configurations = function(_)
-          --   require("dap").configurations.dart = {}
-          --   require("dap.ext.vscode").load_launchjs()
-          -- end,
-        },
+        -- debugger = {
+        --   enabled = true,
+        --   run_via_dap = true,
+        --   exception_breakpoints = {},
+        --   -- register_configurations = function(_)
+        --   --   require("dap").configurations.dart = {}
+        --   --   require("dap.ext.vscode").load_launchjs()
+        --   -- end,
+        -- },
         lsp = {
           -- color = { -- show the derived colours for dart variables
           --   enabled = false, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
@@ -41,14 +42,14 @@ return {
           on_attach = on_attach,       -- Use your LSP on_attach function
           capabilities = capabilities, -- Use your LSP capabilities
         },
-        -- closing_tags = {
-        --   highlight = "ErrorMsg", -- highlight for the closing tag
-        --   prefix = ">",           -- character to use for close tag e.g. > Widget
-        --   priority = 10,          -- priority of virtual text in current line
-        --   -- consider to configure this when there is a possibility of multiple virtual text items in one line
-        --   -- see `priority` option in |:help nvim_buf_set_extmark| for more info
-        --   enabled = true -- set to false to disable
-        -- },
+        closing_tags = {
+          highlight = "ErrorMsg", -- highlight for the closing tag
+          prefix = ">",           -- character to use for close tag e.g. > Widget
+          priority = 10,          -- priority of virtual text in current line
+          -- consider to configure this when there is a possibility of multiple virtual text items in one line
+          -- see `priority` option in |:help nvim_buf_set_extmark| for more info
+          enabled = true -- set to false to disable
+        },
         -- dev_log = {
         --   enabled = true,
         --   filter = nil, -- optional callback to filter the log

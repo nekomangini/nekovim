@@ -14,7 +14,7 @@ return {
       require("mason-lspconfig").setup({
         -- automatically install a language
         -- auto_install = true,
-        ensure_installed = { "gopls", "lua_ls", "rust_analyzer", "ts_ls" },
+        ensure_installed = { "gopls", "lua_ls", "rust_analyzer", "taplo", "ts_ls" },
       })
     end,
   },
@@ -74,6 +74,7 @@ return {
         },
       })
       lspconfig.rust_analyzer.setup({})
+      lspconfig.taplo.setup({})
       lspconfig.ts_ls.setup({
         init_options = {
           plugins = {
