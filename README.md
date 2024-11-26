@@ -5,6 +5,5 @@
   - [ ] Dart/Flutter
   - [ ] Lua
   - [ ] Go
-- **DAP**
-  - [ ] Dart/Flutter
-  - [ ] Go
+  
+- removed dap

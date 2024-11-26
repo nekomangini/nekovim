@@ -310,11 +310,6 @@ return {
       { "<leader>ss", resession.save,                                      desc = "Save Session" },
       { "<leader>sl", resession.load,                                      desc = "Load Session" },
       { "<leader>sd", resession.delete,                                    desc = "Delete Session" },
-
-      -- debugger
-      -- TODO:
-      { "<leader>d",  group = "Debugger" },
-      -- { "<leader>db", "<Cmd>DapToggleBreakpoint<cr>",                      desc = "Toggle Breakpoint" },
     })
   end,
 }
