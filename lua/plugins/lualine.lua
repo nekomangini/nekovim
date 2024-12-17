@@ -40,7 +40,6 @@ return {
 							unnamed = "[No Name]", -- Text to show for unnamed buffers
 						},
 					},
-					"filetype",
 					"diff",
 					"diagnostics",
 				},
@@ -54,7 +53,7 @@ return {
 						color = { fg = "#ff9e64" },
 					},
 				},
-				lualine_y = { "location" },
+				lualine_y = {  "filetype","location" },
 				lualine_z = { "progress" },
 				-- lualine_z = { '%=', '%t%m', '%3p' },
 			},
