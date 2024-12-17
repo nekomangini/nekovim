@@ -3,7 +3,7 @@
 ### Fix
 - **LSP**
   - [X] Dart/Flutter
-  - [ ] Lua
-  - [ ] Go
+  - [X] Lua
+  - [X] Go
   
 - removed dap
