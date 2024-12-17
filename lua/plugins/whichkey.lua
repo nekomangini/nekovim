@@ -102,9 +102,9 @@ return {
 
       { "<leader>e",  "<cmd>Oil --float<cr>",       desc = "Open oil.nvim in a floating window" },
 
-      { "ge",         "G",                          desc = "moves the cursor to the last line of the file" },
-      { 'gl',         '$',                          desc = "moves the cursor to the end of the current line" },
-      { 'gh',         '0',                          desc = "moves the cursor to the beginning of the current line" },
+      -- { "ge",         "G",                          desc = "moves the cursor to the last line of the file" },
+      -- { 'gl',         '$',                          desc = "moves the cursor to the end of the current line" },
+      -- { 'gh',         '0',                          desc = "moves the cursor to the beginning of the current line" },
 
       -- buffer
       { "<leader>b",  group = "Buffer" },

@@ -1,5 +1,3 @@
--- local map = vim.keymap.set
-
 --exit insert mode
 -- map({ "i", "jk"}, "<ESC>",{ desc = "exit insert mode", remap = true })
 
@@ -21,7 +19,7 @@ map('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 -- command from bufferline plugin/can also use :bnext and :bprevious
 -- map('n', '[b', '<Cmd>BufferLineCyclePrev<cr>') -- go to next buffer
 -- map('n', ']b', '<Cmd>BufferLineCycleNext<cr>') -- go to previous buffer
-map('n', '[b', '<Cmd>bnext<cr>') -- go to next buffer
+map('n', '[b', '<Cmd>bnext<cr>')     -- go to next buffer
 map('n', ']b', '<Cmd>bprevious<cr>') -- go to previous buffer
 
 -- split panes
@@ -41,15 +39,9 @@ map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- Dismiss noice message
 map("n", "<leader>N", "<Cmd>NoiceDismiss<CR>", { desc = "Dismiss noice message" })
 
--- Moved to whichkey
--- remap $ and 0 to gl and gh
--- map('n', 'gl', '$', { noremap = true, silent = true }) -- moves the cursor to the end of the current line
--- map('n', 'gh', '0', { noremap = true, silent = true }) -- moves the cursor to the beginning of the current line
-
 -- Copy to system clipboard | Normal mode and Visual mode
 -- map({"n", "v"}, "y", "\"+Y")
 map({ "n", "v" }, "y", [["+y]])
-
 
 -- Shift current line down in normal mode
 map("n", "<M-j>", ":m .+1<CR>==")
@@ -62,3 +54,8 @@ map("v", "<M-j>", ":m '>+1<CR>gv=gv")
 
 -- Shift visual selected lines up
 map("v", "<M-k>", ":m '<-2<CR>gv=gv")
+
+-- Diagnostic
+map('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
