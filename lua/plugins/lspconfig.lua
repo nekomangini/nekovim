@@ -11,10 +11,28 @@ return {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
     config = function()
+      local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local default_setup = function(server)
+        require('lspconfig')[server].setup({
+          capabilities = lsp_capabilities,
+        })
+      end
       require("mason-lspconfig").setup({
-        -- automatically install a language
-        -- auto_install = true,
+        -- auto_install = true, -- automatically install a language
         ensure_installed = { "gopls", "lua_ls", "rust_analyzer", "taplo", "ts_ls" },
+        handlers = {
+          default_setup,
+          require("lspconfig").lua_ls.setup({
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim" }, -- Avoid undefined 'vim'
+                },
+              },
+            },
+          })
+
+        },
       })
     end,
   },
@@ -30,12 +48,11 @@ return {
       { "L3MON4D3/LuaSnip" },
     },
     config = function()
-      -- Set up LSP-Zero with recommended settings
       local lsp_zero = require("lsp-zero")
 
-      lsp_zero.on_attach(function(client, bufnr)
+      lsp_zero.on_attach(function(event)
         -- LSP keymaps that are only active when LSP is attached
-        local opts = { buffer = bufnr }
+        local opts = { buffer = event.buf }
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -43,66 +60,81 @@ return {
         vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
-        vim.keymap.set({ "n", "x" }, "<F3>", function()
-          vim.lsp.buf.format({ async = true })
-        end, opts)
-        vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, opts)
       end)
 
+      ---
+      -- lsp setup
+      --
+      -- Add cmp_nvim_lsp capabilities settings to lspconfig
+      -- This should be executed before you configure any language server
+      -- local lspconfig_defaults = require('lspconfig').util.default_config
+      -- lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+      --   'force',
+      --   lspconfig_defaults.capabilities,
+      --   require('cmp_nvim_lsp').default_capabilities()
+      -- )
+      --
+      -- moved to mason-lsp
       -- Extend LSP settings
-      lsp_zero.extend_lspconfig({
-        sign_text = true,
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
-      })
+      -- lsp_zero.extend_lspconfig({
+      --   sign_text = true,
+      --   capabilities = require("cmp_nvim_lsp").default_capabilities(),
+      -- })
+      --
+      -- local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      local lspconfig = require("lspconfig")
 
+      ---
+      -- moved to mason-lsp handlers
       -- Language server configurations
-      lspconfig.dartls.setup({})
-      lspconfig.gopls.setup({})
-      lspconfig.lua_ls.setup({
-        -- on_init = function(client)
-        --   lsp_zero.nvim_lua_settings(client, {})
-        -- end,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" }, -- Avoid undefined 'vim'
-            },
-          },
-        },
-      })
-      lspconfig.rust_analyzer.setup({})
-      lspconfig.taplo.setup({})
-      lspconfig.ts_ls.setup({
-        init_options = {
-          plugins = {
-            {
-              name = "@vue/typescript-plugin",
-              location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-              languages = { "javascript", "typescript", "vue" },
-            },
-          },
-        },
-        filetypes = {
-          "javascript",
-          "typescript",
-          "vue",
-        },
-      })
+      --
+      -- local lspconfig = require("lspconfig")
+      -- lspconfig.dartls.setup({}) -- active in flutter-tools
+      -- lspconfig.gopls.setup({})
+      -- lspconfig.lua_ls.setup({
+      --   -- on_init = function(client)
+      --   --   lsp_zero.nvim_lua_settings(client, {})
+      --   -- end,
+      --   settings = {
+      --     Lua = {
+      --       diagnostics = {
+      --         globals = { "vim" }, -- Avoid undefined 'vim'
+      --       },
+      --     },
+      --   },
+      -- })
+      -- lspconfig.rust_analyzer.setup({})
+      -- lspconfig.taplo.setup({})
+      -- lspconfig.ts_ls.setup({
+      --   init_options = {
+      --     plugins = {
+      --       {
+      --         name = "@vue/typescript-plugin",
+      --         location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+      --         languages = { "javascript", "typescript", "vue" },
+      --       },
+      --     },
+      --   },
+      --   filetypes = {
+      --     "javascript",
+      --     "typescript",
+      --     "vue",
+      --   },
+      -- })
 
-      -- TODO:
-      -- nvim-cmp setup for autocompletion
+      ---
+      -- autocompletion config
+      ---
       local cmp = require("cmp")
-      local cmp_action = require("lsp-zero").cmp_action()
+      -- local cmp_action = require("lsp-zero").cmp_action()
 
       cmp.setup({
+        -- Sources for autocompletion
         sources = {
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
+          { name = "nvim_lsp" }, -- Use LSP for autocompletion
+          { name = "luasnip" },  -- luasnip
+          { name = "buffer" },   -- Suggest words from the current buffer
+          { name = "path" },     -- Suggest file paths
         },
         mapping = cmp.mapping.preset.insert({
           -- `Enter` key to confirm completion
@@ -111,42 +143,40 @@ return {
           -- Ctrl+Space to trigger completion menu
           ["<C-Space>"] = cmp.mapping.complete(),
 
-          -- Navigate between snippet placeholder
-          ["<C-f>"] = cmp_action.vim_snippet_jump_forward(),
-          ["<C-b>"] = cmp_action.vim_snippet_jump_backward(),
-
-          -- Scroll up and down in the completion documentation
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-d>"] = cmp.mapping.scroll_docs(4),
+          ['<C-e>'] = cmp.mapping.abort(),
         }),
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
           end,
         },
-      })
-
-      -- `/` cmdline setup.
-      cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
+        -- Enable documentation popups
+        window = {
+          documentation = cmp.config.window.bordered(), -- Nice border for documentation
         },
       })
+
+      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      -- cmp.setup.cmdline({ '/', '?' }, {
+      --   mapping = cmp.mapping.preset.cmdline(),
+      --   sources = {
+      --     { name = 'buffer' }
+      --   },
+      -- })
       -- `:` cmdline setup.
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
-          {
-            name = "cmdline",
-            option = {
-              ignore_cmds = { "Man", "!" },
-            },
-          },
-        }),
-      })
+      -- cmp.setup.cmdline(":", {
+      --   mapping = cmp.mapping.preset.cmdline(),
+      --   sources = cmp.config.sources({
+      --     { name = "path" },
+      --   }, {
+      --     {
+      --       name = "cmdline",
+      --       option = {
+      --         ignore_cmds = { "Man", "!" },
+      --       },
+      --     },
+      --   }),
+      -- })
     end,
   },
 

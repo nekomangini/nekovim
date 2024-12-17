@@ -10,11 +10,11 @@ return {
     -- config = true,
     -- TODO:
     config = function()
-      local on_attach = function(client, bufnr)
-        -- Define keybindings, etc. for LSP
-        local opts = { buffer = bufnr }
-      end
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      -- local on_attach = function(client, bufnr)
+      --   -- Define keybindings, etc. for LSP
+      --   local opts = { buffer = bufnr }
+      -- end
+      -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       require("flutter-tools").setup({
         fvm = false, -- takes priority over path, uses <workspace>/.fvm/flutter_sdk if enabled
@@ -30,7 +30,7 @@ return {
         --   --   require("dap.ext.vscode").load_launchjs()
         --   -- end,
         -- },
-        lsp = {
+        -- lsp = {
           -- color = { -- show the derived colours for dart variables
           --   enabled = false, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
           --   background = false, -- highlight the background
@@ -39,9 +39,9 @@ return {
           --   virtual_text = true, -- show the highlight using virtual text
           --   virtual_text_str = "■", -- the virtual text character to highlight
           -- },
-          on_attach = on_attach,       -- Use your LSP on_attach function
-          capabilities = capabilities, -- Use your LSP capabilities
-        },
+          -- on_attach = on_attach,       -- Use your LSP on_attach function
+          -- capabilities = capabilities, -- Use your LSP capabilities
+        -- },
         closing_tags = {
           highlight = "ErrorMsg", -- highlight for the closing tag
           prefix = ">",           -- character to use for close tag e.g. > Widget
