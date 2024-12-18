@@ -10,27 +10,27 @@ return {
     wk.setup({
       layout = {
         width = { min = 20 }, -- min and max width of the columns
-        spacing = 5,          -- spacing between columns
+        spacing = 5,      -- spacing between columns
       },
-      show_help = true,       -- show a help message in the command line for using WhichKey
-      show_keys = true,       -- show the currently pressed key and its label as a message in the command line
+      show_help = true,   -- show a help message in the command line for using WhichKey
+      show_keys = true,   -- show the currently pressed key and its label as a message in the command line
       plugins = {
-        marks = true,         -- shows a list of your marks on ' and `
-        registers = true,     -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+        marks = true,     -- shows a list of your marks on ' and `
+        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
         -- No actual key bindings are created
         spelling = {
-          enabled = true,   -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+          enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
           suggestions = 20, -- how many suggestions should be shown in the list?
         },
         presets = {
-          operators = true,    -- adds help for operators like d, y, ...
-          motions = true,      -- adds help for motions
+          operators = true, -- adds help for operators like d, y, ...
+          motions = true, -- adds help for motions
           text_objects = true, -- help for text objects triggered after entering an operator
-          windows = true,      -- default bindings on <c-w>
-          nav = true,          -- misc bindings to work with windows
-          z = true,            -- bindings for folds, spelling and others prefixed with z
-          g = true,            -- bindings for prefixed with g
+          windows = true, -- default bindings on <c-w>
+          nav = true,     -- misc bindings to work with windows
+          z = true,       -- bindings for folds, spelling and others prefixed with z
+          g = true,       -- bindings for prefixed with g
         },
       },
 
@@ -40,8 +40,8 @@ return {
       icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
         -- separator = "➜", -- symbol used between a key and it's label
-        separator = "-",  -- symbol used between a key and it's label
-        group = "+",      -- symbol prepended to a group
+        separator = "-", -- symbol used between a key and it's label
+        group = "+",  -- symbol prepended to a group
         ellipsis = "…",
         -- set to false to disable all mapping icons,
         -- both those explicitely added in a mapping
@@ -163,7 +163,7 @@ return {
             end
           end
         end,
-        desc = "Close all buffers"
+        desc = "Close all buffers",
       },
 
       -- Horizontal split buffer
@@ -252,21 +252,24 @@ return {
         vim.lsp.buf.definition,
         desc = "Go to Definition",
       },
-      { "<leader>lF", vim.lsp.buf.references,                              desc = "Find References" },
-      { "<leader>lr", vim.lsp.buf.rename,                                  desc = "Rename" },
-      { "<leader>la", vim.lsp.buf.code_action,                             desc = "Code Action" },
-      { "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, desc = "Format Code" },
-      { "<leader>lj", vim.diagnostic.goto_next,                            desc = "Next Diagnostic" },
+      { "<leader>lF", vim.lsp.buf.references,         desc = "Find References" },
+      { "<leader>lr", vim.lsp.buf.rename,             desc = "Rename" },
+      -- { "<leader>la", vim.lsp.buf.code_action,                             desc = "Code Action" },
+      { "<leader>la", "<cmd>Lspsaga code_action<cr>", desc = "Code Action" },
       {
-        "<leader>lk",
-        vim.diagnostic.goto_prev,
-        desc = "Previous Diagnostic",
+        "<leader>lf",
+        function()
+          vim.lsp.buf.format({ async = true })
+        end,
+        desc = "Format Code",
       },
+      { "<leader>lj", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
+      { "<leader>lk", vim.diagnostic.goto_prev, desc = "Previous Diagnostic" },
 
       -- New home keybind for alpha.nvim
-      { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
+      { "<leader>h",  "<cmd>Alpha<cr>",         desc = "Home Screen" },
 
-      { "<leader>n", "<cmd>enew<cr>",  desc = "New File" },
+      { "<leader>n",  "<cmd>enew<cr>",          desc = "New File" },
 
       -- comment toggle
       {
@@ -274,10 +277,10 @@ return {
         function()
           local mode = vim.api.nvim_get_mode().mode
           if mode == "n" then
-            require('Comment.api').toggle.linewise.current()
+            require("Comment.api").toggle.linewise.current()
           elseif mode:match("[vV\22]") then -- v, V, or Ctrl+V (block mode)
-            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), 'nx', false)
-            require('Comment.api').toggle.linewise(vim.fn.visualmode())
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
+            require("Comment.api").toggle.linewise(vim.fn.visualmode())
           end
         end,
         mode = { "n", "v" },
@@ -285,31 +288,59 @@ return {
       },
 
       -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word
-      { "<leader>t",  group = "Extra tools" },
-      { "<leader>tn", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-      { "<leader>tp", function() require("todo-comments").jump_prev() end, desc = "Next todo comment" },
+      { "<leader>t",   group = "Extra tools" },
+      {
+        "<leader>tn",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next todo comment",
+      },
+      {
+        "<leader>tp",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Next todo comment",
+      },
       -- You can also specify a list of valid jump keywords
       -- vim.keymap.set("n", "]t", function()
       --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
       -- end, { desc = "Next error/warning todo comment" })
-      { "<leader>tt", "<Cmd>Twilight<cr>",                                 desc = "Toggle twilight" },
+      { "<leader>tw",  "<Cmd>Twilight<cr>",            desc = "Toggle twilight" },
       -- Flutter keybindings
-      { "<leader>tr", "<Cmd>FlutterRun<cr>",                               desc = "Flutter Run" },
-      { "<leader>tl", "<Cmd>FlutterReload<cr>",                            desc = "Flutter Reload" },
-      { "<leader>ts", "<Cmd>FlutterRestart<cr>",                           desc = "Flutter Restart" },
-      { "<leader>td", "<Cmd>FlutterDevices<cr>",                           desc = "Flutter Devices" },
-      { "<leader>tp", "<Cmd>FlutterPubGet<cr>",                            desc = "Flutter Pub Get" },
-      { "<leader>tu", "<Cmd>FlutterPubUpgrade<cr>",                        desc = "Flutter Pub Upgrade" },
-      { "<leader>tq", "<Cmd>FlutterQuit<cr>",                              desc = "Flutter Quit" },
+      { "<leader>tf",  group = "Flutter tools" },
+      { "<leader>tfr", "<Cmd>FlutterRun<cr>",          desc = "Flutter Run" },
+      { "<leader>tfl", "<Cmd>FlutterReload<cr>",       desc = "Flutter Reload" },
+      { "<leader>tfs", "<Cmd>FlutterRestart<cr>",      desc = "Flutter Restart" },
+      { "<leader>tfd", "<Cmd>FlutterDevices<cr>",      desc = "Flutter Devices" },
+      { "<leader>tfp", "<Cmd>FlutterPubGet<cr>",       desc = "Flutter Pub Get" },
+      { "<leader>tfu", "<Cmd>FlutterPubUpgrade<cr>",   desc = "Flutter Pub Upgrade" },
+      { "<leader>tfq", "<Cmd>FlutterQuit<cr>",         desc = "Flutter Quit" },
+      -- terminal
+      { "<leader>tt",  group = "Terminal tools" },
+      { "<leader>ttf", "<cmd>Lspsaga term_toggle<cr>", desc = "ToggleTerm Float" },
+      {
+        "<leader>tth",
+        function()
+          vim.opt.number = false        -- Toggles line numbers
+          vim.opt.relativenumber = false -- Toggles relative number
+          vim.cmd.vnew()                -- Creates a new vertical window
+          vim.cmd.term()                -- Opens a terminal in the new window
+          vim.cmd.wincmd("J")           -- Moves the terminal window to the bottom of the screen
+          vim.api.nvim_win_set_height(0, 10) -- Sets the height of the current window to 10 lines
+        end,
+        desc = "ToggleTerm Horizontal",
+      },
 
       -- trouble
       { "<leader>x",  group = "Trouble tools" },
 
       -- resession
       { "<leader>s",  group = "Session Tools" },
-      { "<leader>ss", resession.save,                                      desc = "Save Session" },
-      { "<leader>sl", resession.load,                                      desc = "Load Session" },
-      { "<leader>sd", resession.delete,                                    desc = "Delete Session" },
+      { "<leader>ss", resession.save,         desc = "Save Session" },
+      { "<leader>sl", resession.load,         desc = "Load Session" },
+      { "<leader>sd", resession.delete,       desc = "Delete Session" },
     })
   end,
 }
