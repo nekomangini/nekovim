@@ -27,7 +27,6 @@ return {
           "html",
           "lua_ls",
           -- "prettier",
-          "perlnavigator",
           "raku_navigator",
           "rust_analyzer",
           "taplo",
@@ -98,23 +97,6 @@ return {
                   new_config.init_options.typescript.tsdk = lib_path
                 end
               end,
-            })
-          end,
-
-          -- install perlnavigator `sudo npm install -g perlnavigator-server`
-          ["perlnavigator"] = function()
-            require("lspconfig").perlnavigator.setup({
-              capabilities = lsp_capabilities,
-              cmd = { "perlnavigator" },
-              settings = {
-                perlnavigator = {
-                  perlPath = "perl",
-                  enableWarnings = true,
-                  perltidyProfile = "",
-                  perlcriticProfile = "",
-                  perlcriticEnabled = true,
-                },
-              },
             })
           end,
 
