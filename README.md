@@ -1,11 +1,13 @@
 ## TODO
 
 ### Fix
+
 - **LSP**
-  - [X] Dart/Flutter
-  - [X] Lua
-  - [X] Go
-  - [ ] React.js
+  - [x] Dart/Flutter
+  - [x] Lua
+  - [x] Go
   - [ ] Vue.js
-  
+  - [ ] Autocompletion(lua)
+  - [ ] React.js
+  - [ ] Formatting
 - removed dap
