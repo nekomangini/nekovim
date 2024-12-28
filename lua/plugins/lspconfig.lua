@@ -39,15 +39,14 @@ return {
           -- Lua LSP specific configuration
           ["lua_ls"] = function()
             require("lspconfig").lua_ls.setup({
-              capabilities = lsp_capabilities,
               settings = {
                 Lua = {
                   diagnostics = {
                     globals = { "vim" },
                   },
-                  workspace = {
-                    checkThirdParty = false,
-                  },
+                  -- workspace = {
+                  --   checkThirdParty = false,
+                  -- },
                 },
               },
             })
@@ -60,7 +59,6 @@ return {
               filetypes = {
                 "vue",
               },
-              capabilities = require("cmp_nvim_lsp").default_capabilities(),
               init_options = {
                 vue = {
                   hybridMode = false, -- Full Takeover Mode
@@ -102,7 +100,6 @@ return {
 
           ["raku_navigator"] = function()
             require("lspconfig").raku_navigator.setup({
-              capabilities = lsp_capabilities,
               settings = {
                 raku_navigator = {
                   rakuPath = "raku",
