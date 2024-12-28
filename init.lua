@@ -21,6 +21,7 @@ vim.cmd.colorscheme("gruvbox")
 -- vim.cmd.colorscheme "sorbet"
 -- vim.cmd.colorscheme "zaibatsu"
 
+vim.opt.fillchars:append({ eob = " " }) -- Replace ~ with a space in the end-of-buffer lines
 -- start coq and don't show the greeter message
 -- vim.api.nvim_create_autocmd("VimEnter", {
 --   pattern = "*",
