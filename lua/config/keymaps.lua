@@ -64,3 +64,12 @@ map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>")
 
 -- terminal
 -- map('n', '<leader>ft', '<cmd>Lspsaga term_toggle<cr>')
+
+-- lsp keybind
+map("n", "K", "<cmd>Lspsaga hover_doc<cr>")
+map("n", "gr", "<cmd>Lspsaga finder<cr>")
+map("n", "gi", "<cmd>Lspsaga finder imp<cr>")
+map("n", "gd", vim.lsp.buf.definition)
+map("n", "gD", vim.lsp.buf.declaration)
+map("n", "go", vim.lsp.buf.type_definition)
+map("n", "gs", vim.lsp.buf.signature_help)
