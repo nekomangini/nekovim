@@ -8,7 +8,6 @@ return {
       -- When you run FlutterDevices a popup will show up and that is the dressing.nvim
     },
     -- config = true,
-    -- TODO:
     config = function()
       -- local on_attach = function(client, bufnr)
       --   -- Define keybindings, etc. for LSP

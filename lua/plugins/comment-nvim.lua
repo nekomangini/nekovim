@@ -16,6 +16,7 @@ return {
       --    end
       --  end,
     },
+    -- TODO:
     config = function()
       local ft = require('Comment.ft')
 

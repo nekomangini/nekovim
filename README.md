@@ -6,8 +6,8 @@
   - [x] Dart/Flutter
   - [x] Lua
   - [x] Go
-  - [ ] Vue.js
-  - [ ] Autocompletion(lua)
-  - [ ] React.js
+  - [x] Vue.js
+  - [x] React.js
+  - [x] Autocompletion(lua)
   - [ ] Formatting
 - removed dap

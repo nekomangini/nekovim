@@ -12,7 +12,7 @@ vim.opt.wrap = false
 -- vim.cmd.colorscheme "tokyonight"
 vim.cmd.colorscheme("gruvbox")
 -- vim.cmd.colorscheme "bamboo"
--- vim.cmd.colorscheme "cyberdream"
+-- vim.cmd.colorscheme("cyberdream")
 -- vim.cmd.colorscheme "nordic"
 -- vim.cmd.colorscheme "duskfox"
 
