@@ -18,7 +18,7 @@ return {
           "gopls",
           "html",
           "lua_ls",
-          -- "prettier",
+          "marksman",
           "raku_navigator",
           "rust_analyzer",
           "taplo",
@@ -104,6 +104,7 @@ return {
       })
     end,
   },
+  -- lsp ui
   {
     "nvimdev/lspsaga.nvim",
     dependencies = {
@@ -120,6 +121,7 @@ return {
       })
     end,
   },
+  -- formatter
   {
     "nvimtools/none-ls.nvim",
     requires = { "nvim-lua/plenary.nvim" },
@@ -139,7 +141,33 @@ return {
       })
     end,
   },
-  -- autocompletion
+  {
+    "stevearc/conform.nvim",
+    opts = {},
+    config = function()
+      require("conform").setup({
+        formatters_by_ft = {
+          lua = { "stylua" },
+
+          -- You can customize some of the format options for the filetype (:help conform.format)
+          rust = { "rustfmt", lsp_format = "fallback" },
+
+          -- Conform will run the first available formatter
+          javascript = { "prettierd", "prettier", stop_after_first = true },
+          html = { "prettierd", "prettier", stop_after_first = true },
+          css = { "prettierd", "prettier", stop_after_first = true },
+          scss = { "prettierd", "prettier", stop_after_first = true },
+          less = { "prettierd", "prettier", stop_after_first = true },
+          postcss = { "prettierd", "prettier", stop_after_first = true },
+
+          -- TODO:
+          markdown = { "prettierd", "prettier", stop_after_first = true },
+          go = { "goimports", "gofmt", lsp_format = "last" },
+        },
+      })
+    end,
+  },
+  -- snippet
   {
     "L3MON4D3/LuaSnip",
     -- follow latest release.
@@ -151,6 +179,7 @@ return {
       "rafamadriz/friendly-snippets",
     },
   },
+  -- autocompletion
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
