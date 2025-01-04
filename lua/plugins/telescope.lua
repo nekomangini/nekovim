@@ -41,30 +41,30 @@ return {
     -- Load the FZF extension
     pcall(telescope.load_extension, 'fzf')
   end,
-  keys = {
-    { "<leader>fc", "<cmd>Telescope commands<cr>",                  desc = "Commands" },
-    { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
-    { "<leader>fl", "<cmd>Telescope live_grep<cr>",                 desc = "Live Grep" },
-    { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Help Tags" },
-    { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Keymaps" },
-    { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                  desc = "Recent Files" },
-    { "<leader>fs", "<cmd>Telescope grep_string<cr>",               desc = "Find Word Definition" },
-    { "<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Find in Buffer" },
-    {
-      "<leader>fw",
-      function()
-        local word = vim.fn.expand("<cword>")
-        require('telescope.builtin').current_buffer_fuzzy_find({
-          default_text = word,
-          prompt_title = 'Search in Current Buffer'
-        })
-      end,
-      desc = "Search word under cursor in buffer",
-    }
+  -- keys = {
+    -- { "<leader>fc", "<cmd>Telescope commands<cr>",                  desc = "Commands" },
+    -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
+    -- { "<leader>fl", "<cmd>Telescope live_grep<cr>",                 desc = "Live Grep" },
+    -- { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Help Tags" },
+    -- { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Keymaps" },
+    -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                  desc = "Recent Files" },
+    -- { "<leader>fs", "<cmd>Telescope grep_string<cr>",               desc = "Find Word Definition" },
+    -- { "<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Find in Buffer" },
+    -- {
+    --   "<leader>fw",
+    --   function()
+    --     local word = vim.fn.expand("<cword>")
+    --     require('telescope.builtin').current_buffer_fuzzy_find({
+    --       default_text = word,
+    --       prompt_title = 'Search in Current Buffer'
+    --     })
+    --   end,
+    --   desc = "Search word under cursor in buffer",
+    -- }
     -- { "<leader>fb", "<cmd>Telescope buffers<cr>",     desc = "Find Buffers" },
 
     -- { "<leader>fn", "<cmd>enew<cr>",                  desc = "New File" },
     -- { "<leader>w",  proxy = "<c-w>",                  group = "windows" },
     -- {
-  },
+  -- },
 }
