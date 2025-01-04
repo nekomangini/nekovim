@@ -207,8 +207,29 @@ return {
         end,
         desc = "Select and open buffer in vertical split",
       },
-      -- file
-      { "<leader>f", group = "Find" },
+      -- Telescope
+      { "<leader>f",  group = "Find" },
+      { "<leader>fc", "<cmd>Telescope commands<cr>",                  desc = "Find Commands" },
+      { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Find Help" },
+      { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Find Keymaps" },
+      { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                  desc = "Find Recent Files" },
+      { "<leader>fn", "<cmd>Telescope notify<cr>",                    desc = "Find Notifications" },
+      { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
+      { "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find Words in Current Buffer" },
+      { "<leader>fW", "<cmd>Telescope live_grep<cr>",                 desc = "Find Words In All Files" },
+      {
+        "<leader>fc",
+        function()
+          local word = vim.fn.expand("<cword>")
+          require("telescope.builtin").current_buffer_fuzzy_find({
+            default_text = word,
+            prompt_title = "Search in Current Buffer",
+          })
+        end,
+        desc = "Find Word References in Current Buffer",
+      },
+      { "<leader>fC", "<cmd>Telescope grep_string<cr>", desc = "Find Word References in Active Directory" },
+      { "<leader>ft", "<cmd>TodoTelescope<cr>",         desc = "Find TODO" },
       -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
       -- { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
       -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", },
@@ -216,13 +237,13 @@ return {
       -- { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
 
       -- { "<leader>q", group = "quit"},
-      { "<leader>Q", "<cmd>wq<cr>",    desc = "Save and Quit" },
-      { "<leader>q", "<cmd>q<cr>",     desc = "Quit" },
+      { "<leader>Q",  "<cmd>wq<cr>",                    desc = "Save and Quit" },
+      { "<leader>q",  "<cmd>q<cr>",                     desc = "Quit" },
 
-      { "<leader>w", "<cmd>w<cr>",     desc = "Save" },
+      { "<leader>w",  "<cmd>w<cr>",                     desc = "Save" },
 
       -- lazy and mason
-      { "<leader>p", group = "Plugins" },
+      { "<leader>p",  group = "Plugins" },
       {
         "<leader>pu",
         "<cmd>Lazy update<cr><cmd>MasonUpdate<cr>",
@@ -287,22 +308,22 @@ return {
         desc = "Toggle Comment",
       },
 
-      -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word
       { "<leader>t",   group = "Extra tools" },
-      {
-        "<leader>tn",
-        function()
-          require("todo-comments").jump_next()
-        end,
-        desc = "Next todo comment",
-      },
-      {
-        "<leader>tp",
-        function()
-          require("todo-comments").jump_prev()
-        end,
-        desc = "Next todo comment",
-      },
+      -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word
+      -- {
+      --   "<leader>tn",
+      --   function()
+      --     require("todo-comments").jump_next()
+      --   end,
+      --   desc = "Next todo comment",
+      -- },
+      -- {
+      --   "<leader>tp",
+      --   function()
+      --     require("todo-comments").jump_prev()
+      --   end,
+      --   desc = "Next todo comment",
+      -- },
       -- You can also specify a list of valid jump keywords
       -- vim.keymap.set("n", "]t", function()
       --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
@@ -335,6 +356,36 @@ return {
 
       -- trouble
       { "<leader>x",  group = "Trouble tools" },
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>xl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
 
       -- resession
       { "<leader>s",  group = "Session Tools" },
