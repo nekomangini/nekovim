@@ -12,19 +12,10 @@ return {
       require("mason-lspconfig").setup({
         -- auto_install = true, -- automatically install a language
         ensure_installed = {
-          "cssls",
-          "emmet_ls",
-          "eslint",
-          "gopls",
-          "html",
           "lua_ls",
           "marksman",
-          "raku_navigator",
           "rust_analyzer",
           "taplo",
-          "ts_ls",
-          "volar",
-          "vtsls",
         },
         handlers = {
           function(server_name)
@@ -46,60 +37,6 @@ return {
             })
           end,
 
-          -- Vue (Volar) configuration with Takeover Mode
-          ["volar"] = function()
-            require("lspconfig").volar.setup({
-              filetypes = {
-                "vue",
-              },
-              init_options = {
-                vue = {
-                  hybridMode = false, -- Full Takeover Mode
-                },
-                typescript = {
-                  tsdk = "/usr/local/lib/node_modules/typescript/lib",
-                },
-                autoUseWorkspaceTsdk = true,
-                suggestFromUnimportedLibraries = true,
-                preferences = {
-                  importModuleSpecifier = "non-relative",
-                },
-              },
-              on_new_config = function(new_config, new_root_dir)
-                local function find_typescript_lib(root)
-                  local possible_paths = {
-                    root .. "/node_modules/typescript/lib",
-                    "/usr/local/lib/node_modules/typescript/lib",
-                    vim.fn.expand("~/.npm/lib/node_modules/typescript/lib"),
-                    vim.fn.expand("~/.local/lib/node_modules/typescript/lib"),
-                  }
-
-                  for _, path in ipairs(possible_paths) do
-                    if vim.fn.filereadable(path .. "/typescript.js") == 1 then
-                      return path
-                    end
-                  end
-
-                  return nil
-                end
-
-                local lib_path = find_typescript_lib(new_root_dir)
-                if lib_path then
-                  new_config.init_options.typescript.tsdk = lib_path
-                end
-              end,
-            })
-          end,
-
-          ["raku_navigator"] = function()
-            require("lspconfig").raku_navigator.setup({
-              settings = {
-                raku_navigator = {
-                  rakuPath = "raku",
-                },
-              },
-            })
-          end,
         },
       })
     end,
@@ -152,17 +89,8 @@ return {
           -- You can customize some of the format options for the filetype (:help conform.format)
           rust = { "rustfmt", lsp_format = "fallback" },
 
-          -- Conform will run the first available formatter
-          javascript = { "prettierd", "prettier", stop_after_first = true },
-          html = { "prettierd", "prettier", stop_after_first = true },
-          css = { "prettierd", "prettier", stop_after_first = true },
-          scss = { "prettierd", "prettier", stop_after_first = true },
-          less = { "prettierd", "prettier", stop_after_first = true },
-          postcss = { "prettierd", "prettier", stop_after_first = true },
-
           -- TODO:
           markdown = { "prettierd", "prettier", stop_after_first = true },
-          go = { "goimports", "gofmt", lsp_format = "last" },
         },
       })
     end,
