@@ -16,7 +16,6 @@ return {
           "luap",
           "markdown",
           "markdown_inline",
-          "rust",
           "toml",
           "vim",
           "vimdoc",

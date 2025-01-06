@@ -14,7 +14,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "marksman",
-          "rust_analyzer",
+          "yamlls",
           "taplo",
         },
         handlers = {
@@ -36,7 +36,6 @@ return {
               },
             })
           end,
-
         },
       })
     end,
