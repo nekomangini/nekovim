@@ -102,10 +102,6 @@ return {
 
       { "<leader>e",  "<cmd>Oil --float<cr>",       desc = "Open oil.nvim in a floating window" },
 
-      -- { "ge",         "G",                          desc = "moves the cursor to the last line of the file" },
-      -- { 'gl',         '$',                          desc = "moves the cursor to the end of the current line" },
-      -- { 'gh',         '0',                          desc = "moves the cursor to the beginning of the current line" },
-
       -- buffer
       { "<leader>b",  group = "Buffer" },
       { "<leader>bD", "<cmd>bdelete!<cr>",          desc = "Force Delete Buffer" },
@@ -148,7 +144,6 @@ return {
         desc = "Select and close buffer",
       },
 
-      -- New buffer commands
       -- Close all buffers
       {
         "<leader>bC",
@@ -207,18 +202,27 @@ return {
         end,
         desc = "Select and open buffer in vertical split",
       },
+      -- Flutter keybindings
+      { "<leader>f",  group = "Flutter tools" },
+      { "<leader>fr", "<Cmd>FlutterRun<cr>",                          desc = "Flutter Run" },
+      { "<leader>fl", "<Cmd>FlutterReload<cr>",                       desc = "Flutter Reload" },
+      { "<leader>fs", "<Cmd>FlutterRestart<cr>",                      desc = "Flutter Restart" },
+      { "<leader>fd", "<Cmd>FlutterDevices<cr>",                      desc = "Flutter Devices" },
+      { "<leader>fp", "<Cmd>FlutterPubGet<cr>",                       desc = "Flutter Pub Get" },
+      { "<leader>fu", "<Cmd>FlutterPubUpgrade<cr>",                   desc = "Flutter Pub Upgrade" },
+      { "<leader>fq", "<Cmd>FlutterQuit<cr>",                         desc = "Flutter Quit" },
       -- Telescope
-      { "<leader>f",  group = "Find" },
-      { "<leader>fc", "<cmd>Telescope commands<cr>",                  desc = "Find Commands" },
-      { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Find Help" },
-      { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Find Keymaps" },
-      { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                  desc = "Find Recent Files" },
-      { "<leader>fn", "<cmd>Telescope notify<cr>",                    desc = "Find Notifications" },
-      { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
-      { "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find Words in Current Buffer" },
-      { "<leader>fW", "<cmd>Telescope live_grep<cr>",                 desc = "Find Words In All Files" },
+      { "<leader>s",  group = "Search" },
+      { "<leader>sH", "<cmd>Telescope commands<cr>",                  desc = "Search Commands" },
+      { "<leader>sh", "<cmd>Telescope help_tags<cr>",                 desc = "Search Help" },
+      { "<leader>sk", "<cmd>Telescope keymaps<cr>",                   desc = "Search Keymaps" },
+      { "<leader>sr", "<cmd>Telescope oldfiles<cr>",                  desc = "Search Recent Files" },
+      { "<leader>sn", "<cmd>Telescope notify<cr>",                    desc = "Search Notifications" },
+      { "<leader>sf", "<cmd>Telescope find_files<cr>",                desc = "Search Files" },
+      { "<leader>sw", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search Words in Current Buffer" },
+      { "<leader>sW", "<cmd>Telescope live_grep<cr>",                 desc = "Search Words In All Files" },
       {
-        "<leader>fc",
+        "<leader>sc",
         function()
           local word = vim.fn.expand("<cword>")
           require("telescope.builtin").current_buffer_fuzzy_find({
@@ -228,8 +232,8 @@ return {
         end,
         desc = "Find Word References in Current Buffer",
       },
-      { "<leader>fC", "<cmd>Telescope grep_string<cr>", desc = "Find Word References in Active Directory" },
-      { "<leader>ft", "<cmd>TodoTelescope<cr>",         desc = "Find TODO" },
+      { "<leader>sC", "<cmd>Telescope grep_string<cr>", desc = "Find Word References in Active Directory" },
+      { "<leader>st", "<cmd>TodoTelescope<cr>",         desc = "Find TODO" },
       -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
       -- { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
       -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", },
@@ -287,7 +291,7 @@ return {
       { "<leader>lj", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
       { "<leader>lk", vim.diagnostic.goto_prev, desc = "Previous Diagnostic" },
 
-      -- New home keybind for alpha.nvim
+      -- Home keybind for alpha.nvim
       { "<leader>h",  "<cmd>Alpha<cr>",         desc = "Home Screen" },
 
       { "<leader>n",  "<cmd>enew<cr>",          desc = "New File" },
@@ -308,7 +312,7 @@ return {
         desc = "Toggle Comment",
       },
 
-      { "<leader>t",   group = "Extra tools" },
+      -- { "<leader>t",   group = "Extra tools" },
       -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word
       -- {
       --   "<leader>tn",
@@ -328,21 +332,11 @@ return {
       -- vim.keymap.set("n", "]t", function()
       --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
       -- end, { desc = "Next error/warning todo comment" })
-      { "<leader>tw",  "<Cmd>Twilight<cr>",            desc = "Toggle twilight" },
-      -- Flutter keybindings
-      { "<leader>tf",  group = "Flutter tools" },
-      { "<leader>tfr", "<Cmd>FlutterRun<cr>",          desc = "Flutter Run" },
-      { "<leader>tfl", "<Cmd>FlutterReload<cr>",       desc = "Flutter Reload" },
-      { "<leader>tfs", "<Cmd>FlutterRestart<cr>",      desc = "Flutter Restart" },
-      { "<leader>tfd", "<Cmd>FlutterDevices<cr>",      desc = "Flutter Devices" },
-      { "<leader>tfp", "<Cmd>FlutterPubGet<cr>",       desc = "Flutter Pub Get" },
-      { "<leader>tfu", "<Cmd>FlutterPubUpgrade<cr>",   desc = "Flutter Pub Upgrade" },
-      { "<leader>tfq", "<Cmd>FlutterQuit<cr>",         desc = "Flutter Quit" },
       -- terminal
-      { "<leader>tt",  group = "Terminal tools" },
-      { "<leader>ttf", "<cmd>Lspsaga term_toggle<cr>", desc = "ToggleTerm Float" },
+      { "<leader>t",  group = "Terminal tools" },
+      { "<leader>tf", "<cmd>Lspsaga term_toggle<cr>", desc = "ToggleTerm Float" },
       {
-        "<leader>tth",
+        "<leader>th",
         function()
           vim.opt.number = false        -- Toggles line numbers
           vim.opt.relativenumber = false -- Toggles relative number
@@ -355,7 +349,8 @@ return {
       },
 
       -- trouble
-      { "<leader>x",  group = "Trouble tools" },
+      { "<leader>x",  group = "Tools" },
+      { "<leader>xt", "<Cmd>Twilight<cr>", desc = "Toggle twilight" },
       {
         "<leader>xx",
         "<cmd>Trouble diagnostics toggle<cr>",
@@ -388,34 +383,10 @@ return {
       },
 
       -- resession
-      { "<leader>s",  group = "Session Tools" },
-      { "<leader>ss", resession.save,         desc = "Save Session" },
-      { "<leader>sl", resession.load,         desc = "Load Session" },
-      { "<leader>sd", resession.delete,       desc = "Delete Session" },
+      { "<leader>S",  group = "Session tools" },
+      { "<leader>Ss", resession.save,         desc = "Save Session" },
+      { "<leader>Sl", resession.load,         desc = "Load Session" },
+      { "<leader>Sd", resession.delete,       desc = "Delete Session" },
     })
   end,
 }
-
--- default config
--- return {
---   "folke/which-key.nvim",
---   event = "VeryLazy",
---   init = function()
---     vim.o.timeout = true
---     vim.o.timeoutlen = 500
---   end,
---   opts = {
---     -- your configuration comes here
---     -- or leave it empty to use the default settings
---     -- refer to the configuration section below
---   },
---   keys = {
---     {
---       "<leader>?",
---       function()
---         require("which-key").show({ global = false })
---       end,
---       desc = "Buffer Local Keymaps (which-key)",
---     },
---   },
--- }
