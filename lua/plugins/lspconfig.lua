@@ -4,6 +4,7 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -38,21 +39,16 @@ return {
           end,
         },
       })
-    end,
-  },
-  -- lsp ui
-  {
-    "nvimdev/lspsaga.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons",  -- optional
-    },
-    event = "LspAttach",              -- Load when LSP attaches
-    config = function()
-      require("lspsaga").setup({
-        ui = {
-          enable = true,
-          sign = true,
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "lua-language-server",
+          "prettier",
+          "prettierd",
+          "selene",
+          "stylua",
+          "marksman",
+          "yaml-language-server",
+          "yamlfix",
         },
       })
     end,
@@ -82,12 +78,25 @@ return {
       require("conform").setup({
         formatters_by_ft = {
           lua = { "stylua" },
-
-          -- You can customize some of the format options for the filetype (:help conform.format)
-          rust = { "rustfmt", lsp_format = "fallback" },
-
-          -- TODO:
-          markdown = { "prettierd", "prettier", stop_after_first = true },
+          yaml = { "yamlfix" },
+          markdown = { "prettier", "prettierd", stop_after_first = true },
+        },
+      })
+    end,
+  },
+  -- lsp ui
+  {
+    "nvimdev/lspsaga.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons",  -- optional
+    },
+    event = "LspAttach",              -- Load when LSP attaches
+    config = function()
+      require("lspsaga").setup({
+        ui = {
+          enable = true,
+          sign = true,
         },
       })
     end,
