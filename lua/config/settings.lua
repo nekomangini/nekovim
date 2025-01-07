@@ -20,3 +20,19 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt.expandtab = true -- Use spaces instead of tabs
   end,
 })
+
+-- Autocommand for markdown files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- Set indentation preferences
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+    -- Disable automatic indentation for markdown
+    vim.opt_local.autoindent = false
+    vim.opt_local.smartindent = false
+    vim.opt_local.cindent = false
+  end,
+})
+

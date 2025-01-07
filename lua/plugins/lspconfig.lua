@@ -4,6 +4,7 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -25,6 +26,7 @@ return {
           "ts_ls",
           "volar",
           "vtsls",
+          "yamlls",
         },
         handlers = {
           function(server_name)
@@ -102,21 +104,18 @@ return {
           end,
         },
       })
-    end,
-  },
-  -- lsp ui
-  {
-    "nvimdev/lspsaga.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons",  -- optional
-    },
-    event = "LspAttach",              -- Load when LSP attaches
-    config = function()
-      require("lspsaga").setup({
-        ui = {
-          enable = true,
-          sign = true,
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "lua-language-server",
+          "marksman",
+          "prettier",
+          "prettierd",
+          "selene",
+          "stylua",
+          "vtsls","eslint-lsp",
+          "vue-language-server",
+          "yaml-language-server",
+          "yamlfix",
         },
       })
     end,
@@ -163,6 +162,23 @@ return {
           -- TODO:
           markdown = { "prettierd", "prettier", stop_after_first = true },
           go = { "goimports", "gofmt", lsp_format = "last" },
+        },
+      })
+    end,
+  },
+  -- lsp ui
+  {
+    "nvimdev/lspsaga.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons",  -- optional
+    },
+    event = "LspAttach",              -- Load when LSP attaches
+    config = function()
+      require("lspsaga").setup({
+        ui = {
+          enable = true,
+          sign = true,
         },
       })
     end,
