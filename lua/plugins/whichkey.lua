@@ -383,7 +383,7 @@ return {
       },
 
       -- resession
-      { "<leader>S",  group = "Session Tools" },
+      { "<leader>S",  group = "Session tools" },
       { "<leader>Ss", resession.save,         desc = "Save Session" },
       { "<leader>Sl", resession.load,         desc = "Load Session" },
       { "<leader>Sd", resession.delete,       desc = "Delete Session" },
