@@ -9,5 +9,5 @@
   - [x] Vue.js
   - [x] React.js
   - [x] Autocompletion(lua)
-  - [ ] Formatting
+  - [x] Formatting
 - removed dap
