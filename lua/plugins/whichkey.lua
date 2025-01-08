@@ -202,27 +202,18 @@ return {
         end,
         desc = "Select and open buffer in vertical split",
       },
-      -- Flutter keybindings
-      { "<leader>f",  group = "Flutter tools" },
-      { "<leader>fr", "<Cmd>FlutterRun<cr>",                          desc = "Flutter Run" },
-      { "<leader>fl", "<Cmd>FlutterReload<cr>",                       desc = "Flutter Reload" },
-      { "<leader>fs", "<Cmd>FlutterRestart<cr>",                      desc = "Flutter Restart" },
-      { "<leader>fd", "<Cmd>FlutterDevices<cr>",                      desc = "Flutter Devices" },
-      { "<leader>fp", "<Cmd>FlutterPubGet<cr>",                       desc = "Flutter Pub Get" },
-      { "<leader>fu", "<Cmd>FlutterPubUpgrade<cr>",                   desc = "Flutter Pub Upgrade" },
-      { "<leader>fq", "<Cmd>FlutterQuit<cr>",                         desc = "Flutter Quit" },
       -- Telescope
-      { "<leader>s",  group = "Search" },
-      { "<leader>sH", "<cmd>Telescope commands<cr>",                  desc = "Search Commands" },
-      { "<leader>sh", "<cmd>Telescope help_tags<cr>",                 desc = "Search Help" },
-      { "<leader>sk", "<cmd>Telescope keymaps<cr>",                   desc = "Search Keymaps" },
-      { "<leader>sr", "<cmd>Telescope oldfiles<cr>",                  desc = "Search Recent Files" },
-      { "<leader>sn", "<cmd>Telescope notify<cr>",                    desc = "Search Notifications" },
-      { "<leader>sf", "<cmd>Telescope find_files<cr>",                desc = "Search Files" },
-      { "<leader>sw", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search Words in Current Buffer" },
-      { "<leader>sW", "<cmd>Telescope live_grep<cr>",                 desc = "Search Words In All Files" },
+      { "<leader>f",  group = "Find" },
+      { "<leader>fH", "<cmd>Telescope commands<cr>",                  desc = "Find Commands" },
+      { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Find Help" },
+      { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Find Keymaps" },
+      { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                  desc = "Find Recent Files" },
+      { "<leader>fn", "<cmd>Telescope notify<cr>",                    desc = "Find Notifications" },
+      { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
+      { "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find Words in Current Buffer" },
+      { "<leader>fW", "<cmd>Telescope live_grep<cr>",                 desc = "Find Words In All Files" },
       {
-        "<leader>sc",
+        "<leader>fc",
         function()
           local word = vim.fn.expand("<cword>")
           require("telescope.builtin").current_buffer_fuzzy_find({
@@ -232,8 +223,8 @@ return {
         end,
         desc = "Find Word References in Current Buffer",
       },
-      { "<leader>sC", "<cmd>Telescope grep_string<cr>", desc = "Find Word References in Active Directory" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>",         desc = "Find TODO" },
+      { "<leader>fC", "<cmd>Telescope grep_string<cr>", desc = "Find Word References in Active Directory" },
+      { "<leader>ft", "<cmd>TodoTelescope<cr>",         desc = "Find TODO" },
       -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
       -- { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
       -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", },
@@ -333,10 +324,10 @@ return {
       --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
       -- end, { desc = "Next error/warning todo comment" })
       -- terminal
-      { "<leader>t",  group = "Terminal tools" },
-      { "<leader>tf", "<cmd>Lspsaga term_toggle<cr>", desc = "ToggleTerm Float" },
+      { "<leader>T",  group = "Terminal tools" },
+      { "<leader>Tf", "<cmd>Lspsaga term_toggle<cr>", desc = "ToggleTerm Float" },
       {
-        "<leader>th",
+        "<leader>Th",
         function()
           vim.opt.number = false        -- Toggles line numbers
           vim.opt.relativenumber = false -- Toggles relative number
@@ -348,36 +339,37 @@ return {
         desc = "ToggleTerm Horizontal",
       },
 
-      -- trouble
-      { "<leader>x",  group = "Tools" },
-      { "<leader>xt", "<Cmd>Twilight<cr>", desc = "Toggle twilight" },
+      -- tools
+      { "<leader>t",  group = "Tools" },
+      { "<leader>tf", function() require('telescope').extensions.flutter.commands() end, desc = "Flutter Commands" },
+      { "<leader>tt", "<Cmd>Twilight<cr>", desc = "Toggle twilight" },
       {
-        "<leader>xx",
+        "<leader>tx",
         "<cmd>Trouble diagnostics toggle<cr>",
         desc = "Diagnostics (Trouble)",
       },
       {
-        "<leader>xX",
+        "<leader>tX",
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
         desc = "Buffer Diagnostics (Trouble)",
       },
       {
-        "<leader>xs",
+        "<leader>ts",
         "<cmd>Trouble symbols toggle focus=false<cr>",
         desc = "Symbols (Trouble)",
       },
       {
-        "<leader>xl",
+        "<leader>tl",
         "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
         desc = "LSP Definitions / references / ... (Trouble)",
       },
       {
-        "<leader>xL",
+        "<leader>tL",
         "<cmd>Trouble loclist toggle<cr>",
         desc = "Location List (Trouble)",
       },
       {
-        "<leader>xQ",
+        "<leader>tQ",
         "<cmd>Trouble qflist toggle<cr>",
         desc = "Quickfix List (Trouble)",
       },

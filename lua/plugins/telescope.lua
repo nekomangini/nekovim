@@ -40,6 +40,7 @@ return {
 
     -- Load the FZF extension
     pcall(telescope.load_extension, 'fzf')
+    pcall(telescope.load_extension, 'flutter')
   end,
   -- keys = {
     -- { "<leader>fc", "<cmd>Telescope commands<cr>",                  desc = "Commands" },
