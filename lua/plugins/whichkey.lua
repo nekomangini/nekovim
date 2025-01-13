@@ -10,27 +10,27 @@ return {
     wk.setup({
       layout = {
         width = { min = 20 }, -- min and max width of the columns
-        spacing = 5,      -- spacing between columns
+        spacing = 5,          -- spacing between columns
       },
-      show_help = true,   -- show a help message in the command line for using WhichKey
-      show_keys = true,   -- show the currently pressed key and its label as a message in the command line
+      show_help = true,       -- show a help message in the command line for using WhichKey
+      show_keys = true,       -- show the currently pressed key and its label as a message in the command line
       plugins = {
-        marks = true,     -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+        marks = true,         -- shows a list of your marks on ' and `
+        registers = true,     -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
         -- No actual key bindings are created
         spelling = {
-          enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+          enabled = true,   -- enabling this will show WhichKey when pressing z= to select spelling suggestions
           suggestions = 20, -- how many suggestions should be shown in the list?
         },
         presets = {
-          operators = true, -- adds help for operators like d, y, ...
-          motions = true, -- adds help for motions
+          operators = true,    -- adds help for operators like d, y, ...
+          motions = true,      -- adds help for motions
           text_objects = true, -- help for text objects triggered after entering an operator
-          windows = true, -- default bindings on <c-w>
-          nav = true,     -- misc bindings to work with windows
-          z = true,       -- bindings for folds, spelling and others prefixed with z
-          g = true,       -- bindings for prefixed with g
+          windows = true,      -- default bindings on <c-w>
+          nav = true,          -- misc bindings to work with windows
+          z = true,            -- bindings for folds, spelling and others prefixed with z
+          g = true,            -- bindings for prefixed with g
         },
       },
 
@@ -40,8 +40,8 @@ return {
       icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
         -- separator = "➜", -- symbol used between a key and it's label
-        separator = "-", -- symbol used between a key and it's label
-        group = "+",  -- symbol prepended to a group
+        separator = "-",  -- symbol used between a key and it's label
+        group = "+",      -- symbol prepended to a group
         ellipsis = "…",
         -- set to false to disable all mapping icons,
         -- both those explicitely added in a mapping
@@ -202,6 +202,37 @@ return {
         end,
         desc = "Select and open buffer in vertical split",
       },
+
+      -- swap buffers
+      {
+        "<leader>bs",
+        -- Function to swap buffers between two windows
+        function()
+          -- Get the current window and buffer
+          local current_win = vim.api.nvim_get_current_win()
+          local current_buf = vim.api.nvim_win_get_buf(current_win)
+
+          -- Get the list of all windows
+          local windows = vim.api.nvim_list_wins()
+
+          -- Find the other window
+          for _, win in ipairs(windows) do
+            if win ~= current_win then
+              -- Get the buffer in the other window
+              local other_buf = vim.api.nvim_win_get_buf(win)
+
+              -- Swap the buffers
+              vim.api.nvim_win_set_buf(current_win, other_buf)
+              vim.api.nvim_win_set_buf(win, current_buf)
+              return
+            end
+          end
+
+          print("No other window found to swap buffers with!")
+        end,
+        desc = "Swap buffers"
+      },
+
       -- Telescope
       { "<leader>f",  group = "Find" },
       { "<leader>fH", "<cmd>Telescope commands<cr>",                  desc = "Find Commands" },
@@ -329,11 +360,11 @@ return {
       {
         "<leader>Th",
         function()
-          vim.opt.number = false        -- Toggles line numbers
-          vim.opt.relativenumber = false -- Toggles relative number
-          vim.cmd.vnew()                -- Creates a new vertical window
-          vim.cmd.term()                -- Opens a terminal in the new window
-          vim.cmd.wincmd("J")           -- Moves the terminal window to the bottom of the screen
+          vim.opt.number = false             -- Toggles line numbers
+          vim.opt.relativenumber = false     -- Toggles relative number
+          vim.cmd.vnew()                     -- Creates a new vertical window
+          vim.cmd.term()                     -- Opens a terminal in the new window
+          vim.cmd.wincmd("J")                -- Moves the terminal window to the bottom of the screen
           vim.api.nvim_win_set_height(0, 10) -- Sets the height of the current window to 10 lines
         end,
         desc = "ToggleTerm Horizontal",
@@ -342,7 +373,7 @@ return {
       -- tools
       { "<leader>t",  group = "Tools" },
       { "<leader>tf", function() require('telescope').extensions.flutter.commands() end, desc = "Flutter Commands" },
-      { "<leader>tt", "<Cmd>Twilight<cr>", desc = "Toggle twilight" },
+      { "<leader>tt", "<Cmd>Twilight<cr>",                                               desc = "Toggle twilight" },
       {
         "<leader>tx",
         "<cmd>Trouble diagnostics toggle<cr>",
