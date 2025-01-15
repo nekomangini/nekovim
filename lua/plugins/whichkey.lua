@@ -39,14 +39,15 @@ return {
 
       icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-        -- separator = "➜", -- symbol used between a key and it's label
-        separator = "-",  -- symbol used between a key and it's label
+        separator = " ", -- symbol used between a key and it's label
+        -- separator = "-",  -- symbol used between a key and it's label
         group = "+",      -- symbol prepended to a group
         ellipsis = "…",
         -- set to false to disable all mapping icons,
         -- both those explicitely added in a mapping
         -- and those from rules
-        mappings = true,
+        mappings = false,
+        -- TODO:
         rules = {
           { pattern = "find", icon = " ", color = "green" },
           { pattern = "home", icon = "󰋜 ", color = "blue" },
@@ -238,7 +239,9 @@ return {
       { "<leader>fH", "<cmd>Telescope commands<cr>",                  desc = "Find Commands" },
       { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Find Help" },
       { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Find Keymaps" },
-      { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                  desc = "Find Recent Files" },
+      { "<leader>fo", "<cmd>Telescope oldfiles<cr>",                  desc = "Find Recent Files" },
+      { "<leader>fr", "<cmd>Telescope registers<cr>",                 desc = "Find Registers" },
+      { "<leader>f'", "<cmd>Telescope marks<cr>",                     desc = "Find Marks" },
       { "<leader>fn", "<cmd>Telescope notify<cr>",                    desc = "Find Notifications" },
       { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
       { "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find Words in Current Buffer" },
@@ -410,6 +413,14 @@ return {
       { "<leader>Ss", resession.save,         desc = "Save Session" },
       { "<leader>Sl", resession.load,         desc = "Load Session" },
       { "<leader>Sd", resession.delete,       desc = "Delete Session" },
+
+      -- yanky
+      {
+        -- Copy to system clipboard | Normal mode and Visual mode
+        mode = { "n", "v" },
+        { "<leader>y", "\"+y", desc = "Copy to system clipboard" },
+      }
+
     })
   end,
 }
