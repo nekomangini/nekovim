@@ -1,0 +1,44 @@
+- [ ] find astronvim config
+- [X] find buffer
+- [P] find word under cursor
+- [X] find commands
+- [X] find files
+- [P] find all files
+- [P] find git files
+- [X] find help
+- [X] find keymaps
+- [ ] find man
+- [X] find notifications
+- [P] find history
+- [P] find registers
+- [P] find themes
+- [X] find TODO's
+- [X] find words
+- [X] find words in all files
+- [ ] find marks
+- [X] find words in current buffer
+- [ ] resume previous search
+
+to change:
+done Change <leader>fr from old files to find registers
+done Add <leader>fo to find old files(formerly <leader>fr)
+done Add <leader>f' to find marks
+
+keybinds:
+Ctrl ^          - to jump back and forth between buffers
+Ctrl w o        - to close other windows
+/Ctrl-r Ctrl w  - to search the word undercursor
+Ctrl n | Ctrl p - in search to scroll between previous searches
+q/              - to open a buffer for searches
+
+registers:
+press " to see registers
+
+marks:
+press m followed by your desired letter for example a to create a mark
+press ' a to go to your mark
+- using mark to delete
+   press d' and the letter that is registered in your marks for example:
+   d'a - this deletes until the content that is marked with a
+- to delete marks
+   :delmarks
