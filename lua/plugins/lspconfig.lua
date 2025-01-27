@@ -108,6 +108,8 @@ return {
         ensure_installed = {
           "lua-language-server",
           "marksman",
+          "markdownlint-cli2",
+          "markdown-toc",
           "prettier",
           "prettierd",
           "selene",
@@ -128,13 +130,12 @@ return {
     config = function()
       local null_ls = require("null-ls")
 
+      -- TODO:
       null_ls.setup({
         sources = {
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.prettier,
-          null_ls.builtins.formatting.goimports,
+          -- null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.prettierd,
           null_ls.builtins.completion.spell,
-          null_ls.builtins.diagnostics.eslint,
 
           -- require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
         },
@@ -147,23 +148,46 @@ return {
     config = function()
       require("conform").setup({
         formatters_by_ft = {
-          lua = { "stylua" },
+          lua              = { "stylua" },
 
           -- You can customize some of the format options for the filetype (:help conform.format)
-          rust = { "rustfmt", lsp_format = "fallback" },
+          rust             = { "rustfmt", lsp_format = "fallback" },
 
           -- Conform will run the first available formatter
-          javascript = { "prettierd", "prettier", stop_after_first = true },
-          html = { "prettierd", "prettier", stop_after_first = true },
-          css = { "prettierd", "prettier", stop_after_first = true },
-          scss = { "prettierd", "prettier", stop_after_first = true },
-          less = { "prettierd", "prettier", stop_after_first = true },
-          postcss = { "prettierd", "prettier", stop_after_first = true },
+          javascript       = { "prettierd", "prettier", stop_after_first = true },
+          html             = { "prettierd", "prettier", stop_after_first = true },
+          css              = { "prettierd", "prettier", stop_after_first = true },
+          scss             = { "prettierd", "prettier", stop_after_first = true },
+          less             = { "prettierd", "prettier", stop_after_first = true },
+          postcss          = { "prettierd", "prettier", stop_after_first = true },
 
-          -- TODO:
-          markdown = { "prettierd", "prettier", stop_after_first = true },
-          go = { "goimports", "gofmt", lsp_format = "last" },
+          go               = { "goimports", "gofmt", lsp_format = "last" },
+          ["markdown"]     = { "prettierd", "markdownlint-cli2", "markdown-toc" },
+          ["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
         },
+      })
+    end,
+  },
+  -- linting
+  {
+    "mfussenegger/nvim-lint",
+    config = function()
+      local lint = require("lint")
+
+      lint.linters_by_ft = {
+        javascript      = { "eslint_d" },
+        typescript      = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        markdown        = { "markdownlint-cli2" },
+        typescriptreact = { "eslint_d" },
+        vue             = { "eslint_d" },
+      }
+
+      -- Lint on save
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          lint.try_lint()
+        end,
       })
     end,
   },
@@ -172,9 +196,9 @@ return {
     "nvimdev/lspsaga.nvim",
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons",  -- optional
+      "nvim-tree/nvim-web-devicons",     -- optional
     },
-    event = "LspAttach",              -- Load when LSP attaches
+    event = "LspAttach",                 -- Load when LSP attaches
     config = function()
       require("lspsaga").setup({
         ui = {
@@ -214,9 +238,9 @@ return {
         -- Sources for autocompletion
         sources = {
           { name = "nvim_lsp" }, -- Use LSP for autocompletion
-          { name = "luasnip" }, -- luasnip
-          { name = "buffer" }, -- Suggest words from the current buffer
-          { name = "path" }, -- Suggest file paths
+          { name = "luasnip" },  -- luasnip
+          { name = "buffer" },   -- Suggest words from the current buffer
+          { name = "path" },     -- Suggest file paths
         },
         snippet = {
           expand = function(args)
