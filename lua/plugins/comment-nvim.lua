@@ -1,22 +1,10 @@
 return {
   {
     'numToStr/Comment.nvim',
-    opts = {
-      -- add any options here
-      --  pre_hook = function(ctx)
-      --    local U = require('Comment.utils')
-
-      --    -- Determine whether to use // or <!-- --> based on file type
-      --    local line = vim.api.nvim_get_current_line()
-
-      --    if line:match("^%s*<script") then
-      --      return "// "
-      --    elseif line:match("^%s*<template") then
-      --      return "<!---->"
-      --    end
-      --  end,
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
     },
-    -- TODO:
+    opts = {},
     config = function()
       local ft = require('Comment.ft')
 
@@ -32,6 +20,8 @@ return {
         },
       })
       require('Comment').setup({
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+
         mappings = {
           basic = false, -- Disable the default `gcc`, `gc` mappings
           extra = false,
