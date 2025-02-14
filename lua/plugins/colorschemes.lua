@@ -192,43 +192,43 @@ return {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
+    opts = {
+      variant = "default",     -- use "light" for the light variant. Also accepts "auto" to set dark or light colors based on the current value of `vim.o.background`
+      highlights = {
+        -- Highlight groups to override, adding new groups is also possible
+        -- See `:h highlight-groups` for a list of highlight groups or run `:hi` to see all groups and their current values
+
+        -- Example:
+        Comment = { fg = "#696969", bg = "NONE", italic = true },
+
+        -- Complete list can be found in `lua/cyberdream/theme.lua`
+      },
+
+      -- Override a highlight group entirely using the color palette
+      -- NOTE: This function nullifies the `highlights` option
+      overrides = function(colors)
+        -- Example:
+        return {
+          Comment       = { fg = colors.green, bg = "NONE", italic = true },
+          ["@property"] = { fg = colors.magenta, bold = true },
+        }
+      end,
+
+      -- Disable or enable colorscheme extensions
+      extensions = {
+        telescope = true,
+        notify    = true,
+        mini      = true,
+      },
+    },
     config = function()
       require("cyberdream").setup({
-        transparent = false,         -- Enable transparent background
-        italic_comments = false,     -- Enable italics comments
-        hide_fillchars = false,      -- Replace all fillchars with ' ' for the ultimate clean look
-        borderless_telescope = true, -- Modern borderless telescope theme - also applies to fzf-lua
-        terminal_colors = true,      -- Set terminal colors used in `:terminal`
-        cache = false,               -- Improve start up time by caching highlights. Generate cache with :CyberdreamBuildCache and clear with :CyberdreamClearCache
-        theme = {
-          variant = "default",       -- use "light" for the light variant. Also accepts "auto" to set dark or light colors based on the current value of `vim.o.background`
-          highlights = {
-            -- Highlight groups to override, adding new groups is also possible
-            -- See `:h highlight-groups` for a list of highlight groups or run `:hi` to see all groups and their current values
-
-            -- Example:
-            Comment = { fg = "#696969", bg = "NONE", italic = true },
-
-            -- Complete list can be found in `lua/cyberdream/theme.lua`
-          },
-
-          -- Override a highlight group entirely using the color palette
-          -- NOTE: This function nullifies the `highlights` option
-          overrides = function(colors)
-            -- Example:
-            return {
-              Comment       = { fg = colors.green, bg = "NONE", italic = true },
-              ["@property"] = { fg = colors.magenta, bold = true },
-            }
-          end,
-
-          -- Disable or enable colorscheme extensions
-          extensions = {
-            telescope = true,
-            notify    = true,
-            mini      = true,
-          },
-        },
+        transparent = false,       -- Enable transparent background
+        italic_comments = false,   -- Enable italics comments
+        hide_fillchars = false,    -- Replace all fillchars with ' ' for the ultimate clean look
+        borderless_pickers = true, -- Modern borderless telescope theme - also applies to fzf-lua
+        terminal_colors = true,    -- Set terminal colors used in `:terminal`
+        cache = false,             -- Improve start up time by caching highlights. Generate cache with :CyberdreamBuildCache and clear with :CyberdreamClearCache
       })
     end,
   },
