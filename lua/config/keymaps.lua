@@ -1,7 +1,7 @@
---exit insert mode
--- map({ "i", "jk"}, "<ESC>",{ desc = "exit insert mode", remap = true })
-
 local map = vim.keymap.set
+
+--exit insert mode
+map("i", "jk", "<ESC>")
 
 -- Map Ctrl+h to move to the left window
 map("n", "<C-h>", "<C-w>h", { noremap = true, silent = true })
@@ -63,6 +63,9 @@ map("n", "=P", "<Plug>(YankyPutBeforeFilter)")
 
 map("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 map("n", "<c-n>", "<Plug>(YankyNextEntry)")
+
+-- delete without copying
+map({ "n", "v" }, "<leader>d", "\"_d", { desc = "delete without copying" })
 
 -- Shift current line down in normal mode
 map("n", "<M-j>", ":m .+1<CR>==")
