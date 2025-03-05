@@ -41,10 +41,6 @@ return {
 					"xml",
 					"yaml",
 				},
-				context_commentstring = {
-					enable = true,
-					enable_autocmd = false,
-				},
 			})
 		end,
 	},
