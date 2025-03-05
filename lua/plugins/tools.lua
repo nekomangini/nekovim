@@ -63,17 +63,11 @@ return {
       local ft = require('Comment.ft')
 
       -- Set comment strings for different file types
-      ft.set('vue', {
-        line = {
-          script = '//%s',        -- Line comment for <script>
-          template = '<!---->',   -- Line comment for <template>
-        },
-        block = {
-          script = '/*%s*/',      -- Block comment for <script>
-          template = '<!---->',   -- Block comment for <template>
-        },
-      })
+      ft.vue = {'//%s', '/*%s*/'}
+      ft.typescript = {'//%s', '/*%s*/'}
+
       require('Comment').setup({
+        enable_autocmd = false,
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 
         mappings = {

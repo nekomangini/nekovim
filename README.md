@@ -3,5 +3,5 @@
 ## Fix
 
 - [ ] Go
-- [ ] Vue.js
-- [ ] React.js
+- [X] Vue.js
+- [X] React.js
