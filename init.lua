@@ -8,7 +8,10 @@ require("config.settings")
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
-vim.cmd.colorscheme("aurora")
+-- vim.cmd.colorscheme("aurora")
+vim.cmd.colorscheme("iceberg")
+-- vim.cmd.colorscheme("cheshirecat")
+-- vim.cmd.colorscheme("bloodmoon")
 -- vim.cmd.colorscheme "catppuccin"
 -- vim.cmd.colorscheme "tokyonight"
 -- vim.cmd.colorscheme("gruvbox")

@@ -190,23 +190,6 @@ return {
       })
     end,
   },
-  -- lsp ui
-  {
-    "nvimdev/lspsaga.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons",     -- optional
-    },
-    event = "LspAttach",                 -- Load when LSP attaches
-    config = function()
-      require("lspsaga").setup({
-        ui = {
-          enable = true,
-          sign = true,
-        },
-      })
-    end,
-  },
   -- snippet
   {
     "L3MON4D3/LuaSnip",
@@ -222,6 +205,7 @@ return {
   -- lsp ui
   {
     "nvimdev/lspsaga.nvim",
+    -- enabled = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional
       "nvim-tree/nvim-web-devicons",     -- optional
@@ -229,9 +213,11 @@ return {
     event = "LspAttach",                 -- Load when LSP attaches
     config = function()
       require("lspsaga").setup({
-        ui = {
-          enable = true,
-          sign = true,
+        lightbulb = {
+          enable = true,        -- Keep feature enabled
+          sign = false,         -- Disable sign column light bulb
+          virtual_text = false, -- Disable virtual text light bulb
+          enable_in_insert = false,
         },
       })
     end,
