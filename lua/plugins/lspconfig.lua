@@ -56,52 +56,21 @@ return {
               },
             })
           end,
-
-          -- Vue (Volar) configuration with Takeover Mode
-          ["volar"] = function()
-            require("lspconfig").volar.setup({
-              filetypes = {
-                "vue",
-              },
+          ["ts_ls"] = function()
+            lspconfig.ts_ls.setup({
+              capabilities = capabilities,
               init_options = {
-                vue = {
-                  hybridMode = false, -- Full Takeover Mode
-                },
-                typescript = {
-                  tsdk = "/usr/local/lib/node_modules/typescript/lib",
-                },
-                autoUseWorkspaceTsdk = true,
-                suggestFromUnimportedLibraries = true,
-                preferences = {
-                  importModuleSpecifier = "non-relative",
+                plugins = {
+                  {
+                    name = '@vue/typescript-plugin',
+                    location = '/usr/local/lib/node_modules/@vue/language-server',
+                    languages = { 'vue' },
+                  },
                 },
               },
-              on_new_config = function(new_config, new_root_dir)
-                local function find_typescript_lib(root)
-                  local possible_paths = {
-                    root .. "/node_modules/typescript/lib",
-                    "/usr/local/lib/node_modules/typescript/lib",
-                    vim.fn.expand("~/.npm/lib/node_modules/typescript/lib"),
-                    vim.fn.expand("~/.local/lib/node_modules/typescript/lib"),
-                  }
-
-                  for _, path in ipairs(possible_paths) do
-                    if vim.fn.filereadable(path .. "/typescript.js") == 1 then
-                      return path
-                    end
-                  end
-
-                  return nil
-                end
-
-                local lib_path = find_typescript_lib(new_root_dir)
-                if lib_path then
-                  new_config.init_options.typescript.tsdk = lib_path
-                end
-              end,
+              filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
             })
           end,
-
         },
       })
       require("mason-tool-installer").setup({
