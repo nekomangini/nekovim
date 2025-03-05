@@ -60,14 +60,19 @@ return {
     },
     opts = {},
     config = function()
-      local ft = require('Comment.ft')
-
+      require('ts_context_commentstring').setup {
+        enable_autocmd = false,  -- Disable default autocommand
+        languages = {
+          vue = {
+            __default = '//%s',
+            script = '//%s',
+            template = '<!-- %s -->',
+            style = '/* %s */'
+          }
+        }
+      }
       -- Set comment strings for different file types
-      ft.vue = {'//%s', '/*%s*/'}
-      ft.typescript = {'//%s', '/*%s*/'}
-
       require('Comment').setup({
-        enable_autocmd = false,
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 
         mappings = {
