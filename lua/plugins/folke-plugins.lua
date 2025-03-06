@@ -152,27 +152,27 @@ return {
       wk.setup({
         layout = {
           width = { min = 20 }, -- min and max width of the columns
-          spacing = 5,        -- spacing between columns
+          spacing = 5,          -- spacing between columns
         },
-        show_help = true,     -- show a help message in the command line for using WhichKey
-        show_keys = true,     -- show the currently pressed key and its label as a message in the command line
+        show_help = true,       -- show a help message in the command line for using WhichKey
+        show_keys = true,       -- show the currently pressed key and its label as a message in the command line
         plugins = {
-          marks = true,       -- shows a list of your marks on ' and `
-          registers = true,   -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          marks = true,         -- shows a list of your marks on ' and `
+          registers = true,     -- shows your registers on " in NORMAL or <C-r> in INSERT mode
           -- the presets plugin, adds help for a bunch of default keybindings in Neovim
           -- No actual key bindings are created
           spelling = {
-            enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+            enabled = true,   -- enabling this will show WhichKey when pressing z= to select spelling suggestions
             suggestions = 20, -- how many suggestions should be shown in the list?
           },
           presets = {
-            operators = true,  -- adds help for operators like d, y, ...
-            motions = true,    -- adds help for motions
+            operators = true,    -- adds help for operators like d, y, ...
+            motions = true,      -- adds help for motions
             text_objects = true, -- help for text objects triggered after entering an operator
-            windows = true,    -- default bindings on <c-w>
-            nav = true,        -- misc bindings to work with windows
-            z = true,          -- bindings for folds, spelling and others prefixed with z
-            g = true,          -- bindings for prefixed with g
+            windows = true,      -- default bindings on <c-w>
+            nav = true,          -- misc bindings to work with windows
+            z = true,            -- bindings for folds, spelling and others prefixed with z
+            g = true,            -- bindings for prefixed with g
           },
         },
 
@@ -431,7 +431,7 @@ return {
         { "<leader>pU", "<cmd>Lazy update<cr>",  desc = "Plugins Update" },
 
         -- git
-        { "<leader>g", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+        { "<leader>g",  "<cmd>LazyGit<cr>",      desc = "LazyGit" },
 
         -- lsp
         { "<leader>l",  group = "Language tools" },
@@ -475,6 +475,103 @@ return {
           mode = { "n", "v" },
           desc = "Toggle Comment",
         },
+        { "<leader>c",  group = "Vue Toggle Comment" },
+        -- { "<leader>cj", "I// <Esc>",                    mode = { "n", "v" },      desc = "Vue Script Toggle Comment" },
+        {
+          "<leader>cj",
+          function()
+            local mode = vim.api.nvim_get_mode().mode
+
+            -- Function to check if a line starts with comment and toggle it
+            local function toggle_comment(line_text)
+              -- Check if the line already starts with "// "
+              if line_text:match("^%s*// ") then
+                -- Remove comment by replacing the first occurrence of "// "
+                return line_text:gsub("^(%s*)// ", "%1", 1)
+              else
+                -- Add comment to the beginning after any whitespace
+                return line_text:gsub("^(%s*)", "%1// ", 1)
+              end
+            end
+
+            if mode == "n" then
+              -- In normal mode, toggle comment on current line
+              local line_num = vim.fn.line(".")
+              local line_text = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
+              local new_text = toggle_comment(line_text)
+              vim.api.nvim_buf_set_lines(0, line_num - 1, line_num, false, { new_text })
+            elseif mode:match("[vV\22]") then -- v, V, or Ctrl+V (block mode)
+              -- Exit visual mode first to ensure marks are set
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
+
+              -- Get the start and end lines, ensuring start <= end
+              local start_line = math.min(vim.fn.line("'<"), vim.fn.line("'>"))
+              local end_line = math.max(vim.fn.line("'<"), vim.fn.line("'>"))
+
+              -- Get all lines in the selection
+              local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+              -- Toggle comments on each line
+              local new_lines = {}
+              for i = 1, #lines do
+                new_lines[i] = toggle_comment(lines[i])
+              end
+
+              -- Replace the lines with the new versions
+              vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, new_lines)
+            end
+          end,
+          mode = { "n", "v" },
+          desc = "Vue Script Toggle Comment",
+        },
+        -- { "<leader>cc", "I/* <Esc>A */<Esc>",           mode = { "n", "v" },      desc = "Vue Style Toggle Comment" },
+        {
+          "<leader>cc",
+          function()
+            local mode = vim.api.nvim_get_mode().mode
+
+            -- Function to check if a line has CSS comment and toggle it
+            local function toggle_comment(line_text)
+              -- Check if the line is already commented with /* */
+              if line_text:match("^%s*/%*") and line_text:match("%*/%s*$") then
+                -- Remove comments by replacing /* at start and */ at end
+                return line_text:gsub("^(%s*)/%*%s*(.-)%s*%*/%s*$", "%1%2")
+              else
+                -- Add comments at start and end
+                return line_text:gsub("^(%s*)(.-)$", "%1/* %2 */")
+              end
+            end
+
+            if mode == "n" then
+              -- In normal mode, toggle comment on current line
+              local line_num = vim.fn.line(".")
+              local line_text = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
+              local new_text = toggle_comment(line_text)
+              vim.api.nvim_buf_set_lines(0, line_num - 1, line_num, false, { new_text })
+            elseif mode:match("[vV\22]") then -- v, V, or Ctrl+V (block mode)
+              -- Exit visual mode first to ensure marks are set
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
+
+              -- Get the start and end lines, ensuring start <= end
+              local start_line = math.min(vim.fn.line("'<"), vim.fn.line("'>"))
+              local end_line = math.max(vim.fn.line("'<"), vim.fn.line("'>"))
+
+              -- Get all lines in the selection
+              local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+              -- Toggle comments on each line
+              local new_lines = {}
+              for i = 1, #lines do
+                new_lines[i] = toggle_comment(lines[i])
+              end
+
+              -- Replace the lines with the new versions
+              vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, new_lines)
+            end
+          end,
+          mode = { "n", "v" },
+          desc = "Vue Style Toggle Comment",
+        },
 
         -- { "<leader>t",   group = "Extra tools" },
         -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word
@@ -502,11 +599,11 @@ return {
         {
           "<leader>Th",
           function()
-            vim.opt.number = false           -- Toggles line numbers
-            vim.opt.relativenumber = false   -- Toggles relative number
-            vim.cmd.vnew()                   -- Creates a new vertical window
-            vim.cmd.term()                   -- Opens a terminal in the new window
-            vim.cmd.wincmd("J")              -- Moves the terminal window to the bottom of the screen
+            vim.opt.number = false             -- Toggles line numbers
+            vim.opt.relativenumber = false     -- Toggles relative number
+            vim.cmd.vnew()                     -- Creates a new vertical window
+            vim.cmd.term()                     -- Opens a terminal in the new window
+            vim.cmd.wincmd("J")                -- Moves the terminal window to the bottom of the screen
             vim.api.nvim_win_set_height(0, 10) -- Sets the height of the current window to 10 lines
           end,
           desc = "ToggleTerm Horizontal",
