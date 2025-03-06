@@ -25,7 +25,7 @@ return {
           "taplo",
           "ts_ls",
           "volar",
-          "vtsls",
+          -- "vtsls",
           "yamlls",
         },
         handlers = {
@@ -71,6 +71,11 @@ return {
               filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
             })
           end,
+          ["volar"] = function ()
+            lspconfig.volar.setup({
+              capabilities = capabilities,
+            })
+          end
         },
       })
       require("mason-tool-installer").setup({

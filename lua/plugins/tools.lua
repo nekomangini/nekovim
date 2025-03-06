@@ -58,31 +58,20 @@ return {
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring',
     },
+    events = "BufReadPost",
     opts = {},
     config = function()
       require('ts_context_commentstring').setup {
-        enable_autocmd = false,  -- Disable default autocommand
-        languages = {
-          vue = {
-            __default = '//%s',
-            script = '//%s',
-            template = '<!-- %s -->',
-            style = '/* %s */'
-          }
-        }
+        enable_autocmd = false,
       }
-      -- Set comment strings for different file types
       require('Comment').setup({
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-
         mappings = {
-          basic = false,   -- Disable the default `gcc`, `gc` mappings
+          basic = false,
           extra = false,
-        }
+        },
       })
     end,
-    -- Optionally add the event to load on demand
-    event = "BufReadPost"
   },
   -- neoscroll.nvim
   {
