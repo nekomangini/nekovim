@@ -8,17 +8,18 @@ require("config.settings")
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
--- vim.cmd.colorscheme("aurora")
-vim.cmd.colorscheme("iceberg")
--- vim.cmd.colorscheme("cheshirecat")
--- vim.cmd.colorscheme("bloodmoon")
--- vim.cmd.colorscheme "catppuccin"
--- vim.cmd.colorscheme "tokyonight"
--- vim.cmd.colorscheme("gruvbox")
 -- vim.cmd.colorscheme "bamboo"
--- vim.cmd.colorscheme("cyberdream")
--- vim.cmd.colorscheme "nordic"
+-- vim.cmd.colorscheme "catppuccin"
 -- vim.cmd.colorscheme "duskfox"
+-- vim.cmd.colorscheme "nordic"
+-- vim.cmd.colorscheme "tokyonight"
+-- vim.cmd.colorscheme("aurora")
+-- vim.cmd.colorscheme("bloodmoon")
+-- vim.cmd.colorscheme("cheshirecat")
+-- vim.cmd.colorscheme("cyberdream")
+vim.cmd.colorscheme("gruvbox")
+-- vim.cmd.colorscheme("iceberg")
+-- vim.cmd.colorscheme("night-owl")
 
 -- vim.cmd.colorscheme "habamax"
 -- vim.cmd.colorscheme "lunaperche"

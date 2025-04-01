@@ -2,14 +2,14 @@ return {
   -- cheshirecat
   {
     "nekomangini/cheshirecat.nvim",
-  	lazy = false,
-  	priority = 1000,
+    lazy = false,
+    priority = 1000,
   },
   -- bloodmoon
   {
-  	"nekomangini/bloodmoon.nvim",
-  	lazy = false,
-  	priority = 1000,
+    "nekomangini/bloodmoon.nvim",
+    lazy = false,
+    priority = 1000,
   },
   -- iceberg
   {
@@ -302,6 +302,18 @@ return {
       vim.cmd.colorscheme("aurora")
       -- override defaults
       vim.api.nvim_set_hl(0, "@number", { fg = "#e933e3" })
+    end,
+  },
+
+  -- night-owl
+  {
+    "oxfist/night-owl.nvim",
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      -- load the colorscheme here
+      require("night-owl").setup()
+      vim.cmd.colorscheme("night-owl")
     end,
   },
 }
