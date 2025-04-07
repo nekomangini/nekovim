@@ -1,8 +1,6 @@
 require("config.lazy")
--- import keymaps from config folder
 require("config.keymaps")
--- import settings from config folder
-require("config.settings")
+require("config.autocmds")
 
 -- vim.opt.termguicolors = true
 vim.opt.number = true
@@ -15,9 +13,9 @@ vim.opt.wrap = false
 -- vim.cmd.colorscheme "tokyonight"
 -- vim.cmd.colorscheme("aurora")
 -- vim.cmd.colorscheme("bloodmoon")
--- vim.cmd.colorscheme("cheshirecat")
+vim.cmd.colorscheme("cheshirecat")
 -- vim.cmd.colorscheme("cyberdream")
-vim.cmd.colorscheme("gruvbox")
+-- vim.cmd.colorscheme("gruvbox")
 -- vim.cmd.colorscheme("iceberg")
 -- vim.cmd.colorscheme("night-owl")
 

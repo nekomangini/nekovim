@@ -89,7 +89,7 @@ return {
           -- you can enable a preset by setting it to true, or a table that will override the preset config
           -- you can also add custom presets that you can enable/disable with enabled=true
           bottom_search = false,        -- use a classic bottom cmdline for search
-          command_palette = false,      -- position the cmdline and popupmenu together
+          command_palette = true,       -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
           inc_rename = true,            -- enables an input dialog for inc-rename.nvim
         },
@@ -241,13 +241,14 @@ return {
       })
       wk.add({
 
-        { "<leader>e",  "<cmd>Oil --float<cr>",       desc = "Open oil.nvim in a floating window" },
+        -- { "<leader>e",  "<cmd>Oil --float<cr>",       desc = "Open oil.nvim in a floating window" },
+        { "<leader>e",  function() Snacks.explorer() end, desc = "File Explorer" },
 
         -- buffer
         { "<leader>b",  group = "Buffer" },
-        { "<leader>bD", "<cmd>bdelete!<cr>",          desc = "Force Delete Buffer" },
-        { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Switch Buffer" },
-        { "<leader>bk", "<cmd>bdelete<cr>",           desc = "Delete Buffer" },
+        { "<leader>bD", "<cmd>bdelete!<cr>",              desc = "Force Delete Buffer" },
+        { "<leader>bb", "<cmd>Telescope buffers<cr>",     desc = "Switch Buffer" },
+        { "<leader>bk", "<cmd>bdelete<cr>",               desc = "Delete Buffer" },
 
         -- Close all buffers except the current one
         {
@@ -376,16 +377,32 @@ return {
 
         -- Telescope
         { "<leader>f",  group = "Find" },
-        { "<leader>fH", "<cmd>Telescope commands<cr>",                  desc = "Find Commands" },
-        { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Find Help" },
-        { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Find Keymaps" },
-        { "<leader>fo", "<cmd>Telescope oldfiles<cr>",                  desc = "Find Recent Files" },
-        { "<leader>fr", "<cmd>Telescope registers<cr>",                 desc = "Find Registers" },
-        { "<leader>f'", "<cmd>Telescope marks<cr>",                     desc = "Find Marks" },
-        { "<leader>fn", "<cmd>Telescope notify<cr>",                    desc = "Find Notifications" },
-        { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
-        { "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find Words in Current Buffer" },
-        { "<leader>fW", "<cmd>Telescope live_grep<cr>",                 desc = "Find Words In All Files" },
+        -- { "<leader>fH", "<cmd>Telescope commands<cr>",                  desc = "Find Commands" },
+        -- { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Find Help" },
+        -- { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Find Keymaps" },
+        -- { "<leader>fr", "<cmd>Telescope registers<cr>",                 desc = "Find Registers" },
+        -- { "<leader>f'", "<cmd>Telescope marks<cr>",                     desc = "Find Marks" },
+        -- { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
+        -- { "<leader>fs", "<cmd>w<cr>",     desc = "Save File" },
+        -- { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
+        -- { "<leader>fC", "<cmd>Telescope grep_string<cr>", desc = "Find Word References in Active Directory" },
+        -- { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Find TODO" },
+        { "<leader>fh", function() Snacks.picker.help() end,               desc = "Help Pages" },
+        { "<leader>fH", function() Snacks.picker.commands() end,           desc = "Commands" },
+        { "<leader>fk", function() Snacks.picker.keymaps() end,            desc = "Keymaps" },
+        { '<leader>f"', function() Snacks.picker.registers() end,          desc = "Registers" },
+        { "<leader>f'", function() Snacks.picker.marks() end,              desc = "Marks" },
+        { "<leader>fd", function() Snacks.picker.diagnostics() end,        desc = "Diagnostics" },
+        { "<leader>fD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
+        { "<leader>fC", function() Snacks.picker.grep_word() end,          desc = "Visual selection or word in Active Directory", mode = { "n", "x" } },
+        { "<leader>fb", function() Snacks.picker.lines() end,              desc = "Buffer Lines" },
+        { "<leader>fu", function() Snacks.picker.undo() end,               desc = "Undo History" },
+        { "<leader>fs", function() Snacks.picker.colorschemes() end,       desc = "Colorschemes" },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                     desc = "Find Recent Files" },
+        { "<leader>fn", "<cmd>Telescope notify<cr>",                       desc = "Find Notifications" },
+        { "<leader>ff", "<cmd>Telescope find_files<cr>",                   desc = "Find Files" },
+        { "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<cr>",    desc = "Find Words in Current Buffer" },
+        { "<leader>fW", "<cmd>Telescope live_grep<cr>",                    desc = "Find Words In All Files" },
         {
           "<leader>fc",
           function()
@@ -397,19 +414,19 @@ return {
           end,
           desc = "Find Word References in Current Buffer",
         },
-        { "<leader>fC", "<cmd>Telescope grep_string<cr>", desc = "Find Word References in Active Directory" },
-        { "<leader>ft", "<cmd>TodoTelescope<cr>",         desc = "Find TODO" },
-        -- { "<leader>ff", "<cmd>Telescope find_files<cr>",                                 desc = "Find File" },
-        -- { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
-        -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", },
-        -- { "<leader>fs", "<cmd>w<cr>",     desc = "Save File" },
-        -- { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
+        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                          desc = "Todo" },
+        { "<leader>fT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+        --
+        -- search
+        -- { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jumps" },
+        -- { "<leader>fl", function() Snacks.picker.loclist() end, desc = "Location List" },
+        -- { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
+        -- { "<leader>fR", function() Snacks.picker.resume() end, desc = "Resume" },
 
         -- { "<leader>q", group = "quit"},
-        { "<leader>Q",  "<cmd>wq<cr>",                    desc = "Save and Quit" },
-        { "<leader>q",  "<cmd>q<cr>",                     desc = "Quit" },
-
-        { "<leader>w",  "<cmd>w<cr>",                     desc = "Save" },
+        { "<leader>Q",  "<cmd>wq<cr>",                                                                         desc = "Save and Quit" },
+        { "<leader>q",  "<cmd>q<cr>",                                                                          desc = "Quit" },
+        { "<leader>w",  "<cmd>w<cr>",                                                                          desc = "Save" },
 
         -- lazy and mason
         { "<leader>p",  group = "Plugins" },
@@ -428,10 +445,19 @@ return {
           "<cmd>Lazy check<cr>",
           desc = "Plugins Check Update",
         },
-        { "<leader>pU", "<cmd>Lazy update<cr>",  desc = "Plugins Update" },
+        { "<leader>pU", "<cmd>Lazy update<cr>",                      desc = "Plugins Update" },
 
         -- git
-        { "<leader>g",  "<cmd>LazyGit<cr>",      desc = "LazyGit" },
+        { "<leader>g",  group = "Git" },
+        { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+        { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
+        { "<leader>gl", function() Snacks.picker.git_log() end,      desc = "Git Log" },
+        { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
+        { "<leader>gs", function() Snacks.picker.git_status() end,   desc = "Git Status" },
+        { "<leader>gS", function() Snacks.picker.git_stash() end,    desc = "Git Stash" },
+        { "<leader>gd", function() Snacks.picker.git_diff() end,     desc = "Git Diff (Hunks)" },
+        { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
+
 
         -- lsp
         { "<leader>l",  group = "Language tools" },
@@ -451,9 +477,6 @@ return {
           end,
           desc = "Format Code",
         },
-        -- { "<leader>lh", vim.lsp.buf.hover, desc = "Hover diagnostics" },
-        -- { "<leader>lj", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
-        -- { "<leader>lk", vim.diagnostic.goto_prev, desc = "Previous Diagnostic" },
 
         -- Home keybind for alpha.nvim
         { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
@@ -594,8 +617,10 @@ return {
         --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
         -- end, { desc = "Next error/warning todo comment" })
         -- terminal
-        { "<leader>T",  group = "Terminal tools" },
-        { "<leader>Tf", "<cmd>Lspsaga term_toggle<cr>", desc = "ToggleTerm Float" },
+        { "<leader>T",  group = "Tools" },
+        { "<leader>Tf", function() require('telescope').extensions.flutter.commands() end, desc = "Flutter Commands" },
+        { "<leader>TF", "<cmd>Lspsaga term_toggle<cr>",                                    desc = "ToggleTerm Float" },
+        { "<leader>TR", function() Snacks.rename.rename_file() end,                        desc = "Rename File" },
         {
           "<leader>Th",
           function()
@@ -608,47 +633,50 @@ return {
           end,
           desc = "ToggleTerm Horizontal",
         },
-
-        -- tools
-        { "<leader>t",  group = "Tools" },
-        { "<leader>tf", function() require('telescope').extensions.flutter.commands() end, desc = "Flutter Commands" },
-        { "<leader>tt", "<Cmd>Twilight<cr>",                                               desc = "Toggle twilight" },
         {
-          "<leader>tx",
+          "<leader>Tx",
           "<cmd>Trouble diagnostics toggle<cr>",
           desc = "Diagnostics (Trouble)",
         },
         {
-          "<leader>tX",
+          "<leader>TX",
           "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
           desc = "Buffer Diagnostics (Trouble)",
         },
         {
-          "<leader>ts",
+          "<leader>Ts",
           "<cmd>Trouble symbols toggle focus=false<cr>",
           desc = "Symbols (Trouble)",
         },
         {
-          "<leader>tl",
+          "<leader>Tl",
           "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
           desc = "LSP Definitions / references / ... (Trouble)",
         },
         {
-          "<leader>tL",
+          "<leader>TL",
           "<cmd>Trouble loclist toggle<cr>",
           desc = "Location List (Trouble)",
         },
         {
-          "<leader>tQ",
+          "<leader>TQ",
           "<cmd>Trouble qflist toggle<cr>",
           desc = "Quickfix List (Trouble)",
         },
 
+        -- Toggle
+        { "<leader>t",  group = "Toggle" },
+        { "<leader>tt", "<Cmd>Twilight<cr>",                           desc = "Toggle twilight" },
+        { "<leader>tz", function() Snacks.zen() end,                   desc = "Toggle Zen Mode" },
+        { "<leader>tZ", function() Snacks.zen.zoom() end,              desc = "Toggle Zoom" },
+        { "<leader>tn", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+
+
         -- resession
         { "<leader>S",  group = "Session tools" },
-        { "<leader>Ss", resession.save,         desc = "Save Session" },
-        { "<leader>Sl", resession.load,         desc = "Load Session" },
-        { "<leader>Sd", resession.delete,       desc = "Delete Session" },
+        { "<leader>Ss", resession.save,                                desc = "Save Session" },
+        { "<leader>Sl", resession.load,                                desc = "Load Session" },
+        { "<leader>Sd", resession.delete,                              desc = "Delete Session" },
 
         -- yanky
         {
@@ -659,5 +687,34 @@ return {
 
       })
     end,
+  },
+  -- snacks
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      bigfile = { enabled = false },
+      dashboard = { enabled = false },
+      explorer = { enabled = false },
+      indent = { enabled = true },
+      input = { enabled = true },
+      notifier = {
+        enabled = true,
+        timeout = 3000,
+      },
+      picker = { enabled = false },
+      quickfile = { enabled = false },
+      scope = { enabled = false },
+      scroll = { enabled = false },
+      statuscolumn = { enabled = false },
+      words = { enabled = false },
+      styles = {
+        notification = {
+          -- wo = { wrap = true } -- Wrap notifications
+        }
+      },
+    },
   }
 }
