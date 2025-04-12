@@ -11,9 +11,9 @@ vim.opt.wrap = false
 -- vim.cmd.colorscheme "duskfox"
 -- vim.cmd.colorscheme "nordic"
 -- vim.cmd.colorscheme "tokyonight"
--- vim.cmd.colorscheme("aurora")
+vim.cmd.colorscheme("aurora")
 -- vim.cmd.colorscheme("bloodmoon")
-vim.cmd.colorscheme("cheshirecat")
+-- vim.cmd.colorscheme("cheshirecat")
 -- vim.cmd.colorscheme("cyberdream")
 -- vim.cmd.colorscheme("gruvbox")
 -- vim.cmd.colorscheme("iceberg")
