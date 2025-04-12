@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name
 return {
   -- todo comments
   {
@@ -241,14 +242,13 @@ return {
       })
       wk.add({
 
-        -- { "<leader>e",  "<cmd>Oil --float<cr>",       desc = "Open oil.nvim in a floating window" },
-        { "<leader>e",  function() Snacks.explorer() end, desc = "File Explorer" },
+        { "<leader>e",  "<cmd>Oil --float<cr>",       desc = "Open oil.nvim in a floating window" },
 
         -- buffer
         { "<leader>b",  group = "Buffer" },
-        { "<leader>bD", "<cmd>bdelete!<cr>",              desc = "Force Delete Buffer" },
-        { "<leader>bb", "<cmd>Telescope buffers<cr>",     desc = "Switch Buffer" },
-        { "<leader>bk", "<cmd>bdelete<cr>",               desc = "Delete Buffer" },
+        { "<leader>bD", "<cmd>bdelete!<cr>",          desc = "Force Delete Buffer" },
+        { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Switch Buffer" },
+        { "<leader>bk", "<cmd>bdelete<cr>",           desc = "Delete Buffer" },
 
         -- Close all buffers except the current one
         {
@@ -376,7 +376,7 @@ return {
         },
 
         -- Telescope
-        { "<leader>f",  group = "Find" },
+        { "<leader>s",  group = "Search" },
         -- { "<leader>fH", "<cmd>Telescope commands<cr>",                  desc = "Find Commands" },
         -- { "<leader>fh", "<cmd>Telescope help_tags<cr>",                 desc = "Find Help" },
         -- { "<leader>fk", "<cmd>Telescope keymaps<cr>",                   desc = "Find Keymaps" },
@@ -387,24 +387,18 @@ return {
         -- { "<leader>h", "<cmd>Alpha<cr>", desc = "Home Screen" },
         -- { "<leader>fC", "<cmd>Telescope grep_string<cr>", desc = "Find Word References in Active Directory" },
         -- { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Find TODO" },
-        { "<leader>fh", function() Snacks.picker.help() end,               desc = "Help Pages" },
-        { "<leader>fH", function() Snacks.picker.commands() end,           desc = "Commands" },
-        { "<leader>fk", function() Snacks.picker.keymaps() end,            desc = "Keymaps" },
-        { '<leader>f"', function() Snacks.picker.registers() end,          desc = "Registers" },
-        { "<leader>f'", function() Snacks.picker.marks() end,              desc = "Marks" },
-        { "<leader>fd", function() Snacks.picker.diagnostics() end,        desc = "Diagnostics" },
-        { "<leader>fD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
-        { "<leader>fC", function() Snacks.picker.grep_word() end,          desc = "Visual selection or word in Active Directory", mode = { "n", "x" } },
-        { "<leader>fb", function() Snacks.picker.lines() end,              desc = "Buffer Lines" },
-        { "<leader>fu", function() Snacks.picker.undo() end,               desc = "Undo History" },
-        { "<leader>fs", function() Snacks.picker.colorschemes() end,       desc = "Colorschemes" },
-        { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                     desc = "Find Recent Files" },
-        { "<leader>fn", "<cmd>Telescope notify<cr>",                       desc = "Find Notifications" },
-        { "<leader>ff", "<cmd>Telescope find_files<cr>",                   desc = "Find Files" },
-        { "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<cr>",    desc = "Find Words in Current Buffer" },
-        { "<leader>fW", "<cmd>Telescope live_grep<cr>",                    desc = "Find Words In All Files" },
+        { "<leader>sh", function() Snacks.picker.help() end,               desc = "Help Pages" },
+        { "<leader>sH", function() Snacks.picker.commands() end,           desc = "Commands" },
+        { "<leader>sk", function() Snacks.picker.keymaps() end,            desc = "Keymaps" },
+        { '<leader>s"', function() Snacks.picker.registers() end,          desc = "Registers" },
+        { "<leader>s'", function() Snacks.picker.marks() end,              desc = "Marks" },
+        { "<leader>sd", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
+        { "<leader>sC", function() Snacks.picker.grep_word() end,          desc = "Visual selection or word in Active Directory", mode = { "n", "x" } },
+        { "<leader>sb", function() Snacks.picker.lines() end,              desc = "Buffer Lines" },
+        { "<leader>su", function() Snacks.picker.undo() end,               desc = "Undo History" },
+        { "<leader>ss", function() Snacks.picker.colorschemes() end,       desc = "Colorschemes" },
         {
-          "<leader>fc",
+          "<leader>sc",
           function()
             local word = vim.fn.expand("<cword>")
             require("telescope.builtin").current_buffer_fuzzy_find({
@@ -414,8 +408,19 @@ return {
           end,
           desc = "Find Word References in Current Buffer",
         },
-        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                          desc = "Todo" },
-        { "<leader>fT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+        { "<leader>sw", "<cmd>Telescope current_buffer_fuzzy_find<cr>",                                        desc = "Find Words in Current Buffer" },
+        { "<leader>sW", "<cmd>Telescope live_grep<cr>",                                                        desc = "Find Words In All Files" },
+
+        { "<leader>f",  group = "Find" },
+        { "<leader>fd", function() Snacks.picker.diagnostics() end,                                            desc = "Find Diagnostics" },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                                         desc = "Find Recent Files" },
+        { "<leader>fn", "<cmd>Telescope notify<cr>",                                                           desc = "Find Notifications" },
+        { "<leader>ff", "<cmd>Telescope find_files<cr>",                                                       desc = "Find Files" },
+        { "<leader>fe", function() Snacks.explorer() end,                                                      desc = "File Explorer" },
+        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                          desc = "Find Todo" },
+        { "<leader>fb", function() Snacks.picker.buffers() end,                                                desc = "Find Buffers" },
+        { "<leader>fT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Find Todo/Fix/Fixme" },
+        { "<leader>fs", "<cmd>w<cr>",                                                                          desc = "Save file" },
         --
         -- search
         -- { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jumps" },
@@ -426,7 +431,6 @@ return {
         -- { "<leader>q", group = "quit"},
         { "<leader>Q",  "<cmd>wq<cr>",                                                                         desc = "Save and Quit" },
         { "<leader>q",  "<cmd>q<cr>",                                                                          desc = "Quit" },
-        { "<leader>w",  "<cmd>w<cr>",                                                                          desc = "Save" },
 
         -- lazy and mason
         { "<leader>p",  group = "Plugins" },
@@ -449,7 +453,7 @@ return {
 
         -- git
         { "<leader>g",  group = "Git" },
-        { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+        { "<leader>gg", "<cmd>LazyGit<cr>",                          desc = "LazyGit" },
         { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
         { "<leader>gl", function() Snacks.picker.git_log() end,      desc = "Git Log" },
         { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
@@ -710,9 +714,15 @@ return {
       scroll = { enabled = false },
       statuscolumn = { enabled = false },
       words = { enabled = false },
+      ---@type table<string, snacks.win.Config>
       styles = {
         notification = {
           -- wo = { wrap = true } -- Wrap notifications
+        },
+        minimal = {
+          wo = {
+            winblend = 20,
+          },
         }
       },
     },
