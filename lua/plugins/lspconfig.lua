@@ -77,9 +77,18 @@ return {
             })
           end
         },
+        formatters = {
+          prettierd = {
+            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
+          },
+          prettier = {
+            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
+          },
+        },
       })
       require("mason-tool-installer").setup({
         ensure_installed = {
+          "emmet_ls",
           "lua-language-server",
           "marksman",
           "markdownlint-cli2",
@@ -91,29 +100,19 @@ return {
           "yaml-language-server",
           "yamlfix",
         },
+        formatters = {
+          prettierd = {
+            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
+          },
+          prettier = {
+            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
+          },
+        },
       })
     end,
   },
 
   -- formatter
-  {
-    "nvimtools/none-ls.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local null_ls = require("null-ls")
-
-      -- TODO:
-      null_ls.setup({
-        sources = {
-          -- null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.prettierd,
-          null_ls.builtins.completion.spell,
-
-          -- require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
-        },
-      })
-    end,
-  },
   {
     "stevearc/conform.nvim",
     opts = {},
@@ -206,31 +205,31 @@ return {
       "hrsh7th/cmp-cmdline",
     },
     config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
+      -- Explicitly load HTML and Vue snippets
+      require("luasnip.loaders.from_vscode").lazy_load({ include = { "html", "vue" } })
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
       cmp.setup({
         -- Sources for autocompletion
-        sources = {
-          { name = "nvim_lsp" }, -- Use LSP for autocompletion
-          { name = "luasnip" },  -- luasnip
-          { name = "buffer" },   -- Suggest words from the current buffer
-          { name = "path" },     -- Suggest file paths
-        },
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+        }, {
+          { name = 'buffer' },
+          { name = 'path' },
+        }),
         snippet = {
           expand = function(args)
-            luasnip.lsp_expand(args.body)
+            require('luasnip').lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          -- `Enter` key to confirm completion
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
-
-          -- Ctrl+Space to trigger completion menu
-          ["<C-Space>"] = cmp.mapping.complete(),
-
-          ["<C-e>"] = cmp.mapping.abort(),
+          ['<C-b>']     = cmp.mapping.scroll_docs(-4),
+          ['<C-f>']     = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>']     = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
         }),
         -- Enable documentation popups
         window = {
@@ -246,6 +245,14 @@ return {
           { name = "cmdline" },
           { name = "path" },
         },
+        formatters = {
+          prettierd = {
+            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
+          },
+          prettier = {
+            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
+          },
+        },
       })
 
       -- Buffer completion setup
@@ -253,6 +260,14 @@ return {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "buffer" },
+        },
+        formatters = {
+          prettierd = {
+            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
+          },
+          prettier = {
+            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
+          },
         },
       })
     end,
