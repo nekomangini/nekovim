@@ -411,7 +411,7 @@ return {
         { "<leader>sw", "<cmd>Telescope current_buffer_fuzzy_find<cr>",                                        desc = "Find Words in Current Buffer" },
         { "<leader>sW", "<cmd>Telescope live_grep<cr>",                                                        desc = "Find Words In All Files" },
 
-        { "<leader>f",  group = "Find" },
+        { "<leader>f",  group = "Find/File" },
         { "<leader>fd", function() Snacks.picker.diagnostics() end,                                            desc = "Find Diagnostics" },
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                                         desc = "Find Recent Files" },
         { "<leader>fn", "<cmd>Telescope notify<cr>",                                                           desc = "Find Notifications" },
