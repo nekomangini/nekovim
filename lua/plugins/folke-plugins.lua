@@ -417,8 +417,9 @@ return {
         { "<leader>fn", "<cmd>Telescope notify<cr>",                                                           desc = "Find Notifications" },
         { "<leader>ff", "<cmd>Telescope find_files<cr>",                                                       desc = "Find Files" },
         { "<leader>fe", function() Snacks.explorer() end,                                                      desc = "File Explorer" },
-        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                          desc = "Find Todo" },
         { "<leader>fb", function() Snacks.picker.buffers() end,                                                desc = "Find Buffers" },
+        -- FIX: remove todo in <leader>ft
+        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                          desc = "Find Todo/Notes" },
         { "<leader>fT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Find Todo/Fix/Fixme" },
         { "<leader>fs", "<cmd>w<cr>",                                                                          desc = "Save file" },
         --

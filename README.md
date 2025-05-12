@@ -3,5 +3,9 @@
 ## Fix
 
 - [ ] Go
-- [X] Vue.js
-- [X] React.js
+  - [ ] Styling
+- [ ] Vue.js
+  - [ ] Commenting
+- [ ] React.js
+  - [ ] Commenting
+  - [ ] Formatting
