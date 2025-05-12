@@ -13,6 +13,7 @@ return {
       require("mason-lspconfig").setup({
         -- auto_install = true, -- automatically install a language
         ensure_installed = {
+          "clangd",
           "cssls",
           "emmet_ls",
           "eslint",
@@ -71,11 +72,30 @@ return {
               filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
             })
           end,
-          ["volar"] = function ()
+          ["volar"] = function()
             lspconfig.volar.setup({
               capabilities = capabilities,
             })
-          end
+          end,
+          ["clangd"] = function()
+            lspconfig.clangd.setup({
+              capabilities = capabilities,
+              cmd = { "clangd", "--background-index=0", "--log=verbose" },
+              init_options = {
+                -- TODO:
+                -- compilationDatabasePath = "/path/to/your/project/build",
+                clangdFileStatus = { enabled = true },
+              },
+              flags = {
+                "-I" .. "/usr/lib64/gcc/x86_64-suse-linux/14/include",
+                "-I" .. "/usr/local/include",
+                "-I" .. "/usr/lib64/gcc/x86_64-suse-linux/14/include-fixed",
+                "-I" .. "/usr/lib64/gcc/x86_64-suse-linux/14/../../../../x86_64-suse-linux/include",
+                "-I" .. "/usr/include",
+                "-std=c++17",
+              },
+            })
+          end,
         },
         formatters = {
           prettierd = {
@@ -136,6 +156,8 @@ return {
           go               = { "goimports", "gofmt", lsp_format = "last" },
           ["markdown"]     = { "prettierd", "markdownlint-cli2", "markdown-toc" },
           ["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
+          cpp              = { "clang_format" },
+          c                = { "clang_format" },
         },
       })
     end,
@@ -153,6 +175,8 @@ return {
         markdown        = { "markdownlint-cli2" },
         typescriptreact = { "eslint_d" },
         vue             = { "eslint_d" },
+        cpp             = { "cppcheck" },
+        c               = { "cppcheck" },
       }
 
       -- Lint on save
@@ -229,7 +253,7 @@ return {
           ['<C-f>']     = cmp.mapping.scroll_docs(4),
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>']     = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<CR>']      = cmp.mapping.confirm({ select = true }),
         }),
         -- Enable documentation popups
         window = {
