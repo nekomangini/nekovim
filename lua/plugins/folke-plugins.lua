@@ -408,20 +408,20 @@ return {
           end,
           desc = "Find Word References in Current Buffer",
         },
-        { "<leader>sw", "<cmd>Telescope current_buffer_fuzzy_find<cr>",                                        desc = "Find Words in Current Buffer" },
-        { "<leader>sW", "<cmd>Telescope live_grep<cr>",                                                        desc = "Find Words In All Files" },
+        { "<leader>sw", "<cmd>Telescope current_buffer_fuzzy_find<cr>",                                desc = "Find Words in Current Buffer" },
+        { "<leader>sW", "<cmd>Telescope live_grep<cr>",                                                desc = "Find Words In All Files" },
 
         { "<leader>f",  group = "Find/File" },
-        { "<leader>fd", function() Snacks.picker.diagnostics() end,                                            desc = "Find Diagnostics" },
-        { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                                         desc = "Find Recent Files" },
-        { "<leader>fn", "<cmd>Telescope notify<cr>",                                                           desc = "Find Notifications" },
-        { "<leader>ff", "<cmd>Telescope find_files<cr>",                                                       desc = "Find Files" },
-        { "<leader>fe", function() Snacks.explorer() end,                                                      desc = "File Explorer" },
-        { "<leader>fb", function() Snacks.picker.buffers() end,                                                desc = "Find Buffers" },
-        -- FIX: remove todo in <leader>ft
-        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                          desc = "Find Todo/Notes" },
-        { "<leader>fT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Find Todo/Fix/Fixme" },
-        { "<leader>fs", "<cmd>w<cr>",                                                                          desc = "Save file" },
+        { "<leader>fd", function() Snacks.picker.diagnostics() end,                                    desc = "Find Diagnostics" },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                                 desc = "Find Recent Files" },
+        { "<leader>fn", "<cmd>Telescope notify<cr>",                                                   desc = "Find Notifications" },
+        { "<leader>ff", "<cmd>Telescope find_files<cr>",                                               desc = "Find Files" },
+        { "<leader>fe", function() Snacks.explorer() end,                                              desc = "File Explorer" },
+        { "<leader>fb", function() Snacks.picker.buffers() end,                                        desc = "Find Buffers" },
+        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                  desc = "Find Todo/Notes" },
+        { "<leader>fT", function() Snacks.picker.todo_comments({ keywords = { "FIX", "FIXME" } }) end, desc = "Find Fix/Fixme" },
+        { "<leader>fs", "<cmd>w<cr>",                                                                  desc = "File Save" },
+        { "<leader>fo", "<cmd>FlutterOutlineToggle<cr> ",                                              desc = "Flutter Outline Toggle" },
         --
         -- search
         -- { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jumps" },
@@ -430,8 +430,8 @@ return {
         -- { "<leader>fR", function() Snacks.picker.resume() end, desc = "Resume" },
 
         -- { "<leader>q", group = "quit"},
-        { "<leader>Q",  "<cmd>wq<cr>",                                                                         desc = "Save and Quit" },
-        { "<leader>q",  "<cmd>q<cr>",                                                                          desc = "Quit" },
+        { "<leader>Q",  "<cmd>wq<cr>",                                                                 desc = "Save and Quit" },
+        { "<leader>q",  "<cmd>q<cr>",                                                                  desc = "Quit" },
 
         -- lazy and mason
         { "<leader>p",  group = "Plugins" },
