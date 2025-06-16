@@ -503,103 +503,103 @@ return {
           mode = { "n", "v" },
           desc = "Toggle Comment",
         },
-        { "<leader>c",  group = "Vue Toggle Comment" },
+        -- { "<leader>c",  group = "Vue Toggle Comment" },
         -- { "<leader>cj", "I// <Esc>",                    mode = { "n", "v" },      desc = "Vue Script Toggle Comment" },
-        {
-          "<leader>cj",
-          function()
-            local mode = vim.api.nvim_get_mode().mode
-
-            -- Function to check if a line starts with comment and toggle it
-            local function toggle_comment(line_text)
-              -- Check if the line already starts with "// "
-              if line_text:match("^%s*// ") then
-                -- Remove comment by replacing the first occurrence of "// "
-                return line_text:gsub("^(%s*)// ", "%1", 1)
-              else
-                -- Add comment to the beginning after any whitespace
-                return line_text:gsub("^(%s*)", "%1// ", 1)
-              end
-            end
-
-            if mode == "n" then
-              -- In normal mode, toggle comment on current line
-              local line_num = vim.fn.line(".")
-              local line_text = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
-              local new_text = toggle_comment(line_text)
-              vim.api.nvim_buf_set_lines(0, line_num - 1, line_num, false, { new_text })
-            elseif mode:match("[vV\22]") then -- v, V, or Ctrl+V (block mode)
-              -- Exit visual mode first to ensure marks are set
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
-
-              -- Get the start and end lines, ensuring start <= end
-              local start_line = math.min(vim.fn.line("'<"), vim.fn.line("'>"))
-              local end_line = math.max(vim.fn.line("'<"), vim.fn.line("'>"))
-
-              -- Get all lines in the selection
-              local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
-
-              -- Toggle comments on each line
-              local new_lines = {}
-              for i = 1, #lines do
-                new_lines[i] = toggle_comment(lines[i])
-              end
-
-              -- Replace the lines with the new versions
-              vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, new_lines)
-            end
-          end,
-          mode = { "n", "v" },
-          desc = "Vue Script Toggle Comment",
-        },
+        -- {
+        --   "<leader>cj",
+        --   function()
+        --     local mode = vim.api.nvim_get_mode().mode
+        --
+        --     -- Function to check if a line starts with comment and toggle it
+        --     local function toggle_comment(line_text)
+        --       -- Check if the line already starts with "// "
+        --       if line_text:match("^%s*// ") then
+        --         -- Remove comment by replacing the first occurrence of "// "
+        --         return line_text:gsub("^(%s*)// ", "%1", 1)
+        --       else
+        --         -- Add comment to the beginning after any whitespace
+        --         return line_text:gsub("^(%s*)", "%1// ", 1)
+        --       end
+        --     end
+        --
+        --     if mode == "n" then
+        --       -- In normal mode, toggle comment on current line
+        --       local line_num = vim.fn.line(".")
+        --       local line_text = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
+        --       local new_text = toggle_comment(line_text)
+        --       vim.api.nvim_buf_set_lines(0, line_num - 1, line_num, false, { new_text })
+        --     elseif mode:match("[vV\22]") then -- v, V, or Ctrl+V (block mode)
+        --       -- Exit visual mode first to ensure marks are set
+        --       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
+        --
+        --       -- Get the start and end lines, ensuring start <= end
+        --       local start_line = math.min(vim.fn.line("'<"), vim.fn.line("'>"))
+        --       local end_line = math.max(vim.fn.line("'<"), vim.fn.line("'>"))
+        --
+        --       -- Get all lines in the selection
+        --       local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+        --
+        --       -- Toggle comments on each line
+        --       local new_lines = {}
+        --       for i = 1, #lines do
+        --         new_lines[i] = toggle_comment(lines[i])
+        --       end
+        --
+        --       -- Replace the lines with the new versions
+        --       vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, new_lines)
+        --     end
+        --   end,
+        --   mode = { "n", "v" },
+        --   desc = "Vue Script Toggle Comment",
+        -- },
         -- { "<leader>cc", "I/* <Esc>A */<Esc>",           mode = { "n", "v" },      desc = "Vue Style Toggle Comment" },
-        {
-          "<leader>cc",
-          function()
-            local mode = vim.api.nvim_get_mode().mode
-
-            -- Function to check if a line has CSS comment and toggle it
-            local function toggle_comment(line_text)
-              -- Check if the line is already commented with /* */
-              if line_text:match("^%s*/%*") and line_text:match("%*/%s*$") then
-                -- Remove comments by replacing /* at start and */ at end
-                return line_text:gsub("^(%s*)/%*%s*(.-)%s*%*/%s*$", "%1%2")
-              else
-                -- Add comments at start and end
-                return line_text:gsub("^(%s*)(.-)$", "%1/* %2 */")
-              end
-            end
-
-            if mode == "n" then
-              -- In normal mode, toggle comment on current line
-              local line_num = vim.fn.line(".")
-              local line_text = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
-              local new_text = toggle_comment(line_text)
-              vim.api.nvim_buf_set_lines(0, line_num - 1, line_num, false, { new_text })
-            elseif mode:match("[vV\22]") then -- v, V, or Ctrl+V (block mode)
-              -- Exit visual mode first to ensure marks are set
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
-
-              -- Get the start and end lines, ensuring start <= end
-              local start_line = math.min(vim.fn.line("'<"), vim.fn.line("'>"))
-              local end_line = math.max(vim.fn.line("'<"), vim.fn.line("'>"))
-
-              -- Get all lines in the selection
-              local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
-
-              -- Toggle comments on each line
-              local new_lines = {}
-              for i = 1, #lines do
-                new_lines[i] = toggle_comment(lines[i])
-              end
-
-              -- Replace the lines with the new versions
-              vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, new_lines)
-            end
-          end,
-          mode = { "n", "v" },
-          desc = "Vue Style Toggle Comment",
-        },
+        -- {
+        --   "<leader>cc",
+        --   function()
+        --     local mode = vim.api.nvim_get_mode().mode
+        --
+        --     -- Function to check if a line has CSS comment and toggle it
+        --     local function toggle_comment(line_text)
+        --       -- Check if the line is already commented with /* */
+        --       if line_text:match("^%s*/%*") and line_text:match("%*/%s*$") then
+        --         -- Remove comments by replacing /* at start and */ at end
+        --         return line_text:gsub("^(%s*)/%*%s*(.-)%s*%*/%s*$", "%1%2")
+        --       else
+        --         -- Add comments at start and end
+        --         return line_text:gsub("^(%s*)(.-)$", "%1/* %2 */")
+        --       end
+        --     end
+        --
+        --     if mode == "n" then
+        --       -- In normal mode, toggle comment on current line
+        --       local line_num = vim.fn.line(".")
+        --       local line_text = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
+        --       local new_text = toggle_comment(line_text)
+        --       vim.api.nvim_buf_set_lines(0, line_num - 1, line_num, false, { new_text })
+        --     elseif mode:match("[vV\22]") then -- v, V, or Ctrl+V (block mode)
+        --       -- Exit visual mode first to ensure marks are set
+        --       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
+        --
+        --       -- Get the start and end lines, ensuring start <= end
+        --       local start_line = math.min(vim.fn.line("'<"), vim.fn.line("'>"))
+        --       local end_line = math.max(vim.fn.line("'<"), vim.fn.line("'>"))
+        --
+        --       -- Get all lines in the selection
+        --       local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+        --
+        --       -- Toggle comments on each line
+        --       local new_lines = {}
+        --       for i = 1, #lines do
+        --         new_lines[i] = toggle_comment(lines[i])
+        --       end
+        --
+        --       -- Replace the lines with the new versions
+        --       vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, new_lines)
+        --     end
+        --   end,
+        --   mode = { "n", "v" },
+        --   desc = "Vue Style Toggle Comment",
+        -- },
 
         -- { "<leader>t",   group = "Extra tools" },
         -- PERF, HACK, TODO, NOTE, FIX, WARNING. Add a : after the word

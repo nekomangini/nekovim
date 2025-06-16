@@ -15,20 +15,12 @@ return {
       require("mason-lspconfig").setup({
         -- auto_install = true, -- automatically install a language
         ensure_installed = {
-          "clangd",
-          "cssls",
-          "emmet_ls",
-          "eslint",
           "gopls",
-          "html",
           "lua_ls",
           "marksman",
           "raku_navigator",
           "rust_analyzer",
           "taplo",
-          "ts_ls",
-          "volar",
-          -- "vtsls",
           "yamlls",
         },
         handlers = {
@@ -59,63 +51,19 @@ return {
               },
             })
           end,
-          ["ts_ls"] = function()
-            lspconfig.ts_ls.setup({
-              capabilities = capabilities,
-              init_options = {
-                plugins = {
-                  {
-                    name = '@vue/typescript-plugin',
-                    location = '/usr/local/lib/node_modules/@vue/language-server',
-                    languages = { 'vue' },
-                  },
-                },
-              },
-              filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-            })
-          end,
-          ["volar"] = function()
-            lspconfig.volar.setup({
-              capabilities = capabilities,
-            })
-          end,
-          ["clangd"] = function()
-            lspconfig.clangd.setup({
-              capabilities = capabilities,
-              cmd = { "clangd", "--background-index=0", "--log=verbose" },
-              init_options = {
-                -- TODO:
-                -- compilationDatabasePath = "/path/to/your/project/build",
-                clangdFileStatus = { enabled = true },
-              },
-              flags = {
-                "-I" .. "/usr/lib64/gcc/x86_64-suse-linux/14/include",
-                "-I" .. "/usr/local/include",
-                "-I" .. "/usr/lib64/gcc/x86_64-suse-linux/14/include-fixed",
-                "-I" .. "/usr/lib64/gcc/x86_64-suse-linux/14/../../../../x86_64-suse-linux/include",
-                "-I" .. "/usr/include",
-                "-std=c++17",
-              },
-            })
-          end,
         },
         formatters = {
           prettierd = {
-            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
-          },
-          prettier = {
             prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
           },
         },
       })
       require("mason-tool-installer").setup({
         ensure_installed = {
-          "emmet_ls",
           "lua-language-server",
           "marksman",
           "markdownlint-cli2",
           "markdown-toc",
-          "prettier",
           "prettierd",
           "selene",
           "stylua",
@@ -124,9 +72,6 @@ return {
         },
         formatters = {
           prettierd = {
-            prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
-          },
-          prettier = {
             prepend_args = { "--tab-width", "2", "--use-tabs", "false" },
           },
         },
@@ -146,20 +91,9 @@ return {
           -- You can customize some of the format options for the filetype (:help conform.format)
           rust             = { "rustfmt", lsp_format = "fallback" },
 
-          -- Conform will run the first available formatter
-          javascript       = { "prettierd", "prettier", stop_after_first = true },
-          html             = { "prettierd", "prettier", stop_after_first = true },
-          css              = { "prettierd", "prettier", stop_after_first = true },
-          scss             = { "prettierd", "prettier", stop_after_first = true },
-          less             = { "prettierd", "prettier", stop_after_first = true },
-          postcss          = { "prettierd", "prettier", stop_after_first = true },
-          vue              = { "prettierd", "prettier", stop_after_first = true },
-
           go               = { "goimports", "gofmt", lsp_format = "last" },
           ["markdown"]     = { "prettierd", "markdownlint-cli2", "markdown-toc" },
           ["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
-          cpp              = { "clang_format" },
-          c                = { "clang_format" },
         },
       })
     end,
@@ -171,14 +105,7 @@ return {
       local lint = require("lint")
 
       lint.linters_by_ft = {
-        javascript      = { "eslint_d" },
-        typescript      = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
         markdown        = { "markdownlint-cli2" },
-        typescriptreact = { "eslint_d" },
-        vue             = { "eslint_d" },
-        cpp             = { "cppcheck" },
-        c               = { "cppcheck" },
       }
 
       -- Lint on save
