@@ -22,8 +22,8 @@ vim.cmd("syntax on")
 -- vim.cmd.colorscheme("iceberg")
 -- vim.cmd.colorscheme("night-owl")
 -- vim.cmd.colorscheme("nordic")
--- vim.cmd.colorscheme("rose-pine")
-vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("rose-pine")
+-- vim.cmd.colorscheme("tokyonight")
 
 -- vim.cmd.colorscheme "habamax"
 -- vim.cmd.colorscheme "lunaperche"
