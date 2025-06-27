@@ -7,9 +7,11 @@ return {
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
+          "bash",
           "css",
 					"dart",
 					"diff",
+          "fish",
 					"go",
 					"gomod",
 					"gosum",
