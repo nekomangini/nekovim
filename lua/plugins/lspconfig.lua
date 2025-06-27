@@ -15,6 +15,8 @@ return {
       require("mason-lspconfig").setup({
         -- auto_install = true, -- automatically install a language
         ensure_installed = {
+          "bashls",
+          "fish_lsp",
           "gopls",
           "lua_ls",
           "marksman",
@@ -29,6 +31,13 @@ return {
               capabilities = capabilities,
             })
           end,
+
+          ["fish_lsp"] = function()
+            require("lspconfig").fish_lsp.setup({
+              capabilities = capabilities,
+            })
+          end,
+
           ["lua_ls"] = function()
             lspconfig.lua_ls.setup({
               capabilities = capabilities,
@@ -60,12 +69,14 @@ return {
       })
       require("mason-tool-installer").setup({
         ensure_installed = {
+          "bash-language-server",
           "lua-language-server",
           "marksman",
           "markdownlint-cli2",
           "markdown-toc",
           "prettierd",
           "selene",
+          "shfmt",
           "stylua",
           "yaml-language-server",
           "yamlfix",
@@ -86,6 +97,7 @@ return {
     config = function()
       require("conform").setup({
         formatters_by_ft = {
+          fish             = { "fish_indent" },
           lua              = { "stylua" },
 
           -- You can customize some of the format options for the filetype (:help conform.format)
@@ -94,6 +106,7 @@ return {
           go               = { "goimports", "gofmt", lsp_format = "last" },
           ["markdown"]     = { "prettierd", "markdownlint-cli2", "markdown-toc" },
           ["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
+          sh               = { "shfmt" },
         },
       })
     end,
