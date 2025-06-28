@@ -15,6 +15,7 @@ return {
       require("mason-lspconfig").setup({
         -- auto_install = true, -- automatically install a language
         ensure_installed = {
+          "clangd",
           "bashls",
           "fish_lsp",
           "gopls",
@@ -29,6 +30,14 @@ return {
           function(server_name)
             lspconfig[server_name].setup({
               capabilities = capabilities,
+            })
+          end,
+
+          ["clangd"] = function()
+            require("lspconfig").clangd.setup({
+              capabilities = capabilities,
+              cmd = { "clangd", "--background-index" },
+              root_dir = require("lspconfig").util.root_pattern("compile_commands.json", ".git"),
             })
           end,
 
@@ -70,6 +79,7 @@ return {
       require("mason-tool-installer").setup({
         ensure_installed = {
           "bash-language-server",
+          "clang-format",
           "lua-language-server",
           "marksman",
           "markdownlint-cli2",
@@ -97,6 +107,8 @@ return {
     config = function()
       require("conform").setup({
         formatters_by_ft = {
+          c                = { "clang_format" },
+          cpp              = { "clang_format" },
           fish             = { "fish_indent" },
           lua              = { "stylua" },
 
