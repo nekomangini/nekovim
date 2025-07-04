@@ -193,12 +193,16 @@ return {
   -- smear.nvim
   {
     "sphamba/smear-cursor.nvim",
-    opts = {                         -- Deafult  Range
-      stiffness = 0.8,               -- 0.6      [0, 1]
-      trailing_stiffness = 0.3,      -- 0.4      [0, 1]
-      distance_stop_animating = 0.5, -- 0.1      > 0
-      -- stiffness_insert_mode = 0.6,          -- 0.4      [0, 1]
-      -- trailing_stiffness_insert_mode = 0.6, -- 0.4      [0, 1]
+    enabled = not vim.g.neovide,            -- disable when using neovide
+    opts = {                                -- Default  Range
+      cursor_color                   = "#209fb5",
+      stiffness                      = 0.8, -- 0.6      [0, 1]
+      trailing_stiffness             = 0.5, -- 0.4      [0, 1]
+      stiffness_insert_mode          = 0.7, -- 0.4      [0, 1]
+      trailing_stiffness_insert_mode = 0.6, -- 0.4      [0, 1]
+      damping                        = 0.5, -- 0.65     [0, 1]
+      damping_insert_mode            = 0.8, -- 0.7      [0, 1]
+      distance_stop_animating        = 0.5, -- 0.1      > 0
 
       -- Smear cursor when switching buffers or windows.
       smear_between_buffers = true,

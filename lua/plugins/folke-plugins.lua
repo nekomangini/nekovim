@@ -348,29 +348,26 @@ return {
         -- swap buffers
         {
           "<leader>bs",
-          -- Function to swap buffers between two windows
           function()
-            -- Get the current window and buffer
             local current_win = vim.api.nvim_get_current_win()
             local current_buf = vim.api.nvim_win_get_buf(current_win)
-
-            -- Get the list of all windows
             local windows = vim.api.nvim_list_wins()
 
-            -- Find the other window
             for _, win in ipairs(windows) do
               if win ~= current_win then
-                -- Get the buffer in the other window
                 local other_buf = vim.api.nvim_win_get_buf(win)
 
-                -- Swap the buffers
-                vim.api.nvim_win_set_buf(current_win, other_buf)
-                vim.api.nvim_win_set_buf(win, current_buf)
-                return
+                -- Skip empty/scratch buffers
+                local buftype = vim.api.nvim_buf_get_option(other_buf, 'buftype')
+                if buftype == "" then  -- Normal file buffer
+                  vim.api.nvim_win_set_buf(current_win, other_buf)
+                  vim.api.nvim_win_set_buf(win, current_buf)
+                  return
+                end
               end
             end
 
-            print("No other window found to swap buffers with!")
+            print("No other window with a file buffer found to swap with!")
           end,
           desc = "Swap buffers"
         },
