@@ -19,10 +19,11 @@ vim.cmd("syntax on")
 -- vim.cmd.colorscheme("cyberdream")
 -- vim.cmd.colorscheme("duskfox")
 -- vim.cmd.colorscheme("gruvbox")
+vim.cmd.colorscheme("gruvbox-material")
 -- vim.cmd.colorscheme("iceberg")
 -- vim.cmd.colorscheme("night-owl")
 -- vim.cmd.colorscheme("nordic")
-vim.cmd.colorscheme("rose-pine")
+-- vim.cmd.colorscheme("rose-pine")
 -- vim.cmd.colorscheme("tokyonight")
 
 -- vim.cmd.colorscheme "habamax"

@@ -35,6 +35,12 @@ return {
 					"vimdoc",
 					"xml",
 					"yaml",
+          -- python
+          "python",
+          "requirements",  -- for requirements.txt files
+          "dockerfile",    -- often used with Python projects
+          "gitignore",     -- for .gitignore files
+          "ini",           -- for setup.cfg, pyproject.toml alternatives
 				},
         context_commentstring = {
           enable = true,
