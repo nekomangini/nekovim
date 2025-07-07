@@ -25,6 +25,9 @@ return {
           "rust_analyzer",
           "taplo",
           "yamlls",
+          -- Python LSP servers
+          "pyright",        -- Primary Python LSP
+          "ruff",           -- Fast Python linter/formatter
         },
         handlers = {
           function(server_name)
@@ -69,6 +72,34 @@ return {
               },
             })
           end,
+
+          ["pyright"] = function()
+            lspconfig.pyright.setup({
+              capabilities = capabilities,
+              settings = {
+                python = {
+                  analysis = {
+                    autoSearchPaths = true,
+                    diagnosticMode = "workspace",
+                    useLibraryCodeForTypes = true,
+                    typeCheckingMode = "basic", -- "off", "basic", "strict"
+                  },
+                },
+              },
+            })
+          end,
+
+          ["ruff"] = function()
+            lspconfig.ruff.setup({
+              capabilities = capabilities,
+              init_options = {
+                settings = {
+                  -- Ruff language server settings
+                  args = {},
+                }
+              }
+            })
+          end,
         },
         formatters = {
           prettierd = {
@@ -90,6 +121,13 @@ return {
           "stylua",
           "yaml-language-server",
           "yamlfix",
+          -- Python tools
+          "pyright",
+          "ruff",
+          "black",           -- Python formatter
+          "isort",           -- Python import sorter
+          "debugpy",         -- Python debugger
+          "mypy",            -- Static type checker
         },
         formatters = {
           prettierd = {
@@ -119,6 +157,7 @@ return {
           ["markdown"]     = { "prettierd", "markdownlint-cli2", "markdown-toc" },
           ["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
           sh               = { "shfmt" },
+          python           = { "isort", "black" },
         },
       })
     end,
