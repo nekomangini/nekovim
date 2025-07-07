@@ -11,6 +11,7 @@ return {
   { "scottmckendry/cyberdream.nvim" },
   { "ray-x/aurora" },
   { "rose-pine/neovim", name = "rose-pine" },
+  { "sainnhe/gruvbox-material" },
   -- night-owl
   {
     "oxfist/night-owl.nvim",
