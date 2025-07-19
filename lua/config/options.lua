@@ -1,13 +1,26 @@
-local opt = vim.opt
+local opt          = vim.opt
 
-opt.number = true
+opt.number         = true
 opt.relativenumber = true
-opt.wrap = false
-opt.confirm = true                  -- Confirm to save changes before exiting modified buffer
+opt.cursorline     = true
+opt.wrap           = false
+
+-- indentation
+opt.tabstop        = 2              -- Tab width
+opt.shiftwidth     = 2              -- Size of an indent
+opt.expandtab      = true           -- Use spaces instead of tabs
+opt.smartindent    = true           -- Smart auto-indenting
+opt.autoindent     = true           -- Copy indent from current line
+
+opt.confirm        = true           -- Confirm to save changes before exiting modified buffer
+opt.showtabline    = 0              -- Hide tabline
 opt.fillchars:append({ eob = " " }) -- Replace ~ with a space in the end-of-buffer lines
-opt.shiftwidth = 2                  -- Size of an indent
-opt.expandtab = true                -- Use spaces instead of tabs
--- opt.termguicolors = true            -- True color support
+
+-- colors
+opt.termguicolors  = true           -- Enable 24-bit colors
+
+-- files
+opt.swapfile       = false          -- Don't create swap files
 vim.cmd("syntax on")
 
 -- Colorschemes
@@ -19,11 +32,11 @@ vim.cmd("syntax on")
 -- vim.cmd.colorscheme("cyberdream")
 -- vim.cmd.colorscheme("duskfox")
 -- vim.cmd.colorscheme("gruvbox")
-vim.cmd.colorscheme("gruvbox-material")
+-- vim.cmd.colorscheme("gruvbox-material")
 -- vim.cmd.colorscheme("iceberg")
 -- vim.cmd.colorscheme("night-owl")
 -- vim.cmd.colorscheme("nordic")
--- vim.cmd.colorscheme("rose-pine")
+vim.cmd.colorscheme("rose-pine")
 -- vim.cmd.colorscheme("tokyonight")
 
 -- vim.cmd.colorscheme "habamax"

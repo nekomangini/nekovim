@@ -41,6 +41,12 @@ return {
           "dockerfile",    -- often used with Python projects
           "gitignore",     -- for .gitignore files
           "ini",           -- for setup.cfg, pyproject.toml alternatives
+          -- html
+          "html",
+          "css",
+          "astro",
+          "javascript",
+          "typescript",
 				},
         context_commentstring = {
           enable = true,

@@ -3,7 +3,7 @@
 ## Fix
 
 - [ ] Go
-  - [ ] Styling
+  - [X] Styling
 - [ ] Vue.js
   - [ ] Lsp
   - [ ] Commenting

@@ -16,12 +16,12 @@ return {
 
     telescope.setup({
       defaults = {
-        -- winblend = 5, -- Adjust transparency level as needed (0-100)
+        winblend = 10,                   -- Adjust transparency level as needed (0-100)
         -- layout_strategy = "bottom_pane", -- Makes pickers appear from bottom
         -- Or use this configuration for bottom positioning
         layout_config = {
           prompt_position = "top",
-          -- height = 0.4, -- Adjust as needed
+          height = 0.7, -- Adjust as needed
         },
         sorting_strategy = "ascending",
         mappings = {

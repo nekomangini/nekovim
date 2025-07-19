@@ -103,7 +103,7 @@ return {
       require("lualine").setup({
         options = {
           icons_enabled        = true,
-          theme                = "cyberdream", --everforest, powerline, palenight, gruvbox, cyberdream
+          theme                = "gruvbox", --everforest, powerline, palenight, gruvbox, cyberdream
           component_separators = { left = "", right = "" },
           section_separators   = { left = "", right = "" },
           disabled_filetypes   = {
@@ -126,15 +126,15 @@ return {
           lualine_b = {
             {
               "filename",
-              file_status     = true, -- Displays file status (modified, read-only)
-              path            = 1,    -- 0: Just the filename
+              file_status     = true,   -- Displays file status (modified, read-only)
+              path            = 2,      -- 0: Just the filename
               -- 1: Relative path
               -- 2: Absolute path
               -- 3: Filename and parent dir
-              shorting_target = 40, -- Shortens path if it's longer than 40 characters
+              shorting_target = 40,     -- Shortens path if it's longer than 40 characters
               symbols         = {
-                modified = " ●", -- Text to show when the file is modified
-                readonly = " ", -- Text to show when the file is non-modifiable or readonly
+                modified = " ●",        -- Text to show when the file is modified
+                readonly = " ",         -- Text to show when the file is non-modifiable or readonly
                 unnamed  = "[No Name]", -- Text to show for unnamed buffers
               },
             },
@@ -193,7 +193,7 @@ return {
   -- smear.nvim
   {
     "sphamba/smear-cursor.nvim",
-    enabled = not vim.g.neovide,            -- disable when using neovide
+    enabled = not vim.g.neovide,            -- disable smear-cursor when using neovide
     opts = {                                -- Default  Range
       cursor_color                   = "#209fb5",
       stiffness                      = 0.8, -- 0.6      [0, 1]
@@ -209,7 +209,7 @@ return {
 
       -- Smear cursor when moving within line or to neighbor lines.
       -- Use `min_horizontal_distance_smear` and `min_vertical_distance_smear` for finer control
-      smear_between_neighbor_lines = true,
+      smear_between_neighbor_lines = false,
 
       -- Draw the smear in buffer space instead of screen space when scrolling
       scroll_buffer_space = true,
