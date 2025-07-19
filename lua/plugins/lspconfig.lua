@@ -25,9 +25,12 @@ return {
           "rust_analyzer",
           "taplo",
           "yamlls",
-          -- Python LSP servers
-          "pyright",        -- Primary Python LSP
-          "ruff",           -- Fast Python linter/formatter
+          "pyright",
+          "ruff",
+          "html",
+          "cssls",
+          "astro",
+          "ts_ls",
         },
         handlers = {
           function(server_name)
@@ -100,6 +103,30 @@ return {
               }
             })
           end,
+
+          ["astro"] = function ()
+            lspconfig.astro.setup({
+              capabilities = capabilities
+            })
+          end,
+
+          ["gopls"] = function ()
+            lspconfig.gopls.setup({
+              capabilities = capabilities,
+              cmd = {"gopls"},
+              filetypes = {"go", "gomod", "gowork", "gotmpl"},
+              root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+              settings = {
+                gopls = {
+                  completeUnimported = true,
+                  usePlaceholders = true,
+                  analyses = {
+                    unusedparams = true
+                  }
+                }
+              }
+            })
+          end
         },
         formatters = {
           prettierd = {
@@ -128,6 +155,9 @@ return {
           "isort",           -- Python import sorter
           "debugpy",         -- Python debugger
           "mypy",            -- Static type checker
+          "htmlhint",
+          "stylelint",
+          "typescript-language-server",
         },
         formatters = {
           prettierd = {
@@ -135,6 +165,24 @@ return {
           },
         },
       })
+    end,
+  },
+
+  {
+    "mattn/emmet-vim",
+    ft = { "html", "css", "scss", "javascriptreact", "typescriptreact", "astro" },
+    init = function()
+      vim.g.user_emmet_settings = {
+        html = {
+          default_attributes = {
+            "id",
+            "class",
+          },
+        },
+      }
+      -- IMPORTANT: Set a specific leader key for Emmet expansion
+      -- This prevents conflicts with your completion plugin's <CR> or <C-y>
+      -- vim.g.user_emmet_leader_key = '<C-E>,'
     end,
   },
 
@@ -158,6 +206,13 @@ return {
           ["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
           sh               = { "shfmt" },
           python           = { "isort", "black" },
+          html             = { "prettierd" },
+          css              = { "prettierd" },
+          scss             = { "prettierd" },
+          less             = { "prettierd" },
+          astro            = { "prettierd" },
+          javascript       = { "prettierd" },
+          typescript       = { "prettierd" },
         },
       })
     end,
@@ -169,7 +224,11 @@ return {
       local lint = require("lint")
 
       lint.linters_by_ft = {
-        markdown        = { "markdownlint-cli2" },
+        markdown         = { "markdownlint-cli2" },
+        html             = { "htmlhint" },
+        css              = { "stylelint" },
+        scss             = { "stylelint" },
+        less             = { "stylelint" },
       }
 
       -- Lint on save
@@ -314,7 +373,8 @@ return {
       -- C-k: Toggle signature help (if signature.enabled = true)
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
-      keymap = { preset = 'default' },
+      -- keymap = { preset = 'default' }, -- uses <C-y>
+      keymap = { preset = 'super-tab' },
 
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'

@@ -13,7 +13,16 @@ return {
   {
     "folke/trouble.nvim",
     -- for default options, refer to the configuration section for custom setup.
-    opts = {},
+    opts = {
+      modes = {
+        symbols = {
+          desc  = "document symbols",
+          mode  = "lsp_document_symbols",
+          focus = true,
+          win   = { position = "right" },
+        },
+      },
+    },
     cmd = "Trouble",
   },
   -- flash.nvim
@@ -249,6 +258,7 @@ return {
         { "<leader>bD", "<cmd>bdelete!<cr>",          desc = "Force Delete Buffer" },
         { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Switch Buffer" },
         { "<leader>bk", "<cmd>bdelete<cr>",           desc = "Delete Buffer" },
+        { "<leader>ba", "<C-^>",                      desc = "Toggle between current file and alternate file" },
 
         -- Close all buffers except the current one
         {
@@ -387,8 +397,8 @@ return {
         { "<leader>sh", function() Snacks.picker.help() end,               desc = "Help Pages" },
         { "<leader>sH", function() Snacks.picker.commands() end,           desc = "Commands" },
         { "<leader>sk", function() Snacks.picker.keymaps() end,            desc = "Keymaps" },
-        { '<leader>s"', function() Snacks.picker.registers() end,          desc = "Registers" },
-        { "<leader>s'", function() Snacks.picker.marks() end,              desc = "Marks" },
+        { '<leader>sr', function() Snacks.picker.registers() end,          desc = "Registers" },
+        { "<leader>sm", function() Snacks.picker.marks() end,              desc = "Marks" },
         { "<leader>sd", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
         { "<leader>sC", function() Snacks.picker.grep_word() end,          desc = "Visual selection or word in Active Directory", mode = { "n", "x" } },
         { "<leader>sb", function() Snacks.picker.lines() end,              desc = "Buffer Lines" },
@@ -618,13 +628,22 @@ return {
         -- vim.keymap.set("n", "]t", function()
         --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
         -- end, { desc = "Next error/warning todo comment" })
+        -- resizing panes
+        { "<leader>w", group = "Windows", },
+        { "<leader>wl", "<cmd>vertical resize +30<cr>", desc = "Increase window width"},
+        { "<leader>wL", "<cmd>vertical resize +70<cr>", desc = "Greatly increase window width"},
+        { "<leader>wh", "<cmd>vertical resize -30<cr>", desc = "Decrease window width"},
+        { "<leader>wH", "<cmd>vertical resize -30<cr>", desc = "Greatly decrease window width"},
+        { "<leader>wj", "<cmd>resize +10<cr>",          desc = "Increase window heigth"},
+        { "<leader>wk", "<cmd>resize -10<cr>",          desc = "Decrease window heigth"},
+
         -- terminal
-        { "<leader>T",  group = "Tools" },
-        { "<leader>Tf", function() require('telescope').extensions.flutter.commands() end, desc = "Flutter Commands" },
-        { "<leader>TF", "<cmd>Lspsaga term_toggle<cr>",                                    desc = "ToggleTerm Float" },
-        { "<leader>TR", function() Snacks.rename.rename_file() end,                        desc = "Rename File" },
+        { "<leader>x",  group = "Tools" },
+        { "<leader>xf", function() require('telescope').extensions.flutter.commands() end, desc = "Flutter Commands" },
+        { "<leader>xF", "<cmd>Lspsaga term_toggle<cr>",                                    desc = "ToggleTerm Float" },
+        { "<leader>xR", function() Snacks.rename.rename_file() end,                        desc = "Rename File" },
         {
-          "<leader>Th",
+          "<leader>xh",
           function()
             vim.opt.number = false             -- Toggles line numbers
             vim.opt.relativenumber = false     -- Toggles relative number
@@ -636,32 +655,32 @@ return {
           desc = "ToggleTerm Horizontal",
         },
         {
-          "<leader>Tx",
+          "<leader>xx",
           "<cmd>Trouble diagnostics toggle<cr>",
           desc = "Diagnostics (Trouble)",
         },
         {
-          "<leader>TX",
+          "<leader>xX",
           "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
           desc = "Buffer Diagnostics (Trouble)",
         },
         {
-          "<leader>Ts",
-          "<cmd>Trouble symbols toggle focus=false<cr>",
+          "<leader>xs",
+          "<cmd>Trouble symbols toggle<cr>",
           desc = "Symbols (Trouble)",
         },
         {
-          "<leader>Tl",
+          "<leader>xl",
           "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
           desc = "LSP Definitions / references / ... (Trouble)",
         },
         {
-          "<leader>TL",
+          "<leader>xL",
           "<cmd>Trouble loclist toggle<cr>",
           desc = "Location List (Trouble)",
         },
         {
-          "<leader>TQ",
+          "<leader>xQ",
           "<cmd>Trouble qflist toggle<cr>",
           desc = "Quickfix List (Trouble)",
         },

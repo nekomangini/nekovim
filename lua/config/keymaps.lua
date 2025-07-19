@@ -33,7 +33,6 @@ map("n", "]b", "<Cmd>bprevious<cr>") -- go to previous buffer
 map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 
--- 
 -- Esc to clear search highlight
 map("n", "<Esc>", ":noh<CR>", { noremap = true, silent = true })
 -- Dismiss noice message
