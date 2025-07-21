@@ -369,7 +369,7 @@ return {
 
                 -- Skip empty/scratch buffers
                 local buftype = vim.api.nvim_buf_get_option(other_buf, 'buftype')
-                if buftype == "" then  -- Normal file buffer
+                if buftype == "" then -- Normal file buffer
                   vim.api.nvim_win_set_buf(current_win, other_buf)
                   vim.api.nvim_win_set_buf(win, current_buf)
                   return
@@ -400,6 +400,7 @@ return {
         { '<leader>sr', function() Snacks.picker.registers() end,          desc = "Registers" },
         { "<leader>sm", function() Snacks.picker.marks() end,              desc = "Marks" },
         { "<leader>sd", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
+        { "<leader>sD", function() Snacks.picker.diagnostics() end,        desc = "Diagnostics in Root Directory" },
         { "<leader>sC", function() Snacks.picker.grep_word() end,          desc = "Visual selection or word in Active Directory", mode = { "n", "x" } },
         { "<leader>sb", function() Snacks.picker.lines() end,              desc = "Buffer Lines" },
         { "<leader>su", function() Snacks.picker.undo() end,               desc = "Undo History" },
@@ -415,20 +416,20 @@ return {
           end,
           desc = "Find Word References in Current Buffer",
         },
-        { "<leader>sw", "<cmd>Telescope current_buffer_fuzzy_find<cr>",                                desc = "Find Words in Current Buffer" },
-        { "<leader>sW", "<cmd>Telescope live_grep<cr>",                                                desc = "Find Words In All Files" },
+        { "<leader>sw", "<cmd>Telescope current_buffer_fuzzy_find<cr>",                                  desc = "Find Words in Current Buffer" },
+        { "<leader>sW", "<cmd>Telescope live_grep<cr>",                                                  desc = "Find Words In All Files" },
 
         { "<leader>f",  group = "Find/File" },
-        { "<leader>fd", function() Snacks.picker.diagnostics() end,                                    desc = "Find Diagnostics" },
-        { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                                 desc = "Find Recent Files" },
-        { "<leader>fn", "<cmd>Telescope notify<cr>",                                                   desc = "Find Notifications" },
-        { "<leader>ff", "<cmd>Telescope find_files<cr>",                                               desc = "Find Files" },
-        { "<leader>fe", function() Snacks.explorer() end,                                              desc = "File Explorer" },
-        { "<leader>fb", function() Snacks.picker.buffers() end,                                        desc = "Find Buffers" },
-        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                  desc = "Find Todo/Notes" },
-        { "<leader>fT", function() Snacks.picker.todo_comments({ keywords = { "FIX", "FIXME" } }) end, desc = "Find Fix/Fixme" },
-        { "<leader>fs", "<cmd>w<cr>",                                                                  desc = "File Save" },
-        { "<leader>fo", "<cmd>FlutterOutlineToggle<cr> ",                                              desc = "Flutter Outline Toggle" },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                                   desc = "Find Recent Files" },
+        { "<leader>fn", "<cmd>Telescope notify<cr>",                                                     desc = "Find Notifications" },
+        { "<leader>ff", "<cmd>Telescope find_files<cr>",                                                 desc = "Find Files" },
+        -- { "<leader>fF", function() require("snacks").picker.files { hidden = true, ignored = true } end, desc = "Find Files" },
+        { "<leader>fe", function() Snacks.explorer() end,                                                desc = "File Explorer" },
+        { "<leader>fb", function() Snacks.picker.buffers() end,                                          desc = "Find Buffers" },
+        { "<leader>ft", function() Snacks.picker.todo_comments() end,                                    desc = "Find Todo/Notes" },
+        { "<leader>fT", function() Snacks.picker.todo_comments({ keywords = { "FIX", "FIXME" } }) end,   desc = "Find Fix/Fixme" },
+        { "<leader>fs", "<cmd>w<cr>",                                                                    desc = "File Save" },
+        { "<leader>fo", "<cmd>FlutterOutlineToggle<cr> ",                                                desc = "Flutter Outline Toggle" },
         --
         -- search
         -- { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jumps" },
@@ -437,8 +438,8 @@ return {
         -- { "<leader>fR", function() Snacks.picker.resume() end, desc = "Resume" },
 
         -- { "<leader>q", group = "quit"},
-        { "<leader>Q",  "<cmd>wq<cr>",                                                                 desc = "Save and Quit" },
-        { "<leader>q",  "<cmd>q<cr>",                                                                  desc = "Quit" },
+        { "<leader>Q",  "<cmd>wq<cr>",                                                                   desc = "Save and Quit" },
+        { "<leader>q",  "<cmd>q<cr>",                                                                    desc = "Quit" },
 
         -- lazy and mason
         { "<leader>p",  group = "Plugins" },
@@ -629,13 +630,13 @@ return {
         --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
         -- end, { desc = "Next error/warning todo comment" })
         -- resizing panes
-        { "<leader>w", group = "Windows", },
-        { "<leader>wl", "<cmd>vertical resize +30<cr>", desc = "Increase window width"},
-        { "<leader>wL", "<cmd>vertical resize +70<cr>", desc = "Greatly increase window width"},
-        { "<leader>wh", "<cmd>vertical resize -30<cr>", desc = "Decrease window width"},
-        { "<leader>wH", "<cmd>vertical resize -30<cr>", desc = "Greatly decrease window width"},
-        { "<leader>wj", "<cmd>resize +10<cr>",          desc = "Increase window heigth"},
-        { "<leader>wk", "<cmd>resize -10<cr>",          desc = "Decrease window heigth"},
+        { "<leader>w",  group = "Windows", },
+        { "<leader>wl", "<cmd>vertical resize +30<cr>",                                    desc = "Increase window width" },
+        { "<leader>wL", "<cmd>vertical resize +70<cr>",                                    desc = "Greatly increase window width" },
+        { "<leader>wh", "<cmd>vertical resize -30<cr>",                                    desc = "Decrease window width" },
+        { "<leader>wH", "<cmd>vertical resize -30<cr>",                                    desc = "Greatly decrease window width" },
+        { "<leader>wj", "<cmd>resize +10<cr>",                                             desc = "Increase window heigth" },
+        { "<leader>wk", "<cmd>resize -10<cr>",                                             desc = "Decrease window heigth" },
 
         -- terminal
         { "<leader>x",  group = "Tools" },
@@ -725,7 +726,7 @@ return {
         enabled = true,
         timeout = 3000,
       },
-      picker = { enabled = false },
+      picker = { enabled = true },
       quickfile = { enabled = false },
       scope = { enabled = false },
       scroll = { enabled = false },
