@@ -17,7 +17,7 @@ opt.showtabline    = 0              -- Hide tabline
 opt.fillchars:append({ eob = " " }) -- Replace ~ with a space in the end-of-buffer lines
 
 -- colors
-opt.termguicolors  = true           -- Enable 24-bit colors
+-- opt.termguicolors  = true           -- Enable 24-bit colors
 
 -- files
 opt.swapfile       = false          -- Don't create swap files
