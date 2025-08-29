@@ -451,23 +451,23 @@ return {
         { "<leader>q",  "<cmd>q<cr>",                                                                    desc = "Quit" },
 
         -- lazy and mason
-        { "<leader>p",  group = "Plugins" },
+        { "<leader>P",  group = "Plugins" },
         {
-          "<leader>pu",
+          "<leader>Pu",
           "<cmd>Lazy update<cr><cmd>MasonUpdate<cr>",
           desc = "Update Lazy and Mason",
         },
-        { "<leader>pi", "<cmd>Lazy install<cr>", desc = "Plugin Install" },
-        { "<leader>pm", "<cmd>Mason<cr>",        desc = "Mason Installer" },
-        { "<leader>pM", "<cmd>MasonUpdate<cr>",  desc = "Mason Update" },
-        { "<leader>ps", "<cmd>Lazy<cr>",         desc = "Plugins Status" },
-        { "<leader>pS", "<cmd>Lazy sync<cr>",    desc = "Plugins Sync" },
+        { "<leader>Pi", "<cmd>Lazy install<cr>", desc = "Plugin Install" },
+        { "<leader>Pm", "<cmd>Mason<cr>",        desc = "Mason Installer" },
+        { "<leader>PM", "<cmd>MasonUpdate<cr>",  desc = "Mason Update" },
+        { "<leader>Ps", "<cmd>Lazy<cr>",         desc = "Plugins Status" },
+        { "<leader>PS", "<cmd>Lazy sync<cr>",    desc = "Plugins Sync" },
         {
-          "<leader>pc",
+          "<leader>Pc",
           "<cmd>Lazy check<cr>",
           desc = "Plugins Check Update",
         },
-        { "<leader>pU", "<cmd>Lazy update<cr>",                      desc = "Plugins Update" },
+        { "<leader>PU", "<cmd>Lazy update<cr>",                      desc = "Plugins Update" },
 
         -- git
         { "<leader>g",  group = "Git" },
