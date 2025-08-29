@@ -103,7 +103,7 @@ return {
       require("lualine").setup({
         options = {
           icons_enabled        = true,
-          theme                = "palenight", --everforest, powerline, palenight, gruvbox, cyberdream
+          theme                = "gruvbox", --everforest, powerline, palenight, gruvbox, cyberdream
           component_separators = { left = "", right = "" },
           section_separators   = { left = "", right = "" },
           disabled_filetypes   = {
