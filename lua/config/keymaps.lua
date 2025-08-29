@@ -64,9 +64,7 @@ map("n", "=P", "<Plug>(YankyPutBeforeFilter)")
 map("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 map("n", "<c-n>", "<Plug>(YankyNextEntry)")
 -- delete without copying
-map({ "n", "v" }, "<leader>d", "\"_d", { desc = "Delete without copying" })
--- paste from system clipboard
-map({ "n", "v" }, "<leader>p", "\"+p", { desc = "Paste from clipboard" })
+map({ "n", "v" }, "<leader>d", "\"_d", { desc = "delete without copying" })
 
 
 -- Code Navigation
